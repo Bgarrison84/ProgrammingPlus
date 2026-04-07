@@ -1,0 +1,4 @@
+[ZoneTransfer]
+ZoneId=3
+HostUrl=https://us-east.storage.cloudconvert.com/tasks/6c04199c-42b8-4ac3-b38c-8ce2328e1121/Rust%20%28John%20Bach%29%20%28z-library.sk%2C%201lib.sk%2C%20z-lib.sk%29.txt?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=cloudconvert-production%2F20260331%2Fva%2Fs3%2Faws4_request&X-Amz-Date=20260331T022734Z&X-Amz-Expires=86400&X-Amz-Signature=0f9ddac2d0d9b806887bc9020ade8e347ccafdaea4e7aa59d5affb0085c7b57f&X-Amz-SignedHeaders=host&response-content-disposition=attachment%3B%20filename%3D%22Rust%20%28John%20Bach%29%20%28z-library.sk%2C%201lib.sk%2C%20z-lib.sk%29.txt%22&response-content-type=text%2Fplain&x-id=GetObject
+ReferrerUrl=https://cloudconvert.com/

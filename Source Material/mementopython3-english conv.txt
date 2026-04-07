@@ -1,0 +1,274 @@
+﻿©2012-2015 - Laurent Pointal	Mémento v2.0.6 License Creative Commons Attribution 4
+True and False constants
+False
+
+Python 3 Cheat Sheet
+
+
+Latest version on : https://perso.limsi.fr/pointal/python:memento
+
+
+
+integer, float, boolean, string, bytes	Base Types
+int783  0 -192  0b010 0o642 0xF3
+zero	binary	octal	hexa
+float
+9.23 0.0  -1.7e-6 boolTrue  False    ×10-6
+str"One\nTwo"	Multiline string: escaped new line                        """X\tY\tZ
+'I\'m'	1\t2\t3"""
+escaped  '	escaped tab bytesb"toto\xfe\775"
+hexadecimal  octal	☝ immutables
+
+◾ ordered sequences, fast index access, repeatable values	Container Types list [1,5,9]   ["x",11,8.9]      ["mot"]	[]
+tuple (1,5,9)	11,"y",7.4	("mot",)	()
+Non modifiable values (immutables)	☝ expression with only comas →tuple
+str bytes (ordered sequences of chars / bytes)	""
+b""
+◾ key containers, no a priori order, fast key access, each key is unique
+dictionary	dict {"key":"value"}	dict(a=3,b=4,k="v")	{} (key/value associations) {1:"one",3:"three",2:"two",3.14:"π"}
+collection            set {"key1","key2"}     {1,9,3,0}            set() ☝ keys=hashable values (base types, immutables…)           frozenset immutable set                 empty
+
+
+
+for variables, functions,	Identifiers modules, classes… names
+a…zA…Z_followed by a…zA…Z_0…9 ◽ diacritics allowed but should be avoided ◽ language keywords forbidden
+◽ lower/UPPER case discrimination
+☺ a toto x7 y_max BigOne
+☹
+8y and for
+
+=	Variables assignment ☝ assignment ⇔ binding of a name with a value
+1) evaluation of right side expression value
+2) assignment in order with left side names x=1.2+8+sin(y)
+a=b=c=0 assignment to same value y,z,r=9.2,-7.6,0 multiple assignments a,b=b,a values swap
+a,*b=seq unpacking of sequence in
+*a,b=seq item and list
+x+=3   increment ⇔ x=x+3	and x-=2   decrement ⇔ x=x-2	/= x=None « undefined » constant value	%= del x  remove name x
+*=
+…
+
+
+int("15") →  15	type(expression)	Conversions int("3f",16) →  63      can specify integer number base in 2nd parameter int(15.56) →  15        truncate decimal part
+float("-11.24e8") →  -1124000000.0
+round(15.56,1)→ 15.6   rounding to 1 decimal (0 decimal → integer number) bool(x) False for null x, empty container x , None or Falsex ; Truefor other x str(x)→ "…"  representation string of x for display (cf. formatting on the back) chr(64)→'@' ord('@')→64	code ↔ char
+repr(x)→ "…" literal representation string of x bytes([72,9,64]) →  b'H\t@' list("abc") →  ['a','b','c']
+dict([(3,"three"),(1,"one")]) →  {1:'one',3:'three'} set(["one","two"]) →  {'one','two'}
+separator strand sequence of str→ assembled str ':'.join(['toto','12','pswd']) →  'toto:12:pswd'
+strsplitted on whitespaces → listof str
+"words with  spaces".split() →  ['words','with','spaces'] strsplitted on separator str → listof str
+"1,4,8,2".split(",") →  ['1','4','8','2'] sequence of one type → list of another type (via list comprehension)
+[int(x) for x in ('1','29','-3')] →  [1,29,-3]
+
+
+for lists, tuples, strings, bytes…	Sequence Containers Indexing
+negative index	-5   -4	-3   -2   -1	Items count	Individual access to items via lst[index]
+len(lst)
+→5
+positive index	0	1	2	3	4	lst[0]→10  ⇒ first one
+lst[1]→20
+lst[-2]→40
+lst=[10, 20, 30, 40, 50]	lst[-1]→50 ⇒ last one
+positive slice	0   1	2	3	4	5	☝ index from 0	On mutable sequences (list), remove with
+(here from 0 to 4)
+negative slice	-5  -4   -3   -2   -1	del lst[3]and modify with assignment Access to sub-sequences via lst[start slice:end slice:step]	lst[4]=25
+lst[:-1]→[10,20,30,40] lst[::-1]→[50,40,30,20,10] lst[1:3]→[20,30]   lst[:3]→[10,20,30]
+lst[1:-1]→[20,30,40]   lst[::-2]→[50,30,10]	lst[-3:-1]→[30,40] lst[3:]→[40,50] lst[::2]→[10,30,50]	lst[:]→[10,20,30,40,50]shallow copy of sequence
+Missing slice indication → from start / up to end.
+On mutable sequences (list), remove with del lst[3:5]and modify with assignment lst[1:4]=[15,25]
+
+
+Boolean Logic
+Comparisons : < > <= >= == !=
+≤    ≥    =	≠
+(boolean results)
+a and blogical and both simulta-
+-neously
+a or b logical or   one or other
+or both
+☝ pitfall : and and orreturn value of aor of b (under shortcut evaluation).
+⇒ ensure that a and bare booleans. not a  logical not
+
+
+Statements Blocks
+parent statement: statement block 1…
+⁝
+indentation !
+parent statement: statement block2…
+⁝
+
+next statement after block 1
+
+
+module truc⇔file truc.py	Modules/Names Imports
+from monmod import nom1,nom2 as fct
+→direct access to names, renaming with as
+import monmod→access via monmod.nom1…
+☝ modules and packages searched in python path (cf sys.path)
+statement block executed only	Conditional Statement
+if a condition is true
+if logical condition:	yes    ?     no	yes    ?
+statements block	no
+
+
+
+True	☝ configure editor to insert 4 spaces in place of an indentation tab.
+
+☝ floating numbers… approximated values	angles in radians	Maths
+Operators: + - * / // % **	from math import sin,pi…
+×  ÷	ab	sin(pi/4)→0.707…
+Priority (…)
+integer ÷   ÷ remainder	cos(2*pi/3)→-0.4999…
+@→ matrix × python3.5+numpy	sqrt(81)→9.0	√ (1+5.3)*2→12.6	log(e**2)→2.0
+abs(-3.2)→3.2	ceil(12.5)→13
+round(3.57,1)→3.6	floor(12.5)→12
+pow(4,3)→64.0
+modules math, statistics, random,
+☝ usual order of operations	decimal, fractions, numpy, etc. (cf. doc)
+
+Can go with several elif, elif... and only one final else. Only the block of first true
+condition is executed.	elif age>65:
+if age<=18:
+state="Kid"
+☝ with a var x:	state="Retired" if bool(x)==True: ⇔  if x:     else:
+if bool(x)==False:⇔  if not x:   state="Active"
+Signaling an error:	Exceptions on Errors
+raise ExcClass(…)	error
+Errors processing:	normal	processing
+error
+raise
+try:
+raiseX()
+normal procesising block	processing	processing exceerror processing block:  ☝ finallyblock for final processing
+pt Exception  as e
+in all cases.
+statements block executed as long as	Conditional Loop Statement	statements block executed for each	Iterative Loop Statement
+condition is true	item of a container or iterator
+☝ beware of infinite loops!
+while logical condition:  yes  ?	Loop Control	for var in sequence:	next  …
+statements block	no	break	immediate exit	statements block	finish
+s = 0 initializations before the loop	continuelocnext iteration	Go over sequence's values
+☝ elseb    k for normal
+loop exit.
+i = 1
+condition with a least one variable value (here i)	sn = "Some text" initializations before the loop
+☝ good habit : don't modify loop variable
+c t = 0
+Algo:
+while i <= 100:	i=100	loop variable, assignment managed by for statement
+å
+s=	i
+s = s + i**2	2	for c in s:
+i = i + 1	☝ make condition variable change !	if c == "e":	Algo: count
+print("sum:",s)	i=1	cnt = cnt + 1	number of  e
+print("found",cnt,"'e'")	in the string.
+Display	loop on dict/set ⇔ loop on keys sequences use slices to loop on a subset of a sequence
+print("v=",3,"cm :",x,",",y+4)
+
+items to display : literal values, variables, expressions printoptions:
+◽ sep=" "          items separator, default space ◽ end="\n"        end of print, default new line
+◽ file=sys.stdout print to file, default standard output
+s = input("Instructions:")	Input ☝ inputalways returns a string, convert it to required type
+(cf. boxed Conversions on the other side).
+
+Go over sequence's index ◽ modify item at index
+◽ access items around index (before / after) lst = [11,18,9,12,23,4,17]
+los  =  ]
+fortidx[in range(len(lst)):	Algo: limit values greater
+val = lst[idx]	than 15, memorizing
+if val > 15:	of lost values. lost.append(val)
+lst[idx] = 15 print("modif:",lst,"-lost:",lost)
+
+
+
+len(c)→ items count	Generic Operations on Containers
+min(c)  max(c)  sum(c)	Note: For dictionaries and sets, these
+sorted(c)→ listsorted copy	operations use keys.
+val in c→ boolean, membership operator in(absence not in)
+enumerate(c)→ iterator on (index, value)
+zip(c1,c2…)→ iterator on tuples containing ci items at same index all(c)→ Trueif all citems evaluated to true, else False any(c)→ Trueif at least one item of cevaluated true, else False
+Specific to ordered sequences containers (lists, tuples, strings, bytes…)
+reversed(c)→ inversed iterator	c*5→ duplicate	c+c2→ concatenate
+c.index(val)→ position	c.count(val)→ events count import copy
+copy.copy(c)→ shallow copy of container copy.deepcopy(c)→ deep copy of container
+☝ modify original list	Operations on Lists
+lst.append(val)	add item at end lst.extend(seq)	add sequence of items at end lst.insert(idx,val)   insert item at index lst.remove(val)	remove first item with value val
+lst.pop([idx])→value	remove & return item at index idx (default last) lst.sort()  lst.reverse() sort / reverse liste in place
+
+Operations on Dictionaries	Operations on Sets
+d[key]=value	d.clear()	| e→ union (vertical bar char)
+Op rators:
+update/add
+associations
+del d[key]
+d[key]→ value
+& → intersection
+d.update(d2)	- ^ → difference/symmetric diff.
+< <= > >= → inclusion relations
+d.keys()
+d.values()
+d.items()
+→
+iterable views on	Operators also exist as methods.
+keys/values/associations
+d.pop(key[,default])→ value	s.update(s2) s.copy()
+s.add(key) s.remove(key)
+s.discard(key) s.clear()
+s.pop()
+d.popitem()→ (key,value)
+d.get(key[,default])→ value
+d.setdefault(key[,default])→value
+storing data on disk, and reading it back                                                                       Files f = open("file.txt","w",encoding="utf8")
+file variable         name of file              opening mode                        encoding of for operations       on disk                       ◽ 'r' read                              chars for text
+◽ 'w' write	files:
+(+path…)
+◽ 'a' append	utf8  ascii
+cf. modules os,  os.pathand pathlib◽ …'+' 'x' 'b' 't' latin1  …
+writing	☝ read empty string if end of file	reading
+f.write("coucou")  f.read([n])	→ next chars
+f.writelines(list of lines)	   if n not specified, read up to end ! f.readlines([n])  → list of next lines
+f.readline()	→ next line ☝ text mode tby default (read/write str), possible binary
+mode  b (read/write bytes). Convert from/to required type !
+f.close()   ☝ dont forget to close the file after use ! f.flush()write cache	f.truncate([size]) resize
+reading/writing progress sequentially in the file, modifiable with:
+f.tell()→position	f.seek(position[,origin])
+Very common: opening with a guarded block	with open(…) as f: (automatic closing) and reading loop on lines                      for line in f :
+of a text file:	#processing ofline
+
+
+Go simultaneously over sequence's index and values: for idx,val in enumerate(lst):
+
+range([start,] end [,step])	Integer Sequences ☝ start default 0, end not included in sequence, step signed, default 1
+range(5)→ 0 1 2 3 4	range(2,12,3)→ 2 5 8 11 range(3,8)→ 3 4 5 6 7	range(20,5,-5)→ 20 15 10 range(len(seq))→ sequence of index of values in seq
+☝ range provides an immutable sequence of int constructed as needed
+
+function name (identifier)	Function Definition
+named parameters
+def fct(x,y,z): """documentation"""
+fct
+# statements block, res computation, etc.
+return res  result value of the call, if no computed ☝ parameters and all	result to return: return None variables of this block exist only in the block and during the function call (think of a “black box”)
+Advanced: def fct(x,y,z,*args,a=3,b=5,**kwargs):
+*args variable positional arguments (→tuple), default values, **kwargs variable named arguments (→dict)
+r = fct(3,i+2,2*i)	Function Call
+storage/use of	one argument per
+returned value	parameter
+☝ this is the use of function	Advanced:	fct()	fct name with parentheses	*sequence
+which does the call	**dict
+
+s.startswith(prefix[,start[,end]])	Operations on Strings s.endswith(sufix[,start[,end]]) s.strip([chars]) s.count(sub[,start[,end]]) s.partition(sep)→ (before,sep,after) s.index(sub[,start[,end]]) s.find(sub[,start[,end]])
+s.is…() tests on chars categories (ex. s.isalpha())
+s.upper()   s.lower()   s.title()   s.swapcase() s.casefold()   s.capitalize()   s.center([width,fill]) s.ljust([width,fill])  s.rjust([width,fill])  s.zfill([width]) s.encode(encoding)   s.split([sep])  s.join(seq)
+formating directives	values to format	Formatting "modele{} {} {}".format(x,y,r)    str "{selection:formatting!conversion}"
+◽ Selection :	"{:+2.3f}".format(45.72793)
+2	→'+45.728' "{1:>10s}".format(8,"toto") →'	toto' "{x!r}".format(x="I'm")
+Examples
+nom
+0.nom
+4[key]
+0[2]
+◽ Formatting :	→'"I\'m"'
+fill char  alignment  sign   mini width.precision~maxwidth    type
+
+<>^=  +-space	0 at start for filling with 0
+integer: b binary, cchar, d decimal (default), o octal, x or X hexa… float: eor E exponential, f or F fixed point, gor Gappropriate (default), string: s …	%percent
+◽ Conversion : s (readable text) or r(literal representation)

@@ -1,0 +1,4 @@
+[ZoneTransfer]
+ZoneId=3
+HostUrl=https://us-east.storage.cloudconvert.com/tasks/8c572021-cf18-4ac1-ba12-530a74178241/well-grounded-rubyist-3rd.txt?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=cloudconvert-production%2F20260330%2Fva%2Fs3%2Faws4_request&X-Amz-Date=20260330T010723Z&X-Amz-Expires=86400&X-Amz-Signature=788462ea2db5be24e6f2bc59b2c6dab8c9c9c425f3e5f31216d0da37aa3d39cd&X-Amz-SignedHeaders=host&response-content-disposition=attachment%3B%20filename%3D%22well-grounded-rubyist-3rd.txt%22&response-content-type=text%2Fplain&x-id=GetObject
+ReferrerUrl=https://cloudconvert.com/

@@ -1,0 +1,845 @@
+{
+  "_meta": {
+    "app": "Programming Plus",
+    "version": "0.1.0",
+    "created": "2026-03-28",
+    "tracks": ["python", "javascript", "lua", "csharp", "cpp", "go", "rust"],
+    "units_per_track": 6,
+    "unit_labels": {
+      "1": "Foundations",
+      "2": "Control Flow",
+      "3": "Functions & Scope",
+      "4": "Data Structures",
+      "5": "OOP & Modules",
+      "6": "Projects & Capstone"
+    }
+  },
+
+  "story": [
+    {
+      "id": "beat_py_u1_welcome",
+      "track": "python",
+      "week": 1,
+      "title": "Day One at Pixel Forge Studio",
+      "narrative": "You've just landed your first gig as a junior developer at Pixel Forge Studio — a small indie game company. Your onboarding task is deceptively simple: write a script that prints the studio's splash screen. 'Python is our glue language,' your lead says. 'Master it and you'll touch every part of the codebase.' You open your editor. The cursor blinks.",
+      "xpReward": 25,
+      "concept_visual": {
+        "title": "How Python Executes Code",
+        "diagramId": "python_execution",
+        "explanation": "Python reads your source file line by line, compiles it to bytecode (.pyc), then the Python interpreter executes that bytecode. No separate compile step needed — just run python script.py."
+      },
+      "quiz": [
+        {
+          "id": "beat_py_u1_q1",
+          "type": "multiple_choice",
+          "question": "Which command runs a Python script called 'main.py' from the terminal?",
+          "options": ["python main.py", "run main.py", "execute main.py", "node main.py"],
+          "correct_answer": 0,
+          "explanation": "python main.py invokes the Python interpreter on your file. 'node' is for JavaScript; 'run' and 'execute' are not standard commands."
+        },
+        {
+          "id": "beat_py_u1_q2",
+          "type": "true_false",
+          "question": "Python requires you to declare variable types before using them.",
+          "correct_answer": "false",
+          "explanation": "Python is dynamically typed — you just write x = 5 and Python infers the type at runtime. No 'int x' declarations needed."
+        },
+        {
+          "id": "beat_py_u1_q3",
+          "type": "multiple_choice",
+          "question": "What does print('Hello, World!') do in Python?",
+          "options": [
+            "Defines a variable called Hello",
+            "Outputs the text Hello, World! to the console",
+            "Creates a file named Hello, World!",
+            "Imports a module called Hello"
+          ],
+          "correct_answer": 1,
+          "explanation": "print() is Python's built-in output function. It writes whatever is inside the parentheses to standard output (the console)."
+        }
+      ]
+    },
+    {
+      "id": "beat_js_u1_welcome",
+      "track": "javascript",
+      "week": 1,
+      "title": "The Console Blinks Back",
+      "narrative": "Your first frontend ticket: add a live word count to the studio's internal wiki editor. 'Just JavaScript,' the senior dev says, as if that narrows it down. You open DevTools, type into the console, and something happens immediately. No compiler, no build step — the browser is your playground. This is JavaScript.",
+      "xpReward": 25,
+      "concept_visual": {
+        "title": "JavaScript in the Browser",
+        "diagramId": "js_runtime",
+        "explanation": "JavaScript runs inside your browser's JS engine (V8 in Chrome, SpiderMonkey in Firefox). The engine JIT-compiles your code to machine code at runtime. No install needed — every browser already has a JS runtime."
+      },
+      "quiz": [
+        {
+          "id": "beat_js_u1_q1",
+          "type": "multiple_choice",
+          "question": "Which of the following correctly declares a variable in modern JavaScript?",
+          "options": ["var x = 5", "let x = 5", "const x = 5", "All of the above are valid"],
+          "correct_answer": 3,
+          "explanation": "All three work, but they have different scoping rules. 'const' can't be reassigned, 'let' is block-scoped, 'var' is function-scoped. Prefer 'const' then 'let' in modern JS."
+        },
+        {
+          "id": "beat_js_u1_q2",
+          "type": "true_false",
+          "question": "console.log() in JavaScript works the same as print() in Python — it outputs to the console.",
+          "correct_answer": "true",
+          "explanation": "Both output to standard output / the developer console. console.log() is JavaScript's equivalent of Python's print()."
+        }
+      ]
+    },
+    {
+      "id": "beat_lua_u1_welcome",
+      "track": "lua",
+      "week": 1,
+      "title": "Scripting the Game World",
+      "narrative": "The game designer slides you a Roblox Studio window. 'All the game logic is in Lua,' they explain. 'NPCs, loot tables, ability systems — all scripts.' Lua is small, fast, and embedded everywhere. Learn it and you hold the keys to the game world.",
+      "xpReward": 25,
+      "concept_visual": {
+        "title": "Lua as an Embedded Language",
+        "diagramId": "lua_embedding",
+        "explanation": "Lua is a lightweight scripting language designed to be embedded inside larger applications. Games like Roblox, World of Warcraft, and LÖVE2D use Lua as their scripting layer. The host app (C/C++) provides the API; Lua scripts drive the logic."
+      },
+      "quiz": [
+        {
+          "id": "beat_lua_u1_q1",
+          "type": "multiple_choice",
+          "question": "What does print('Hello') do in Lua?",
+          "options": [
+            "Outputs Hello to the console",
+            "Creates a variable called Hello",
+            "Imports the Hello module",
+            "Declares a function called Hello"
+          ],
+          "correct_answer": 0,
+          "explanation": "print() is a global function in Lua that writes its argument to stdout. Identical behaviour to Python's print() and JavaScript's console.log()."
+        },
+        {
+          "id": "beat_lua_u1_q2",
+          "type": "true_false",
+          "question": "In Lua, arrays are 1-indexed (the first element is at index 1, not 0).",
+          "correct_answer": "true",
+          "explanation": "Unlike most languages, Lua tables used as arrays start at index 1 by convention. t[1] is the first element. This trips up developers coming from Python, JS, or C++."
+        }
+      ]
+    }
+  ],
+
+  "questions": [
+    {
+      "id": "py_u1_001",
+      "track": "python",
+      "domain": "Foundations",
+      "week": 1,
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "question": "What is the correct way to output text in Python?",
+      "options": ["echo('Hello')", "console.log('Hello')", "print('Hello')", "System.out.println('Hello')"],
+      "correct_answer": 2,
+      "explanation": "print() is Python's built-in output function. echo is shell/PHP, console.log is JavaScript, System.out.println is Java.",
+      "tags": ["output", "print", "basics"]
+    },
+    {
+      "id": "py_u1_002",
+      "track": "python",
+      "domain": "Foundations",
+      "week": 1,
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "question": "Which of these is a valid Python variable assignment?",
+      "options": ["int x = 5", "x = 5", "var x = 5", "let x = 5"],
+      "correct_answer": 1,
+      "explanation": "Python uses dynamic typing — just write x = 5. No type keyword needed. int/var/let are from Java, JavaScript.",
+      "tags": ["variables", "assignment", "basics"]
+    },
+    {
+      "id": "py_u1_003",
+      "track": "python",
+      "domain": "Foundations",
+      "week": 1,
+      "difficulty": "easy",
+      "type": "true_false",
+      "question": "In Python, you can use both single quotes ('hello') and double quotes (\"hello\") to define strings.",
+      "correct_answer": "true",
+      "explanation": "Python accepts both. Single and double quotes are interchangeable for string literals. Triple quotes (''' or \"\"\") are used for multi-line strings.",
+      "tags": ["strings", "syntax"]
+    },
+    {
+      "id": "py_u1_004",
+      "track": "python",
+      "domain": "Foundations",
+      "week": 1,
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "question": "What does type(42) return in Python?",
+      "options": ["'number'", "<class 'int'>", "<class 'float'>", "'integer'"],
+      "correct_answer": 1,
+      "explanation": "type() returns the class of an object. 42 is an integer literal, so type(42) returns <class 'int'>.",
+      "tags": ["types", "int", "type()"]
+    },
+    {
+      "id": "py_u1_005",
+      "track": "python",
+      "domain": "Foundations",
+      "week": 1,
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "question": "Which symbol is used for comments in Python?",
+      "options": ["//", "/* */", "#", "--"],
+      "correct_answer": 2,
+      "explanation": "# starts a single-line comment in Python. // is JavaScript/C++, /* */ is multi-line in C-like languages, -- is SQL/Lua.",
+      "tags": ["comments", "syntax"]
+    },
+    {
+      "id": "py_u1_006",
+      "track": "python",
+      "domain": "Foundations",
+      "week": 1,
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "question": "What is the result of 10 / 3 in Python 3?",
+      "options": ["3", "3.3333...", "3.0", "Error"],
+      "correct_answer": 1,
+      "explanation": "In Python 3, / is true division and always returns a float. 10 / 3 = 3.3333... Use // for integer (floor) division: 10 // 3 = 3.",
+      "tags": ["operators", "division", "python3"]
+    },
+    {
+      "id": "py_u1_007",
+      "track": "python",
+      "domain": "Foundations",
+      "week": 1,
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "question": "What does the ** operator do in Python?",
+      "options": ["Multiply by 2", "Integer division", "Exponentiation (power)", "Bitwise AND"],
+      "correct_answer": 2,
+      "explanation": "** is Python's exponentiation operator. 2 ** 8 = 256. Use math.pow() for the same result as a float.",
+      "tags": ["operators", "exponentiation"]
+    },
+    {
+      "id": "py_u1_008",
+      "track": "python",
+      "domain": "Foundations",
+      "week": 1,
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "question": "What is f-string syntax used for in Python?",
+      "options": [
+        "Defining file paths",
+        "Embedding expressions inside string literals",
+        "Converting strings to floats",
+        "Formatting dates only"
+      ],
+      "correct_answer": 1,
+      "explanation": "f-strings (introduced in Python 3.6) allow you to embed expressions: f'Hello, {name}!' substitutes the variable 'name' at runtime.",
+      "tags": ["strings", "f-strings", "formatting"]
+    },
+    {
+      "id": "py_u1_009",
+      "track": "python",
+      "domain": "Foundations",
+      "week": 1,
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "question": "What does int('42') do?",
+      "options": [
+        "Returns the string '42'",
+        "Converts the string '42' to the integer 42",
+        "Raises a TypeError",
+        "Returns 4.2"
+      ],
+      "correct_answer": 1,
+      "explanation": "int() converts compatible strings and floats to integers. int('42') → 42. int('abc') would raise a ValueError.",
+      "tags": ["type conversion", "int()", "casting"]
+    },
+    {
+      "id": "py_u1_010",
+      "track": "python",
+      "domain": "Foundations",
+      "week": 1,
+      "difficulty": "medium",
+      "type": "drag_drop",
+      "question": "Order these Python data types from most general to most specific for whole numbers:",
+      "items": ["complex", "int", "bool", "float"],
+      "correct_order": [0, 3, 1, 2],
+      "explanation": "bool is a subclass of int (True==1, False==0). int is a subclass of float conceptually. complex is the most general numeric type.",
+      "tags": ["types", "numeric", "hierarchy"]
+    },
+
+    {
+      "id": "js_u1_001",
+      "track": "javascript",
+      "domain": "Foundations",
+      "week": 1,
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "question": "Which keyword declares a block-scoped variable that can be reassigned in JavaScript?",
+      "options": ["var", "let", "const", "static"],
+      "correct_answer": 1,
+      "explanation": "let declares a block-scoped variable that can be reassigned. const is block-scoped but immutable. var is function-scoped (legacy). static is for class members.",
+      "tags": ["variables", "let", "scope"]
+    },
+    {
+      "id": "js_u1_002",
+      "track": "javascript",
+      "domain": "Foundations",
+      "week": 1,
+      "difficulty": "easy",
+      "type": "true_false",
+      "question": "In JavaScript, typeof null returns 'null'.",
+      "correct_answer": "false",
+      "explanation": "This is a famous JavaScript quirk: typeof null returns 'object'. This is a bug in the original language spec that was never fixed for backwards compatibility.",
+      "tags": ["typeof", "null", "gotchas"]
+    },
+    {
+      "id": "js_u1_003",
+      "track": "javascript",
+      "domain": "Foundations",
+      "week": 1,
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "question": "What does === check in JavaScript (vs ==)?",
+      "options": [
+        "Only value equality",
+        "Only type equality",
+        "Both value and type equality (strict)",
+        "Reference equality only"
+      ],
+      "correct_answer": 2,
+      "explanation": "=== is strict equality: checks both type and value. == is loose equality and performs type coercion (e.g. '5' == 5 is true but '5' === 5 is false). Always prefer ===.",
+      "tags": ["equality", "strict", "type coercion"]
+    },
+    {
+      "id": "js_u1_004",
+      "track": "javascript",
+      "domain": "Foundations",
+      "week": 1,
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "question": "What is the output of: console.log(typeof [])?",
+      "options": ["'array'", "'object'", "'list'", "'undefined'"],
+      "correct_answer": 1,
+      "explanation": "Arrays in JavaScript are objects. typeof [] returns 'object'. To check for arrays, use Array.isArray([]) which returns true.",
+      "tags": ["typeof", "arrays", "objects"]
+    },
+    {
+      "id": "js_u1_005",
+      "track": "javascript",
+      "domain": "Foundations",
+      "week": 1,
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "question": "What is a template literal in JavaScript?",
+      "options": [
+        "A string defined with single quotes",
+        "A reusable HTML component",
+        "A string defined with backticks that supports embedded expressions",
+        "A constant string that cannot change"
+      ],
+      "correct_answer": 2,
+      "explanation": "Template literals use backticks (`) and allow ${expression} interpolation: `Hello, ${name}!`. They also support multi-line strings natively.",
+      "tags": ["template literals", "strings", "interpolation"]
+    },
+
+    {
+      "id": "lua_u1_001",
+      "track": "lua",
+      "domain": "Foundations",
+      "week": 1,
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "question": "How do you declare a local variable in Lua?",
+      "options": ["var x = 5", "let x = 5", "local x = 5", "x := 5"],
+      "correct_answer": 2,
+      "explanation": "The 'local' keyword declares a local variable in Lua. Without it, variables are global by default. Always prefer 'local' to avoid polluting the global namespace.",
+      "tags": ["variables", "local", "scope"]
+    },
+    {
+      "id": "lua_u1_002",
+      "track": "lua",
+      "domain": "Foundations",
+      "week": 1,
+      "difficulty": "easy",
+      "type": "true_false",
+      "question": "In Lua, the string concatenation operator is .. (two dots).",
+      "correct_answer": "true",
+      "explanation": "Lua uses .. for string concatenation: 'Hello' .. ' World' produces 'Hello World'. This is different from + (Python/JS) or & (Visual Basic).",
+      "tags": ["strings", "concatenation", "operators"]
+    },
+    {
+      "id": "lua_u1_003",
+      "track": "lua",
+      "domain": "Foundations",
+      "week": 1,
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "question": "What symbol is used for single-line comments in Lua?",
+      "options": ["//", "#", "--", "/*"],
+      "correct_answer": 2,
+      "explanation": "Lua uses -- for single-line comments. Multi-line comments use --[[ ... ]]. This is the same as SQL comments.",
+      "tags": ["comments", "syntax"]
+    },
+    {
+      "id": "lua_u1_004",
+      "track": "lua",
+      "domain": "Foundations",
+      "week": 1,
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "question": "What is the Lua equivalent of Python's None or JavaScript's null?",
+      "options": ["null", "nil", "undefined", "void"],
+      "correct_answer": 1,
+      "explanation": "nil is Lua's only null-like value. A variable that has not been assigned has the value nil. Setting a variable to nil effectively deletes it from scope.",
+      "tags": ["nil", "null", "types"]
+    },
+
+    {
+      "id": "cpp_u1_001",
+      "track": "cpp",
+      "domain": "Foundations",
+      "week": 1,
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "question": "What is the correct way to output text in C++?",
+      "options": ["print('Hello')", "echo 'Hello'", "cout << 'Hello';", "std::cout << \"Hello\";"],
+      "correct_answer": 3,
+      "explanation": "std::cout (from <iostream>) is used for output in C++. Single quotes denote chars; double quotes denote string literals. The << operator inserts data into the stream.",
+      "tags": ["output", "cout", "iostream"]
+    },
+    {
+      "id": "cpp_u1_002",
+      "track": "cpp",
+      "domain": "Foundations",
+      "week": 1,
+      "difficulty": "easy",
+      "type": "true_false",
+      "question": "In C++, you must declare the type of a variable before using it.",
+      "correct_answer": "true",
+      "explanation": "C++ is statically typed. You must write 'int x = 5;' not just 'x = 5'. The 'auto' keyword (C++11) can infer the type, but a type must still be determinable at compile time.",
+      "tags": ["variables", "types", "static typing"]
+    },
+    {
+      "id": "cpp_u1_003",
+      "track": "cpp",
+      "domain": "Foundations",
+      "week": 1,
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "question": "What is the difference between int and int* in C++?",
+      "options": [
+        "int* is a larger integer type",
+        "int* is a pointer — it stores the memory address of an int",
+        "int* means integer multiply",
+        "int* is unsigned integer"
+      ],
+      "correct_answer": 1,
+      "explanation": "int stores an integer value. int* is a pointer — it stores the memory address where an integer lives. Dereferencing with * gives the value at that address.",
+      "tags": ["pointers", "memory", "types"]
+    },
+
+    {
+      "id": "csharp_u1_001",
+      "track": "csharp",
+      "domain": "Foundations",
+      "week": 1,
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "question": "What is the correct way to output text in C#?",
+      "options": ["print('Hello')", "cout << 'Hello'", "Console.WriteLine(\"Hello\");", "System.out.println('Hello')"],
+      "correct_answer": 2,
+      "explanation": "Console.WriteLine() is C#'s standard output method. System.out.println is Java. cout is C++. print() is Python.",
+      "tags": ["output", "Console", "basics"]
+    },
+    {
+      "id": "csharp_u1_002",
+      "track": "csharp",
+      "domain": "Foundations",
+      "week": 1,
+      "difficulty": "easy",
+      "type": "true_false",
+      "question": "In C#, string interpolation uses a $ prefix before the string: $\"Hello, {name}!\"",
+      "correct_answer": "true",
+      "explanation": "C# string interpolation uses $ before the opening quote and {} for embedded expressions. This is similar to Python's f-strings (f'Hello, {name}!') and JS template literals (`Hello, ${name}!`).",
+      "tags": ["strings", "interpolation", "syntax"]
+    },
+
+    {
+      "id": "go_u1_001",
+      "track": "go",
+      "domain": "Foundations",
+      "week": 1,
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "question": "Which of the following is the correct short variable declaration in Go?",
+      "options": ["var x := 5", "x := 5", "let x = 5", "int x = 5"],
+      "correct_answer": 1,
+      "explanation": ":= is Go's short variable declaration — it declares and initialises in one step, inferring the type. It can only be used inside functions. Outside functions, use 'var x = 5' or 'var x int = 5'.",
+      "tags": ["variables", "short declaration", ":="]
+    },
+    {
+      "id": "go_u1_002",
+      "track": "go",
+      "domain": "Foundations",
+      "week": 1,
+      "difficulty": "medium",
+      "type": "true_false",
+      "question": "In Go, if you declare a variable but never use it, the code will fail to compile.",
+      "correct_answer": "true",
+      "explanation": "Go enforces that every declared variable is used. An unused import or variable is a compile error, not a warning. This keeps code clean but surprises developers coming from other languages.",
+      "tags": ["compilation", "variables", "gotchas"]
+    },
+
+    {
+      "id": "rust_u1_001",
+      "track": "rust",
+      "domain": "Foundations",
+      "week": 1,
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "question": "What does the 'let' keyword do in Rust?",
+      "options": [
+        "Declares a mutable variable",
+        "Declares an immutable binding by default",
+        "Declares a constant",
+        "Declares a pointer"
+      ],
+      "correct_answer": 1,
+      "explanation": "In Rust, let creates an immutable binding by default. To make it mutable, use 'let mut x = 5'. This is the opposite of most languages where variables are mutable by default.",
+      "tags": ["variables", "let", "immutability"]
+    },
+    {
+      "id": "rust_u1_002",
+      "track": "rust",
+      "domain": "Foundations",
+      "week": 1,
+      "difficulty": "medium",
+      "type": "true_false",
+      "question": "In Rust, every value has a single owner, and when that owner goes out of scope, the value is dropped (freed).",
+      "correct_answer": "true",
+      "explanation": "This is Rust's ownership rule. When a variable (owner) goes out of scope, Rust automatically calls drop() and frees the memory. No garbage collector needed — memory is managed at compile time.",
+      "tags": ["ownership", "memory", "drop"]
+    }
+  ],
+
+  "labs": [
+    {
+      "id": "lab_py_u1_l1",
+      "track": "python",
+      "title": "Hello, Studio!",
+      "description": "Write a Python script that prints the studio welcome banner. Your output must match exactly.",
+      "week": 1,
+      "difficulty": "easy",
+      "xp": 50,
+      "runtime": "python",
+      "objectives": [
+        "Use the print() function",
+        "Output multiple lines",
+        "Match the expected output exactly"
+      ],
+      "starter_code": "# Welcome to Pixel Forge Studio\n# TODO: print the studio banner\n\n",
+      "hints": [
+        "Call print() once for each line you want to output.",
+        "print('Line 1') then print('Line 2') on separate lines produces two lines of output.",
+        "Your output should be:\n=== Pixel Forge Studio ===\nReady to build something great!"
+      ],
+      "test_cases": [
+        {
+          "input": "",
+          "expected_output": "=== Pixel Forge Studio ===\nReady to build something great!"
+        }
+      ],
+      "solution": "print('=== Pixel Forge Studio ===')\nprint('Ready to build something great!')",
+      "concepts": ["print", "strings", "output"],
+      "source_ref": "Python.org — Built-in Functions: print()"
+    },
+    {
+      "id": "lab_py_u1_l2",
+      "track": "python",
+      "title": "Variable Vault",
+      "description": "Store your name and favourite number in variables, then print a formatted sentence using an f-string.",
+      "week": 1,
+      "difficulty": "easy",
+      "xp": 60,
+      "runtime": "python",
+      "objectives": [
+        "Declare string and integer variables",
+        "Use an f-string for output",
+        "Match the output format exactly"
+      ],
+      "starter_code": "# TODO: declare a variable 'name' with value 'Alex'\n# TODO: declare a variable 'lucky_number' with value 7\n# TODO: print: My name is Alex and my lucky number is 7.\n",
+      "hints": [
+        "Declare variables with name = 'Alex' and lucky_number = 7",
+        "f-strings start with f before the quote: f'Hello {name}'",
+        "Your output should be: My name is Alex and my lucky number is 7."
+      ],
+      "test_cases": [
+        {
+          "input": "",
+          "expected_output": "My name is Alex and my lucky number is 7."
+        }
+      ],
+      "solution": "name = 'Alex'\nlucky_number = 7\nprint(f'My name is {name} and my lucky number is {lucky_number}.')",
+      "concepts": ["variables", "f-strings", "int", "str"],
+      "source_ref": "Python.org — Formatted String Literals"
+    },
+    {
+      "id": "lab_py_u1_l3",
+      "track": "python",
+      "title": "Type Detective",
+      "description": "Use type() and isinstance() to inspect variables and print their types.",
+      "week": 1,
+      "difficulty": "medium",
+      "xp": 75,
+      "runtime": "python",
+      "objectives": [
+        "Use type() to inspect a variable's type",
+        "Use isinstance() to check if a value is a specific type",
+        "Output the correct type labels"
+      ],
+      "starter_code": "x = 42\ny = 3.14\nz = 'hello'\nw = True\n\n# TODO: for each variable, print its type using type()\n# Output format: x is <class 'int'>\n",
+      "hints": [
+        "type(x) returns the type object. Use print(f'x is {type(x)}')",
+        "Loop approach: for var_name, value in [('x',x),('y',y),...]: print(f'{var_name} is {type(value)}')",
+        "Expected output:\nx is <class 'int'>\ny is <class 'float'>\nz is <class 'str'>\nw is <class 'bool'>"
+      ],
+      "test_cases": [
+        {
+          "input": "",
+          "expected_output": "x is <class 'int'>\ny is <class 'float'>\nz is <class 'str'>\nw is <class 'bool'>"
+        }
+      ],
+      "solution": "x = 42\ny = 3.14\nz = 'hello'\nw = True\nfor name, value in [('x',x),('y',y),('z',z),('w',w)]:\n    print(f'{name} is {type(value)}')",
+      "concepts": ["type()", "isinstance()", "types", "introspection"]
+    },
+    {
+      "id": "lab_js_u1_l1",
+      "track": "javascript",
+      "title": "DOM Word Counter",
+      "description": "Write a function countWords(text) that returns the number of words in a string. Words are separated by spaces.",
+      "week": 1,
+      "difficulty": "easy",
+      "xp": 60,
+      "runtime": "javascript",
+      "objectives": [
+        "Define a function that accepts a string parameter",
+        "Split the string into words",
+        "Return the word count"
+      ],
+      "starter_code": "function countWords(text) {\n  // TODO: return the number of words in text\n  // Words are separated by one or more spaces\n}\n\nconsole.log(countWords('Hello World'));          // 2\nconsole.log(countWords('The quick brown fox'));   // 4\nconsole.log(countWords('  spaces  around  '));    // 2\n",
+      "hints": [
+        "String.prototype.split(' ') splits by space, but gives empty strings for extra spaces.",
+        "Use .trim() first to remove leading/trailing spaces, then split.",
+        "Filter out empty strings: text.trim().split(/\\s+/).filter(w => w.length > 0)"
+      ],
+      "test_cases": [
+        { "input": "countWords('Hello World')", "expected_output": "2" },
+        { "input": "countWords('The quick brown fox')", "expected_output": "4" },
+        { "input": "countWords('  spaces  around  ')", "expected_output": "2" }
+      ],
+      "solution": "function countWords(text) {\n  return text.trim().split(/\\s+/).filter(w => w.length > 0).length;\n}",
+      "concepts": ["functions", "strings", "split", "filter", "regex"]
+    },
+    {
+      "id": "lab_lua_u1_l1",
+      "track": "lua",
+      "title": "NPC Greeter",
+      "description": "Write a Lua script that stores an NPC's name and level in local variables, then prints a greeting message.",
+      "week": 1,
+      "difficulty": "easy",
+      "xp": 50,
+      "runtime": "lua",
+      "objectives": [
+        "Declare local variables",
+        "Use string concatenation with ..",
+        "Print a formatted message"
+      ],
+      "starter_code": "-- TODO: store the NPC name 'Garrick' in a local variable\n-- TODO: store the NPC level 42 in a local variable\n-- TODO: print: Greetings! I am Garrick, level 42.\n",
+      "hints": [
+        "Use 'local name = \"Garrick\"' and 'local level = 42'",
+        "Lua concatenation uses ..: 'Hello ' .. name",
+        "To include a number in a string: 'Level: ' .. tostring(level)"
+      ],
+      "test_cases": [
+        {
+          "input": "",
+          "expected_output": "Greetings! I am Garrick, level 42."
+        }
+      ],
+      "solution": "local name = 'Garrick'\nlocal level = 42\nprint('Greetings! I am ' .. name .. ', level ' .. tostring(level) .. '.')",
+      "concepts": ["local variables", "concatenation", "tostring()"]
+    }
+  ],
+
+  "bosses": [
+    {
+      "id": "capstone_py_u1",
+      "track": "python",
+      "name": "The Splash Screen Challenge",
+      "week": 1,
+      "type": "capstone",
+      "description": "Build a complete studio splash screen tool in Python. Each phase adds complexity.",
+      "total_xp": 300,
+      "perfect_bonus": 100,
+      "phases": [
+        {
+          "phase": 1,
+          "name": "Basic Output",
+          "description": "Print a banner with the studio name and a tagline.",
+          "xp": 75,
+          "test_cases": [
+            { "expected_output": "=== Pixel Forge Studio ===\nWhere ideas become worlds." }
+          ]
+        },
+        {
+          "phase": 2,
+          "name": "Variables & F-Strings",
+          "description": "Dynamically insert the current version number (1.0) and year (2026) into the banner.",
+          "xp": 75,
+          "test_cases": [
+            { "expected_output": "=== Pixel Forge Studio v1.0 ===\nCopyright 2026. Where ideas become worlds." }
+          ]
+        },
+        {
+          "phase": 3,
+          "name": "Input & Personalisation",
+          "description": "Ask the user for their developer name and greet them personally.",
+          "xp": 75,
+          "notes": "Use input() to read from stdin. Test input will be provided."
+        },
+        {
+          "phase": 4,
+          "name": "Polish",
+          "description": "Add a separator line of 30 dashes above and below the banner. Use string multiplication.",
+          "xp": 75,
+          "test_cases": [
+            { "expected_output": "------------------------------\n=== Pixel Forge Studio ===\nWhere ideas become worlds.\n------------------------------" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "capstone_js_u1",
+      "track": "javascript",
+      "name": "The DOM Toolbelt",
+      "week": 1,
+      "type": "capstone",
+      "description": "Build a set of utility functions that manipulate strings and arrays — the core of any JS developer's toolbelt.",
+      "total_xp": 300,
+      "perfect_bonus": 100,
+      "phases": [
+        {
+          "phase": 1,
+          "name": "String Utilities",
+          "description": "Implement capitalize(str), truncate(str, n), and isPalindrome(str).",
+          "xp": 100
+        },
+        {
+          "phase": 2,
+          "name": "Array Utilities",
+          "description": "Implement unique(arr) — return array with duplicates removed, preserving order.",
+          "xp": 100
+        },
+        {
+          "phase": 3,
+          "name": "Composition",
+          "description": "Implement pipe(...fns) — compose functions left-to-right: pipe(f, g)(x) = g(f(x)).",
+          "xp": 100
+        }
+      ]
+    }
+  ],
+
+  "debug_drills": [
+    {
+      "id": "debug_py_001",
+      "track": "python",
+      "difficulty": "easy",
+      "broken_code": "print('Hello World'",
+      "bug_description": "Missing closing parenthesis",
+      "options": [
+        "print('Hello World')",
+        "print 'Hello World'",
+        "Print('Hello World')",
+        "print('Hello World']"
+      ],
+      "correct_fix_index": 0,
+      "explanation": "Python's print() is a function and requires balanced parentheses. Missing the closing ) causes a SyntaxError."
+    },
+    {
+      "id": "debug_py_002",
+      "track": "python",
+      "difficulty": "easy",
+      "broken_code": "x = 5\ny = '3'\nresult = x + y\nprint(result)",
+      "bug_description": "Cannot add int and str",
+      "options": [
+        "result = x + int(y)",
+        "result = str(x) + y",
+        "result = x + float(y)",
+        "result = x - y"
+      ],
+      "correct_fix_index": 0,
+      "explanation": "Python won't implicitly convert types. To add an integer and a numeric string, convert the string to int first: int(y)."
+    },
+    {
+      "id": "debug_py_003",
+      "track": "python",
+      "difficulty": "medium",
+      "broken_code": "def greet(name):\n    message = f'Hello, {Name}!'\n    return message",
+      "bug_description": "NameError: Name is not defined (case mismatch)",
+      "options": [
+        "message = f'Hello, {name}!'",
+        "message = f'Hello, {NAME}!'",
+        "message = f'Hello, {name.lower()}!'",
+        "message = 'Hello, ' + name + '!'"
+      ],
+      "correct_fix_index": 0,
+      "explanation": "Python is case-sensitive. The parameter is 'name' (lowercase) but the f-string references 'Name' (capital N). Fix: use {name}."
+    },
+    {
+      "id": "debug_js_001",
+      "track": "javascript",
+      "difficulty": "easy",
+      "broken_code": "function add(a, b) {\n  return a - b;\n}",
+      "bug_description": "Wrong arithmetic operator",
+      "options": [
+        "return a + b;",
+        "return a * b;",
+        "return a / b;",
+        "return a % b;"
+      ],
+      "correct_fix_index": 0,
+      "explanation": "The function is named 'add' but uses subtraction (-). The correct operator for addition is +."
+    },
+    {
+      "id": "debug_js_002",
+      "track": "javascript",
+      "difficulty": "medium",
+      "broken_code": "const arr = [1, 2, 3];\nif (arr == [1, 2, 3]) {\n  console.log('match');\n}",
+      "bug_description": "Reference equality vs value equality for arrays",
+      "options": [
+        "if (JSON.stringify(arr) === JSON.stringify([1, 2, 3]))",
+        "if (arr === [1, 2, 3])",
+        "if (arr.equals([1, 2, 3]))",
+        "if (arr.compare([1, 2, 3]) === 0)"
+      ],
+      "correct_fix_index": 0,
+      "explanation": "In JavaScript, arrays are objects and == / === compares references, not values. Two different array literals are never equal by reference. Use JSON.stringify for simple value comparison, or compare element by element."
+    },
+    {
+      "id": "debug_lua_001",
+      "track": "lua",
+      "difficulty": "easy",
+      "broken_code": "local x = 10\nlocal y = '5'\nlocal result = x + y\nprint(result)",
+      "bug_description": "This code actually works in Lua — but is it correct style?",
+      "options": [
+        "local result = x + tonumber(y)",
+        "local result = tostring(x) + y",
+        "local result = x .. y",
+        "local result = x - y"
+      ],
+      "correct_fix_index": 0,
+      "explanation": "Lua auto-coerces strings to numbers in arithmetic contexts, so x + '5' works but is bad practice. Explicit tonumber() makes intent clear and prevents bugs if y ever holds a non-numeric string."
+    }
+  ]
+}

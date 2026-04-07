@@ -1,0 +1,624 @@
+﻿
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Types of Data Structures in Python
+
+Python Primitive Data Structures
+
+These store simple data values.
+
+Description
+
+String
+
+Boolean
+
+Integer
+
+Float
+
+
+
+Collection of characters surrounded by single or double quotation marks Logical values
+
+Whole number of unlimited length
+
+Floating-point decimal
+
+Examples
+
+'Alice', "Bob"
+
+True, False
+
+0, -273
+
+1.618, 3.1415926
+
+
+
+Python Built-In Non-Primitive Data Structures
+
+These data structures, which store values and collections of values, are inherent to Python.
+
+Description
+
+List
+
+Tuple
+
+Set
+- 0is the same as False, as are 1 and True.
+Dictionary
+- Map, storing key-value pairs.
+
+Ordere	Allow	Muta d	duplicates	ble
+√	√	√
+
+√	√	✕
+
+✕	✕	✕
+
+
+
+
+√ > 3.7	✕	√ ✕ ≤
+3.6
+
+Syntax	Examples
+
+[ ]   ●   [1, 2.3, True] ●   ['John', 'Doe']
+( )   ●   ('age', 22)
+●   (7.89, False) { }   ●   {6, 4.5}
+●   {'nice', True}
+
+
+{key: ●   {"FB": value	"Facebook", }	"WA":
+"WhatsApp", "IG": "Instagram"}
+●   {'name': 'Bob', 'id': 255}
+
+
+
+List and Tuple Operations
+
+Note that Python lists and tuples are zero-indexed, meaning the first element has an index of 0.
+
+Accessing Items in Lists
+
+The table below is based on this list:
+fruit_list = ["apple", "banana", "cherry", "orange", "kiwi", "melon", "mango"].
+
+
+Command fruit_list[1] fruit_list[-1]
+
+Description
+Get the second item on the list Get the last item
+
+
+fruit_list[2:5] fruit_list[:4]
+
+fruit_list[2:] fruit_list[-4:-1]
+
+if "apple" in fruit_list: print("Yes, we have
+'apple'")
+
+Get the items from start to end indexes Get the items from the beginning but exclude "kiwi" and beyond
+Get the items from "cherry" to the end Get the items from "orange" (-4) onwards but exclude "mango" (-1)
+Check if "apple" is in the list
+
+
+
+
+List (and Tuple) Methods
+
+Commands with an asterisk (*) apply to tuples.
+
+
+Command append()
+
+clear()
+
+copy() count()
+
+extend()
+
+
+index()
+
+insert()
+
+pop()
+
+remove()
+
+reverse() sort() sort(reverse = True)
+del()
+
+list1 + list2
+
+Description
+Add an element at the end of the list
+
+Remove all the elements from the list
+Return a copy of the list
+Return the number of elements with the specified value*
+Add the elements of a list (or any iterable), to the end of the current list
+Return the index of the first element with the specified value*
+Add an element at the specified position (position is an integer) Remove the element at the specified position
+Remove the first item with the specified value
+Reverse the order of the list Sort the list in ascending / descending order
+
+Delete from the list the item specified with its index
+Join two lists
+
+Usage list1.append(element )
+list1.clear()
+
+list1.copy() list1.count(element)
+
+list1.extend(list2)
+
+
+list1.index(element[ ,start[,end]]) list1.insert(positio n, element) list1.pop([index])
+
+list1.remove(element )
+list1.reverse() list1.sort() list2.sort(reverse = True)
+del list1[index]
+
+list1 = ["x", "y"] list2 = [8, 9] list3 = list1 + list2
+Returns: ["x","y",8,9]
+
+
+
+
+
+List Comprehension
+
+List comprehension simplifies the creation of a new list based on the values of an existing list.
+
+
+Command
+[n for n in range(10) if n < 5] [x for x in fruits if "a" in x]
+[x for x in fruits if x != "apple"]
+[x.upper() for x in fruits] [x + '?' for x in fruits]
+
+['hello' for x in fruits]
+[x if x != "banana" else "orange" for x in fruits]
+
+Description
+Accept only numbers less than 5 Accept items containing "a". Accept all items except "apple"
+
+Make uppercase the values in the new list Add a question mark at the end of each item
+Set all values in the new list to 'hello' Replace "banana"with "orange"in the new list
+
+
+
+
+Accessing Items in Tuples
+
+Below, the tuple in question is fruits = ("apple", "banana", "cherry").
+
+Command
+"apple" in fruits Return: True
+(x, y, z) = fruits
+
+# x == "apple" # y == "banana" # z == "cherry"
+
+(a, *_) = fruits
+
+Description
+Check if "apple"is present in the tuple
+
+Assign variables to take up each item in the tuple, also known as unpacking a tuple.
+
+Either the number of variables must match the number of values in the tuple, or use an asterisk as shown to put away the unwanted values.
+
+
+# a == "apple"
+# _ == ["banana", "cherry"]
+
+
+
+
+
+Tuple Manipulation
+
+
+Adding items
+
+You can add items to a tuple as follows:
+
+
+Initial
+
+Code
+
+Result
+
+original = ("apple", "banana", "cherry")
+
+new_item = ("orange",) original += new_item
+("apple", "banana", "cherry", "orange")
+
+
+
+Tip: When creating a single-item tuple, remember to include a comma.
+
+Removing items and changing values
+
+Since tuples are immutable, you can’t remove or modify their contents directly. The key is converting it into a list and back.
+
+
+Example Initial
+
+
+
+
+→ List
+
+Code
+
+→ Tuple
+
+Result of newList
+
+Addition
+original = ("apple", "banana", "cherry")
+
+
+
+tempList = list(original) tempList.append("ora nge")
+newList = tuple(tempList) ("apple", "banana", "cherry", "orange")
+
+Removal original = ("apple", "banana", "cherry")
+tempList = list(original) tempList.remove( "apple")
+newList = tuple(tempList) ("banana", "cherry")
+
+Change original = ("apple", "banana", "cherry")
+tempList = list(original) tempList[1] = "kiwi"
+newList = tuple(tempList) ("kiwi", "banana", "cherry")
+
+
+
+
+Dictionary Operations
+
+
+Adding Items
+
+There are three methods:
+
+Example
+
+Initial
+
+
+
+
+
+
+
+
+
+Code
+
+Result of meta
+
+Addition #1 (direct)
+
+meta = { "FB": "Facebook", "WA": "WhatsApp", "IG": "Instagram" } new_co = { "GIF": "Giphy" }
+meta["GIF"] = "Giphy"
+{ "FB": "Facebook", "WA": "WhatsApp", "IG": "Instagram", "GIF": "Giphy" }
+
+Addition #2 (update())
+
+meta = { "FB": "Facebook", "WA": "WhatsApp", "IG": "Instagram" }new_co = { "GIF": "Giphy" }
+
+
+meta.update(new_co)
+
+{ "FB": "Facebook", "WA": "WhatsApp", "IG": "Instagram", "GIF": "Giphy" }
+
+Addition #3 (**)
+
+meta = { "FB": "Facebook", "WA": "WhatsApp", "IG": "Instagram" }new_co = { "GIF": "Giphy" }
+meta = {**meta, **new_co}
+{ "FB": "Facebook", "WA": "WhatsApp", "IG": "Instagram", "GIF": "Giphy" }
+
+
+Warning: duplicate keys will cause the latest values to overwrite earlier values.
+
+General Operations
+
+
+
+Command del
+dict1["key1"] del dict1 dict1[key1]
+
+Dictionary method clear()
+
+copy() fromkeys()
+
+get()
+
+items()
+
+keys()
+
+pop()
+
+popitem() setdefault()
+
+
+update()
+
+values()
+
+Description
+Remove the item with the specified key name
+Delete the dictionary
+Access the value of a dictionary dict1 element using its key key1 Description
+
+Remove all the elements from the dictionary
+Return a copy of the dictionary Return a dictionary with the specified keys and value
+Return the value of the specified key
+
+Return a list containing a tuple for each key-value pair
+Return a list containing the dictionary’s keys
+Remove the element with the specified key
+Remove the last inserted key-value pair Return the value of the specified key. If the key does not exist, add as new
+key-value pair
+Update the dictionary with the specified key-value pairs
+Return a list of all the values in the dictionary
+
+Example
+del meta["WA"] # "WhatsApp" del meta meta["FB"]
+# "Facebook"
+Usage
+
+dict1.clear()
+
+dict1.copy() dict1.fromkeys(ke ys, value) dictionary.get(ke y_name, value) dict1.items()
+
+dict1.keys()
+
+dict1.pop(key_nam e) dict1.popitem() dict1.setdefault( key_name, value)
+
+dict1.update(iter able) dict1.values()
+
+
+
+
+Set Operations
+
+
+Accessing
+
+Although you can’t directly access items in a set, you can loop through the items:
+
+
+Example
+
+Code
+
+Result
+
+Accessing items in a set (using list comprehension)
+
+set1 = {32, 1, 2, 27, 83, 26, 59, 60} set1_odd = [i for i in set1 if i % 2 == 1] set1_odd = [1, 27, 83, 59]
+
+
+
+
+Adding and Removing Items
+
+
+Command add() update()
+
+discard() remove() pop()
+
+
+clear() copy() del
+
+Description
+Add a single element to the set Add elements from another set into this set
+Remove the specified element
+
+Remove the last element in the set. The return value of byeis the removed element.
+Empty the set
+Return a copy of the set Delete the set
+
+Usage fruits.add("orange") fruits.add({"pineapple", "mango", "durian"}) fruits.discard("banana") fruits.remove("banana") bye = fruits.pop()
+
+
+fruits.clear() fruits.copy() del fruits
+
+
+
+
+Mathematical Operations
+
+
+
+Command / Binary operator(s) difference()
+-difference_update()
+
+intersection() &
+intersection_update()
+
+isdisjoint() issubset() <, <= issuperset() >, >=
+symmetric_difference() ^
+symmetric_difference_update()
+
+union() |
+
+Description
+Get the difference of several sets
+
+Remove the elements in this set that are also included in another, specified set
+Get intersection of sets
+
+Remove the elements in this set that are not present in other, specified set(s)
+Return whether two sets have an intersection Check if a set is a (strict <) subset
+
+Check if a set is a (strict >) superset
+
+Get symmetric difference of two sets
+
+Insert the symmetric differences from this set and another
+Get the union of sets
+
+
+
+
+Algorithms and the Complexities
+
+
+List
+
+Tuples have the same operations (non-mutable) and complexities.
+
+Command (L: list)
+
+L.append(item) L.clear()
+item in/not in L L.copy()
+del L[i]
+
+Complexity class
+
+O(1) O(1) O(N) O(N) O(N)
+
+
+L.extend(…) L1==L2, L1!=L2 L[i]
+for item in L: len(L)
+k*L
+min(L), max(L) L.pop(-1) L.pop(item) L.remove(…) L.reverse() L[x:y] L.sort() L[i]=item
+
+
+
+Dictionary
+
+Command (d: dictionary)
+
+d.clear() dict(…) del d[k] d.get()
+for item in d: len(d) d.pop(item) d.popitem() d.values() d.keys() d.fromkeys(seq)
+
+O(N) O(N) O(1) O(N) O(1) O(k*N) O(N) O(1) O(N) O(N) O(N) O(y-x)
+O(N*log(N)) O(1)
+
+
+
+
+Complexity class / range (—)
+
+O(1) O(len(d)) O(1) — O(N) O(1) — O(N) O(N)
+O(1)
+O(1) — O(N) O(1)
+O(1) O(1)
+O(len(seq))
+
+
+
+Set
+
+Operation Add
+Clear Copy
+Containment Creation Discard Difference Difference Update Equality Intersection Iteration
+Is Subset Is Superset Pop
+Union
+
+
+
+Command (s: set) s.add(item) s.clear() s.copy()
+item in/not in s set(…) s.discard(item) s1-s2
+s1.difference_updat e(s2)
+s1==s2, s1!=s2 s1&s2
+for item in s: s1<=s2
+s1>=s2 s.pop() s1|s2
+
+
+
+Complexity class / range (—) O(1) — O(N)
+O(1) O(N)
+O(1) — O(N) O(len(s)) O(1) — O(N) O(len(s1)) O(len(s2)) —  ∞
+
+O(min(len(s1), len(s2))) O(min(len(s1), len(s2))) O(N)
+O(len(s1))
+O(len(s2)) — O(len(s1)) O(1) — O(N) O(len(s1)+len(s2)) —  ∞
+
+Symmetric	s1^s2	O(len(s1)) — O(len(s1)*len(s2)) Difference
+
+
+
+Symbol Table
+
+Python keeps track of variables using symbol tables, which you can explore using the following basic commands:
+
+
+Command __doc__
+
+__name__
+
+dir() global() locals() eval()
+
+Description
+Program documentation as comments (#, """, ''') at the beginning of the code
+How you run the Python program.
+Direct execution: __name__ == "__main__" Effective namespace
+Dictionary of variable names of global scope to variable values Dictionary of variable names of local scope to variable values Return the value of the specified variable
+
+
+Example usage:
+for x in dir(): print(x, eval(x))
+
+
+
+Python Libraries
+
+The following commands are for setting up Python programs or libraries for use inside your program:
+
+
+Command import module1
+
+from module1 import obj1, obj2
+from module1 import *
+module1.__dict__
+
+Description
+Import program / library  module1as Python module
+Import the objects obj1, obj2from module1
+Import all objects in module1
+Return the dictionary containing module1’s symbol table, like dir()of the main program
+
+
+Examples of Python libraries containing other non-primitive data structures: ●   array: Efficient arrays of numeric values
+●   collections: Abstract data structures
+●   dataclasses: For creating user-defined data structures ●   datetime: Basic date and time types
+●   queue: Synchronized queue class
+
+Experience Software Development
+
+Much of the above doesn’t make sense to Python newbies but are crucial when developing apps for commercial settings, including freelancing. At StationX, we have self-paced tutorials and labs on software development focusing on cybersecurity. Click here to learn more.
+
+We hope this Python data structures cheat sheet is helpful. To download a PDF version, click here.

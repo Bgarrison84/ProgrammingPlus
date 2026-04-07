@@ -1,0 +1,4 @@
+[ZoneTransfer]
+ZoneId=3
+HostUrl=https://us-east.storage.cloudconvert.com/tasks/4b02636a-d444-466f-8958-8687284b08f9/The%20Game%20Designers%20Workbook%20%28Bobby%20Lockhart%2C%20Eric%20Lang%29%20%28z-library.sk%2C%201lib.sk%2C%20z-lib.sk%29.txt?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=cloudconvert-production%2F20260406%2Fva%2Fs3%2Faws4_request&X-Amz-Date=20260406T182141Z&X-Amz-Expires=86400&X-Amz-Signature=03228e27e639592766001546288ef12c00294c660233db7b9fc0aa6e2ccacf5f&X-Amz-SignedHeaders=host&response-content-disposition=attachment%3B%20filename%3D%22The%20Game%20Designers%20Workbook%20%28Bobby%20Lockhart%2C%20Eric%20Lang%29%20%28z-library.sk%2C%201lib.sk%2C%20z-lib.sk%29.txt%22&response-content-type=text%2Fplain&x-id=GetObject
+ReferrerUrl=https://cloudconvert.com/

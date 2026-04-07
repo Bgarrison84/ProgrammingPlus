@@ -1,0 +1,4 @@
+[ZoneTransfer]
+ZoneId=3
+HostUrl=https://us-east.storage.cloudconvert.com/tasks/b4e9cbf9-80a1-4a34-8298-7f220e8322cd/rubyisforfun.txt?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=cloudconvert-production%2F20260330%2Fva%2Fs3%2Faws4_request&X-Amz-Date=20260330T010711Z&X-Amz-Expires=86400&X-Amz-Signature=08711dbe08bbb681a65cf5d977e8395ba7c9518096ed35d828fe8f56996a793c&X-Amz-SignedHeaders=host&response-content-disposition=attachment%3B%20filename%3D%22rubyisforfun.txt%22&response-content-type=text%2Fplain&x-id=GetObject
+ReferrerUrl=https://cloudconvert.com/

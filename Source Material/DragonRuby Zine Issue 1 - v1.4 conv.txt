@@ -1,0 +1,1396 @@
+﻿DragonRuby Zine
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Issue 01
+
+Hello DragonRuby
+Table of Contents
+
+Introduction  to  DragonRuby  Game  Toolkit  .................  02
+
+Interview  with  Amir  Rajan  ...............................  05
+
+The  Fundamentals  of  Ruby  ................................  07
+
+Essential  Tools  for  a  Game  Programmer  ...................  10
+
+Screen  Coordinates  Explained  ............................  11
+
+Finding  Assets  ..........................................  12
+
+Code:  Snake  .............................................  13
+
+Game  Ideas:  Think  Small!  ................................  15
+
+Expanse  Core  Interview  ..................................  17
+
+Five  Days  with  the  Dragon  ...............................  21
+
+Avalon  Interview  ........................................  29
+
+Outputs  Explained  .......................................  32
+
+Drag  &  Drop  .............................................  34
+
+Handling  Input  ..........................................  35
+
+White  Labyrinth  Interview  ...............................  37
+
+The  Adventures  of  Dagron  ................................  39
+
+Featured  Games  ..........................................  40
+
+Ceph’s  Snake  ............................................  41
+
+Tweetcart  ...............................................  43
+
+Resources  ...............................................  44
+
+DragonRuby Zine Issue 01 | Spring 2023	A community publication
+
+Art and words by Brett Chalupa unless otherwise noted Edited by Akzidenz, kfischer, and Levi
+The code contained in this issue targets DragonRuby Game Toolkit v4.
+
+1
+Introduction to DragonRuby Game Toolkit
+
+DragonRuby Game Toolkit (DRGTK) is a game engine powered by the Ruby programming language. It’s unlike any other engine I’ve used—the game reloads your code changes on the fly and you can build your game for any modern device. The engine is fast and small, and it’s disturbingly productive. But most of all, making games with DRGTK is fun.
+If we want to make fun games, shouldn’t the process be fun too?
+DRGTK makes some helpful, safe assumptions for games built with it: they will run at 60 frames per second and they will be 1280x720 in resolution. At first it may seem offputting to lose a bit of control, but, like many aspects of DRGTK, it lets you focus on making your game fun instead of worrying about those sorts of things.
+DRGTK is data-driven and has an extremely small number of concepts you need to know. Instead of memorizing dozens of types, you only need to know a few basic, intuitive data structures and where to put them, and you’re making a game in no time.
+The core of every DRGTK is the tick method. It gets run 60 times every second. It’s also known as the game loop.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2
+Similar to how screens on electronic devices refresh at a regular rate (so fast that you don’t even perceive it), DragonRuby GTK games refresh at a regular rate. It’s really helpful to start thinking in terms of the game loop because it influences so much about game programming, from animation speed to timers.
+Let’s define a simple tick method:
+
+def  tick(args)
+args.outputs.labels  <<  {  x:  120,  y:  120, text:  "Hello  Dragon!"  }
+end
+
+That’s how simple it is to show some text on the screen with DragonRuby Game Toolkit. 60 times every second that tick method runs and outputs text to the screen.
+Displaying an image is just as easy:
+
+def  tick(args)
+args.outputs.sprites  <<  {  x:  120,  y:  280,  w:  100, h:  80,  path:  'sprites/misc/dragon-0.png'  }
+end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+3
+If we want to make our dragon fly around, all we need to do is keep track of its position, check for arrow key presses, and move the sprite around:
+
+def  tick(args)
+args.state.dragon  ||=  {  x:  120,  y:  280,  w:  100, h:  80,  path:  'sprites/misc/dragon-0.png'  }
+speed  =  8
+if  args.inputs.up args.state.dragon.y  +=  speed
+elsif  args.inputs.down args.state.dragon.y  -=  speed
+end
+if  args.inputs.left args.state.dragon.x  -=  speed
+elsif  args.inputs.right args.state.dragon.x  +=  speed
+end
+args.outputs.sprites  <<  args.state.dragon end
+
+
+To get an image moving around the screen so quickly with so few lines is really quite a feat! Try changing around speed and seeing how that feels. Tuning values to feel just right is part of the fun of making games.
+That’s just a quick taste of a simple program that’s starting to look like a game. Keep on exploring and learning DragonRuby Game Toolkit to discover the joy that awaits when making games with it. It truly doesn’t get that much more complicated.
+
+Continue your flying lesson at book.dragonriders.community.
+
+
+
+
+
+
+
+
+4
+Interview with Amir Rajan
+
+
+Amir is the creator of DragonRuby and a renowned game developer. He’s known for his games A Dark Room, The Ensign, A Car That Turns, and more. He was gracious enough to conduct an interview for the first issue of the zine.
+What were your motivations with starting DRGTK?
+Between 2013 and 2018, I released three commercial games on the Apple App Store, one on the Google Play Store, and was starting on a port of one of the games to the Nintendo Switch. At that point I noticed that my ability to release new games was being hindered by upkeep of my existing games (because of mobile and console release cycles). I needed to address the challenges of this upkeep related to cross-platform distribution. DragonRuby Game Toolkit is the solution to this problem. One codebase with the ability to distribute to all platforms trivially.
+What have some of the biggest surprises so far been with launching and sharing the engine?
+The biggest surprise by far has been how incredible the DragonRuby community is. People who join our Discord server often say that we have the most friendly and welcoming server they've ever joined.
+Do you have any long term goals or visions for the engine? Take over the world, obviously.
+On a more serious note, I want DragonRuby Game Toolkit to be the engine that helps indie game developers painlessly release cross-platform commercial games without having to make platform-specific tweaks to get the game playable. Indies don't have the human or monetary capital to deal with compatability issues (especially not in the eleventh hour/just before releasing to the public). It's criminal that other engines impose these burdens on game devs.
+What are some common pitfalls you see indie developers falling into, and how can they avoid them?
+Gosh there are too many to list. Here are the most important ones:
+
+5
+1. When starting out, prototype your core game loop that sets it apart from other games. Be able to communicate this "hook" within the first 20 seconds of your game.
+2. Target hyperniche groups and avoid competing in generic, saturated markets.
+3. Build and ship a game within a 3-month time frame (stop spending years building your game). Monetize through downloadable content that expands upon the initial game. Market to your target niche group throughout the development process.
+4. Your game trailer should get to the hook within 5 seconds.
+5. Your game should get first time players into the action within 20 seconds (see the first bullet point).
+6. Target all platforms from the start. DragonRuby GTK lets you easily ship your games for web, PC, and mobile from any operating system.
+Can you share what you’ve been working on lately? How’s it going?
+The top initiatives for 2023 are turnkey distribution to Steam and Nintendo Switch Readiness Wizard (which will help you make sure your game will be approved by Nintendo if you get access to their platform. They have strict requirements for what your game must support).
+
+Find out more about Amir’s games at amirrajan.net and DragonRuby at dragonruby.org.
+
+
+
+
+
+
+
+
+
+
+
+
+Art by Akzidenz
+
+
+6
+The Fundamentals of Ruby
+
+Writing code is the process of telling the computer what to do. You issue commands to the computer, and it runs those commands. Commands in Ruby are called “methods.” The rules and order of the code you type is known as the syntax. If you get the syntax wrong, the computer won’t listen to your command. If you want to tell the computer to output some text in Ruby, you use the puts method:
+
+puts "I'm so hungry!"
+
+
+You’ll need to keep track of information in your programs, like numbers and strings of characters that form words. Data gets stored in variables, which you can then later access and manipulate based on a variety of factors, like time passing or player input.
+
+favorite_food = "apples"
+puts "I'm so hungry for #{favorite_food}"
+
+That code assigns the set of characters that form the word “apples” to a variable called favorite_food. You can then use that variable you created in your code and combine it with the statement from before.
+Let’s say there’s a hunger_level that tracks how hungry someone is, and they only eat if their hunger_level is high enough. We’d use conditional statements for that.
+
+hunger_level = 5
+if hunger_level > 12 puts "collapses"
+elsif hunger_level > 8
+puts "eats " + favorite_food else
+puts "stomach grumbles" end
+
+7
+You can use a collection that’s known as an array to keep track of multiple pieces of data. Creating an array entails putting data separated by commas inbetween two square brackets:
+
+levels = ["cave", "field"]
+
+Array values are accessed via their index. This is a number that refers to the value’s position in the array, counting from zero. So to check what the second level is ("field"), you’d do:
+
+levels[1]
+
+You’ll often need to loop through the elements of an array, which you can do with:
+
+levels.each do |level| puts level
+end
+
+Another common data structure is known as a hash. It contains keys that map to values, which you can easily access. With an array, you need to know an element’s position, which isn’t easy to remember. With a hash, you just need to know the key. You access a value with brackets like an array, but you use the key instead of the index.
+
+player = {
+name: "Francis", species: "Dragon", hunger_level: 8
+}
+puts player[:name]
+
+
+We’ve been modeling data in our code and calling the puts method, but let’s write our own method. Methods are the foundation of organizing code into reusable pieces. Methods in Ruby start with
+
+8
+the def keyword and finish with the end keyword.
+
+Here’s a simple method:
+
+
+def eat player[:hunger_level] = 0 puts "no longer hungry"
+end
+
+Then you call the eat method just like we did with puts:
+
+
+if player[:hunger_level] > 12 puts "collapses"
+elsif player[:hunger_level] > 8 eat
+else
+puts "stomach grumbles" end
+
+
+Methods also accept arguments, known as parameters. For puts, we’re passing in a string parameter to tell our program what to output. Let’s have our eat method take a parameter for the amount of energy the food gives our program when it eats.
+
+def eat(energy) player[:hunger_level] -= energy if player[:hunger_level] <= 0
+puts "no longer hungry" end
+end
+
+If we had a food variable that’s a hash with an energy key, our revised method would be called with: eat(food[:energy])
+Those are some of the fundamental building blocks of Ruby. Coding gets easier the more you work at it like any other skill. Follow along with the examples in this zine, the DragonRuby GTK docs, search online, and ask for help when you need it.
+9
+Essential Tools for a Game Programmer
+
+Coding games requires some special programs and tools. Here are the top five you’ll need to make awesome games.
+
+1. Text Editor — You write code in a specialized editor different from a word processor. Check out Visual Studio Code, Notepad++, or Sublime Text.
+2. Image Editor — No matter how simplistic the graphics in your game are, you’ll need a program to adjust and modify them to be just right. Check out Krita, Aseprite, or GIMP.
+3. Sound Tool — Your game will likely have music and sound effects, so a tool to edit sound files is needed. Check out Audacity, GarageBand, jsfxr, LMMS, Ardour, Sunbox, Nanoloop, Hydrogen, ChipTone, or 1BitDragon.
+4. Pen and Paper — When working out problems, doodling, and capturing notes, your trusty old pen and paper will treat you well!
+5. Gamepad — A lot of players use controllers, so having one hooked up to your computer while you’re working on your game can be really helpful for testing.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+10
+Screen Coordinates Explained
+
+
+When making 2D games, the images that get displayed (called sprites) have an x and y position on the coordinate plane. This represents where they’re drawn on the screen.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Much like charts, the x axis starts on the left and the y axis starts on the bottom. A sprite at x: 0, y: 0 would be in the lower-left of the screen. A sprite at x: 640, y: 360 would be near the center of the screen.
+A sprite’s x axis starts on the left and the y axis on the bottom, just like the screen does. As a sprite moves around on the screen, its x and y positions are changing.
+
+
+
+
+
+
+
+
+
+
+
+
+11
+Finding Assets
+
+
+Do you find yourself wanting to make games but saying things like, “I can’t make art!” or “What even is music?” Don’t fret! The internet is full of helpful resources that will help make your games extra special if you don’t want to make the sprites, music, and sound effects in your game.
+You’ll be able to find art and music in just about any style you can imagine, from retro pixel art to vector graphics. While many artists generously release their assets for free, you can pay for them too. Consider donating or buying assets to support those artists!
+Here are some great resources to help you out:
+
+opengameart.org
+
+itch.io/game-assets
+
+kenney.nl
+
+Browse around and see what you find. You might even get inspired with an idea for a game!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+12
+Code: Snake
+Code by Brett Chalupa & cromukent
+My mother had a Nokia cellphone with Snake on it, and I’d play it during car rides. I love the simplicity and fast-paced action of it. Here’s the code for making your own version in DragonRuby GTK.
+
+TILE_SIZE = 80 def tick(args)
+args.state.game_over ||= false args.state.parts ||= [] args.state.head ||= {
+x: TILE_SIZE * 5, y: TILE_SIZE * 4, new_direction: :up, w: TILE_SIZE, h: TILE_SIZE, r: 120, g: 220, b: 120
+}
+args.state.apple ||= spawn_apple(args) head = args.state.head args.outputs.labels << { x: 20, y: 700,
+text: "Score: #{args.state.parts.length}", alignment_enum: 0, size_enum: 8 }
+
+unless args.state.game_over
+if args.state.tick_count % 12 == 0 prev_pos = [head.x, head.y]
+
+head.direction = head.new_direction case head.direction
+when :up
+head.y += TILE_SIZE when :down
+head.y -= TILE_SIZE when :left
+head.x -= TILE_SIZE when :right
+head.x += TILE_SIZE end
+
+args.state.parts.each.with_index do |p, i| next_prev_pos = [p.x, p.y]
+p.x, p.y = prev_pos prev_pos = next_prev_pos
+end
+
+if args.state.parts.any? { |p| head.intersect_rect?(p) } args.state.game_over = true
+end end
+
+if head.left >= args.grid.right
+
+13
+head.x = args.grid.left
+elsif head.right <= args.grid.left head.x = args.grid.right - head.w
+elsif head.bottom >= args.grid.top head.y = args.grid.bottom
+elsif head.top <= args.grid.bottom head.y = args.grid.top - head.h
+end
+
+if head.direction == :up || head.direction == :down head.new_direction = :right if args.inputs.right head.new_direction = :left if args.inputs.left
+else
+head.new_direction = :up if args.inputs.up head.new_direction = :down if args.inputs.down
+end
+
+if head.intersect_rect?(args.state.apple) args.state.parts << head.clone.merge({ r: 60, b: 34 }) args.state.apple = spawn_apple(args)
+end
+
+else
+args.outputs.labels << [
+{ x: args.grid.w / 2, y: 500,
+text: "Game Over", alignment_enum: 1, size_enum: 12 },
+{ x: args.grid.w / 2, y: 360, text: "Press SPACE to Restart", alignment_enum: 1, size_enum: 6 }
+]
+if args.inputs.keyboard.key_down.space $gtk.reset
+end end
+bg = { x: 0, y: 0, w: args.grid.w, h: args.grid.h, r: 166, g: 217, b: 244 }
+args.outputs.solids << [bg, args.state.parts, args.state.apple, args.state.head]
+end
+
+def spawn_apple(args)
+{ x: rand(args.grid.w / TILE_SIZE) * TILE_SIZE, y: rand(args.grid.h / TILE_SIZE) * TILE_SIZE,
+w: TILE_SIZE, h: TILE_SIZE, r: 200, g: 40, b: 40 } end
+
+
+
+
+
+
+
+14
+Game Ideas: Think Small!
+
+When you’re getting started making games, it’s easy to bite off more than you can chew. Maybe you want to make an online real-time strategy game or a huge action adventure game. New game makers often have been thinking about their dream game for years!
+But you have to start small. If you want to run a marathon, you wouldn’t go out and try to run 26.2 miles. You start with shorter distances and build up your stamina, often times with a detailed training plan. While there’s not a scientific training plan to go from “I’ve never made a game before” to “I’ve made my dream game,” there’s certainly a mindset that will help you get there.
+You have to start small. Smaller than you’re probably thinking. I’m talking like Pong, Snake, Breakout levels of simple. Arcade games from decades ago are great candidates for your first games. Try to adapt physical games like Tic-Tac-Toe, Klondike Solitaire, or Checkers. Even the simplest games contain a wealth of game programming concepts that will help you become a better developer. Games with simple rules and not a lot of graphics will be easier to make at the start.
+As you get better at making games, try to take your dream game or a game you love and distill it down to its simplest form. Ask yourself: “What can I take away from this while still retaining what I love?” If you’re a die-hard fan of Japanese role-playing games like Dragon Quest, what if you removed the grinding, maps, and huge story and instead made a thirty-minute long game with simple combat and a boss fight at the end? Even that’s probably too large of an idea for your first few games, but that mindset of thinking small and whittling down will help you stay grounded.
+The most important thing is that you finish your games! No game is too small, too trivial. Make it, finish it, and share it in the DragonRuby GTK Discord. We’d all love to see it. And then when you’re ready to start your next game, make it a little bit bigger and more complex. Before you know it’ll you’ll be ready for taking on that dream game!
+
+
+
+15
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Screenshots from some of my earliest games. Simplistic but foundational!
+
+
+
+
+
+16
+Expanse Core Interview with Owen Butler
+
+I’ve been eagerly following along with Owen Butler’s impressive progress of Expanse Core, his sci-fi Vampire Survivors’ inspired game built with DRGTK. I asked him a few questions about how it’s been going!
+What’s the premise and scope of Expanse Core?
+It’s heavily and shamelessly inspired by Vampire Survivors. I think the first Git repo may have been called Space Survivors, but I quickly changed it to something that I could build a story
+around: Expanse Core. In the game, you are drifting through some nameless space (the expanse) and get attacked by enemies. The enemies drop upgrade cores, which level you up. Expanse Core!
+Mechanically it shares many things in common with this genre of game: run-based, waves of enemies, level-ups, and random choice of weapons and power-ups as you level up. This leads to unique builds using combinations of weapons and power-ups.
+Scope-wise, I'd like to ensure that the game has all the trappings normally seen in the genre, then add a little extra in the form of an open world. In most games in this genre, you choose the difficulty of your run in menus. I want to see if I can have zones of the expanse (space) that are more difficult, and introduce neat ways to travel quickly between them. This will make choosing the difficulty of your run be part of the game's world rather than just a menu option.
+What’s your experience with game-making? Is Expanse Core your first game of this size?
+Expanse Core is my largest game yet. I've noodled around with making small prototypes and experiments for many many years.
+I used QBasic back in the day to make small experiments and games. C with mode 13h graphics in DOS, C and C++ with SDL to create small shooters influenced by 1942 and Raiden. For a while I worked on a Java-based 2D game engine, which used OpenGL through JOGL.
+The repeated pattern I have fallen into in the past is enjoying building the utilities and game engine so much that I never actually finished a game. There's always a tweak or performance thing to
+17
+play with. I don't regret that, it's always fun!
+I've not fallen into that trap with DRGTK.
+What are some of your favorite aspects of using DragonRuby GTK with this project?
+DragonRuby GTK has an interface at a very pleasing level of abstraction. It's low-level enough that the part of me that likes to tinker is still satisfied; you still have to build some structure. At the same time, it's high level enough that all the normal things I'd normally tinker with (drawing to the screen, scaling, rotating, sound) are already done. So, I'm naturally spending more time on actually making a game. This is great!
+Another aspect that I appreciate is how easy it makes it to publish cross-platform builds to itch.io. It's a huge barrier to entry that is melted away with the dragonruby-publish command-line tool.
+Plus, the community is enthusiastic, helpful, and kind.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Did you use Ruby before DRGTK?
+Not in earnest. I've worked as a software engineer using C, C++, Java, and other languages in my career. I've come across plenty of Ruby, but before DragonRuby GTK I'd never really written a Ruby program that involved more than one class. I've used Ruby as glue, or as an alternative when bash scripts get too big.
+
+
+
+
+18
+What tools do you use aside from DRGTK and what OS do you work on?
+I use a mix of Mac and Windows, depending on where I am. GitHub for moving between them. Visual Studio Code for editing (but with vim keybindings of course). Palantir for monitoring the state of the game.
+I've used a combo of tools to create sprites: ffmpeg to output stock video (explosions) to frames, GIMP for editing images, TexturePacker for creating sprite sheets, PixelFX Designer for creating explosions, and more. I haven't even gotten to making music for the game yet, but I plan to compose the music in Cakewalk.
+I found DRGTK through itch.io's Bundle for Racial Justice and Equality. It introduced me to itch.io and the wealth of assets that are available there and on other asset sites. There's a bonus thing I like about DR: I like that it's close to the itch.io community. It's great supporting other game developers by purchasing and using asset packs.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+What challenges have you faced with development? For me, it's time. I have a full-time job that is not game
+development and a young family. For the spare time that I do have, I have other hobbies too! I guess that's another aspect that is great about DragonRuby, you can get a great deal done in a small amount
+19
+of time.
+What keeps you dedicated to continued development of Expanse Core?
+I've always experimented with games, so I guess it's a hobby. I enjoy the journey and creative outlet. As long as that journey is still enjoyable and I'm able to get creative with this game, I'll keep plugging away at it.
+
+Play in-progress builds and follow along with Expanse Core at owenbutler.itch.io/expanse-core
+
+
+
+
+
+
+
+
+
+
+Don’t Forget to Back Up Your Game’s Source Code!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Art by Juniper
+
+
+
+
+20
+Five Days with the Dragon	Xed
+
+Greetings, adventurer! I understand you are about to visit the dragon. I have counseled with it for over 900 days. Allow me to advise you on your journey.
+Day 1
+You enter a luminescent cave. The dragon's burrow resonates with magical power. The dragon appears before you. You beckon to it, "I seek the power of the Dragon Rider.”
+Nodding, the dragon says, “Very well. You must prove yourself worthy.”
+“I am ready.”
+“First: download my power.”
+“Dragon, I have already done this. I have the latest version.” The dragon smiles, “It’s okay if you have an older version.”
+It continues, “Second: to harness my power you must choose an artificer, to scribe the glyphs of my language.”
+“Dragon, I know not where to begin.”
+“You can choose free text editors like Notepad++, Nautilus, or Visual Studio Code. There are also more powerful artificers such as Emacs and Vim.”
+“Dragon, there is no IDE?”
+The dragon glares at you, balefully. “Forgive me. I will find an artificer.”
+“Lastly: answer these questions—the Dragon Riders will make you answer them, so you’d better think about them now...
+“What is your favorite game? “What is your favorite hobby?
+“Return to me when you have performed these tasks.” Day 2
+You return the next day. Emacs’ power was overwhelming. Notepad++ will suffice, you tell yourself.
+“Dragon, I am ready. My favorite game is Undertale, and I like 21
+to read in my spare time.”
+“A worthy response: this will please the Dragon Riders. They will make an offering of sample app knowledge when you join the Discord. We will begin the lesson.”
+The dragon casts a spell. Glyphs appear in the air:
+
+def tick(args)
+args.outputs.sprites << [460, 470, 128, 101, 'dragonruby.png']
+args.outputs.sprites << [610, 470, 128, 101, 'dragonruby.png', args.state.tick_count % 360]
+args.outputs.sprites << [760, 470, 128, 101, 'dragonruby.png', 0, args.state.tick_count % 255]
+end
+
+3 images of rubies appear in front of you. 1 is still, 1 spins, 1 flashes.
+“This is the first lesson: all of its secrets are reavealed in samples/01_rendering_basics/04_sprites. To understand the first lesson, you must:
+•	Understand tick: it happens every frame.
+•	Understand args: it is the root of all of my power.
+•	Understand outputs: everything you share will pass through them.
+•	Understand Array: it is a gateway to larger constructs. •	Understand modulo: this operator will help you cycle
+numbers.”
+“Dragon, I need math?”
+“Yes. You’ll regret all of the slacking off you did in those classes. Now go…”
+Day 3
+In the burrow, on the third day, the dragon says, “Are you ready for the next lesson?”
+“Yes. I am ready, I understand tick, args, outputs, Arrays,
+
+22
+and modulo.”
+“Bah. You understand nothing of args! Its power is LIMITLESS! Behold.”
+The dragon casts a spell. Glyphs appear in the air:
+
+def tick(args)
+# create a player and set default values
+# for the player's x, y, w (width), and h (height) args.state.player.x ||= 100
+args.state.player.y ||= 100 args.state.player.w ||=  50 args.state.player.h ||=  50
+
+# render the player to the screen args.outputs.sprites << {
+x: args.state.player.x, y: args.state.player.y, w: args.state.player.w, h: args.state.player.h,
+path: 'sprites/square/green.png' }
+
+# move the player around using the keyboard if args.inputs.up
+args.state.player.y += 10 elsif args.inputs.down
+args.state.player.y -= 10 end
+
+if args.inputs.left args.state.player.x -= 10
+elsif args.inputs.right args.state.player.x += 10
+end end
+
+An adventurer, in the form of a green square, appears. To your amazement, it responds to both the keyboard and the controller: darting about the magical play-area as you command it.
+“I had no idea,” you gasp.
+
+23
+“This is samples/02_input_basics/01_moving_a_sprite,” says the dragon. “You have seen outputs.sprites and the Array. But now you witness outputs.sprites with a Hash.”
+To your delight, you don’t need to remember the order of the arguments anymore—they are all labeled with Ruby symbols. What sorcery is this?
+“The Hash and Array are of Ruby. You must learn their power.” You acknowledge, “Yes, dragon. I will.”
+“I also offer you args.inputs and args.state. Use args.inputs to learn of the player’s desire. Use args.state to remember things.”
+You ask, “Dragon, what is ||=?”
+“||= is a conditional assignment operator. Think of it this way: ‘if args.state.player.x does not have a value, give it this value.’”
+You inquire, “Dragon, what are += and -=?” “Dragons do not waste time. We do not want to write
+args.state.player.x  =  args.state.player.x  +  10. We could, but it takes up more space.”
+Another question from you, “Where did player come from? Does player always live in args.state?”
+“No. When I asked args.state for a player, args.state created it for me. This is OpenEntity. It is of GTK.”
+“How can I know what is of Ruby and what is of GTK?”
+The dragon gestures with tilde (~). A dark shroud covers the play area. “This is the console.”
+The -> symbol beckons input. The dragon obliges, entering gtk.args.state.player.class.name.
+
+->  gtk.args.state.player.class.name =>  GTK::OpenEntity
+
+“We will not talk more of OpenEntity for today. For now, you may think of it as a Hash.”
+24
+You must understand these things:
+•	Understand args.state: we will store game state information in it.
+•	Understand args.inputs.up, down, left, and right: we will use them to understand our player's intention.
+•	Understand ||=: we will use it to initialize data.
+•	Understand += and -=: we will use them to add and subtract values from numbers.
+•	Understand that Hash and OpenEntity are your allies: we can store complex information in them.
+•	Understand the console: we will use it to glean information from Ruby and GTK.
+Day 4
+The dragon turns its head as you approach, "Excellent. You have returned. After today's lesson, there is no turning back; you will know enough to write a game."
+Surprised, you ask, "Am I ready for such an undertaking?" “Only you can answer this question. On to the lesson.” The dragon casts a spell. Glyphs appear in the air:
+
+def tick(args)
+# create player+spikes and set default values args.state.player ||= {
+x: 100, y: 100, w: 50, h: 50, path: 'sprites/square/green.png' }
+args.state.spikes ||= {
+x: 200, y: 200, w: 50, h: 50, path: 'sprites/square/red.png' }
+
+[args.state.spikes, args.state.player].each do |e| args.outputs.sprites << { x: e.x,
+y: e.y, w: e.w, h: e.h,
+path: e.path } end
+
+25
+# move the player around using the keyboard if args.inputs.up
+args.state.player.y += 10 elsif args.inputs.down
+args.state.player.y -= 10 end
+
+if args.inputs.left args.state.player.x -= 10
+elsif args.inputs.right args.state.player.x += 10
+end
+
+# check to see if the player is touching the spikes every 10 ticks,
+# + play a sound if they are and the sound is not already playing
+if args.tick_count % 10 && args.state.player.intersect_rect?(args.state.spikes)
+unless args.audio.key?(:ouch)
+args.audio[:ouch] = { input: 'sounds/ouch.wav' } end
+end end
+
+The adventurer, in the form of a green square, appears again. Spikes, in the form of a red square, also appear. When the player moves into the spikes, you can hear their anguish.
+The dragon intones, “I created this spell from the last one. You will not find it in the grimoire of sample apps.”
+“Dragon, are the sample apps not sacred?”
+“THEY ARE NOT. You would be a fool not to bend them to your own designs!” the dragon chortles.
+It gazes at you. “Read the spell back to me, describe what is happening.”
+You focus, divining the meaning of the glyphs. “First, we place Hashes inside args.state: one for the player and one for the spikes.”
+
+26
+“Correct.”
+“Next, we create an Array with the spikes and the player. But I do not know each.”
+“What do you think each does?” asks the dragon.
+“I guess that it will do something for each item in the Array,” you surmise.
+“Correct. Go on...”
+“For each item in the array, now referred to as ‘e’, we create a sprite from their Hash.”
+“Very good.”
+“Then we do what we did last time to move the player. Dragon, I do not know args.tick_count, args.audio, or intersect_rect?.”
+“They are of GTK,” the dragon says. “args.tick_count is a number that increases every tick. Every time tick happens, tick_count goes up by 1. It starts at 0. tick happens 60 times each second.
+“intersect_rect? allows us to see if two rectangles intersect. We can test anything that has x/y/w/h attributes. This comes from GTK::Geometry, which is included in Hash and OpenEntity.
+“args.audio is a Hash. when we want to hear things, we place Hashes with audio metadata in it. In this spell, we test the args.audio Hash to see if :ouch is already in there, using args.audio.key?(:ouch)”
+The dragon concludes, “You must understand these things:
+•	Understand Array’s each method: you will traverse collections with it.
+•	Understand GTK::Geometry.intersect_rect?: it is the basis for collision testing.
+•	Understand args.audio: the player will hear us with it.
+
+
+27
+•	Understand args.tick_count: we can perceive time with its value.
+•	Understand Hash.key?: we can test for keys in a Hash with it. Day 5
+You enter the luminescent cave for the fifth time.  The dragon’s burrow resonates with magical power.
+“Dragon, I return. What will I learn today?”
+“Today you test your newly acquired powers, for I bestow upon you this quest: harness my power to create and ship a game.”
+“SHIP a game?!”
+“You will write a game, and you will publish it to itch.io—for this is the way of the Dragon Rider,” the dragon commands.
+“Return to me when you have shipped a game.  Shed your fears: the Dragon Riders will aid you. Share your triumphs and tribulations with them. They will revel in your victories and aid you when you are in need. Off with you. Make me proud.”
+
+You are awaited in the Discord (discord.dragonruby.org). Join us, Dragon Rider!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+28
+Avalon Interview with 68K
+
+I look forward to playing James’ builds of Avalon, his turn-based dungeon crawler, every time he posts an update. It’s inspiring to see someone taking on such an ambitious project. I asked James a few questions about how development has been going.
+
+What are some of the inspirations for Avalon? What’s the scope of the project?
+Twenty-five years ago, I used to play all kinds of shareware titles on Commodore Amiga. I remember one game was a dungeon explorer with Avalon in the title. The game was unfinished, and it didn’t have much to do, but it always stuck in my mind as the first game I played that promised thrilling fantasy adventure with a town<->dungeon gameplay loop. I thought it would be fun to try working on the game that fired my imagination as a young teenager. (Side note: Despite Amiga software being heavily archived and preserved, I can no longer find that game!)
+The other inspiration is the Might and Magic games— specifically Might and Magic 6. That game is technically modest, but, more than anything else I’ve played before or since, it delivered what I expected a fantasy RPG to be: barely surviving in a dungeon, then using the meagre gold you earned to buy basic equipment and ale in the tavern, before taking stock of your situation to decide where to go next.
+The scope of Avalon is to be a dungeon-exploring RPG with main quest progression that will take around 10-15 hours to complete. It'll be quite easy once the game’s systems are understood (but not before). That way the player will have fun learning the game and enjoy the satisfaction of becoming powerful via their own decisions.
+What’s your experience with game making? Is Avalon your first game of this size?
+I previously released games on Xbox Live Indie Games and have a few months professional game dev experience. If I complete it, Avalon will exceed the size of anything I released for Xbox Live.
+What challenges have you faced with development?
+29
+The two big challenges have been graphics and committing to a web build of the game on itch.io.
+For graphics, I have little art talent. I could get better, but that time would directly compete with the time I spend writing code. I’m getting over this by leaning on pixelated graphics with code-generated elements. I replaced static art for dungeon walls with raycast rendering and replaced AI-generated player portraits with portraits that are randomly generated from simple facial elements.
+I’m being stubborn and committing to the web build even if it ends up limiting the scope of the game somewhat, because I think having the game more readily playable is important. This has required extra time in making sure code is more efficient and involves some hacks such as muting the audio at times where the game is busy and would struggle to not drop frames of audio playback.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+What are some of your favorite aspects of using DragonRuby GTK with this project?
+Definitely the community! It makes it quite a social hobby and not just staring at a text editor coding. Because DragonRuby has a fairly high-level API with docs and samples, it’s natural and easy that any question I have that isn’t in the docs or samples is a welcome question to the community.
+It’s also a delight to be able to code in Ruby. Ruby is generally a
+
+30
+superb language, and it lends itself extremely well to game programming. It would be an extremely unwise choice for building games from scratch. DragonRuby GTK giving you an interface to do anything you could imagine doing with SDL2 and cross-platform builds quickly is amazing.
+What tools are you using?
+I am just using the main DragonRuby distribution, but for future games I’d love to use Scale as a framework and/or Draco for entity modeling.
+I am using Visual Studio Code and Git Bash for Windows as a terminal. I’m a big fan of the Linux subsystem for Windows and would generally recommend that to Windows folks, but I’m using a very small system drive and don't have the space to install the Linux subsystem.
+I use GitLab for project management—as well as the source code repository. It gives me an issue tracker with a board to treat the issues like sticky notes, a wiki for the game design, and a pipeline for running unit tests. You can do all that with GitHub now, but that wasn’t true back when I started using GitLab!
+What keeps you dedicated to continued work on Avalon? Everyone needs a hobby that lets them indulge in “me time”
+and for me, making Avalon is it. I also know from experience that it’s worth ploughing ahead on one project and avoiding the temptation to switch to a new idea (I don’t have the time to do both!).
+Also, the DragonRuby community’s “ship early, ship often” ethos is a big boost—each time I push a new build to itch.io and post it in the #show-and-tell Discord channel, I get feedback from folks who are genuinely interested and want the project to succeed. People have donated sprites, sent crash reports, and shared that they loved taking a minute to try the game.
+
+Follow along with Avalon builds on itch.io: 68st0x20.itch.io/avalon-dev
+
+
+
+
+
+
+31
+Outputs Explained
+
+Whether you’re playing a sound effect, drawing a rectangle, showing text, or displaying a sprite, your game has some way of giving feedback to the player. DragonRuby GTK gives you args.outputs to shovel data into that then gets delivered to the player. Here’s how to handle outputting the most common information to your player in your game:
+
+# text args.outputs.labels << {
+x: 100, y: 100,
+text: "Hello, world!", }
+
+# rectangle args.outputs.solids << {
+x: 100, y: 100, w: 100, h: 100,
+r: 240, g: 100, b: 100, }
+
+# sprite args.outputs.labels << {
+x: 100, y: 100, w: 32, h: 32,
+path: "sprites/ninja.png", }
+
+# sound effect
+args.outputs.sounds << "sounds/jump.wav"
+
+
+x and y represent the position on the screen. w and h are the width and height. Many support r, g, b, and a values for red, green, blue, and alpha colors (0 to 255). With just those four outputs, combined with inputs, you can make all sorts of compelling games.
+
+
+32
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Art by Akzidenz
+
+
+33
+Drag & Drop
+
+Need to add a bit of dragon drop (har har har) to your game? It’s as simple as checking for mouse down and up and having your solid or sprite follow the mouse cursor’s position.
+
+def tick(args) args.state.rect ||= {
+x: 200, y: 200, w: 120, h: 120,
+r: 100, g: 100, b: 250, dragging: false,
+}
+
+if args.inputs.mouse.down && args.inputs.mouse.inside_rect?(args.state.rect)
+args.state.rect.dragging = true args.state.rect.b = 150
+elsif args.inputs.mouse.up args.state.rect.dragging = false args.state.rect.b = 250
+end
+
+if args.state.rect.dragging args.state.rect.x =
+args.inputs.mouse.x - args.state.rect.w / 2 args.state.rect.y =
+args.inputs.mouse.y - args.state.rect.h / 2 end
+
+args.outputs.solids << args.state.rect end
+
+
+
+
+
+
+
+
+Art by Akzidenz
+
+
+34
+Handling Input
+
+A core part of what makes video games unique as a medium is that they’re interactive. Whether it’s a mouse, keyboard, controller, or touchscreen, players need some way to interact. Players prefer all different kinds of control schemes, so it’s best to try to support as many as reasonably possible for your game. DragonRuby GTK makes it really easy to support a variety of input devices, all accessible via arg.inputs.
+A lot of games require directional input for things like moving your character around the screen or changing the highlighted menu option. There’s an easy way in DragonRuby GTK for checking the keyboard arrow keys, WASD, controller d-pad, and controller analog stick for directional movement all at the same time:
+
+args.inputs.up args.inputs.down args.inputs.left args.inputs.right
+
+Those all return true when pressed or held, otherwise they return false. Since you’re making games on your computer, it’s often easiest to start with the keyboard. Let’s check for spacebar being pressed with:
+
+args.inputs.keyboard.key_down.space
+
+Controllers have a similar interface for checking if a given button is down:
+
+args.inputs.controller_one.key_down.a
+
+
+Combine these boolean checks in your game code to handle input from multiple sources:
+
+
+
+35
+if args.inputs.up # move player up
+elsif args.inputs.down # move player down
+end
+if args.inputs.left # move player left
+elsif args.inputs.right # move player right
+end
+
+if args.inputs.keyboard.key_down.space || args.inputs.controller_one.key_down.a
+# fire missile end
+
+
+There are also key_up and key_held properties too, so you can really refine how your game controls.
+Working with the mouse is just as simple. It has x, y, and click properties, among others, that you can use.
+
+args.inputs.mouse.x args.inputs.mouse.y args.inputs.mouse.click
+
+No matter how you want your players to interact with your game, DragonRuby GTK has your back when it comes to supporting those options and making it easy.
+
+
+
+
+
+
+
+
+
+
+
+36
+White Labyrinth Interview with Podo Brett Chalupa
+Podo is a staple of the DragonRuby GTK community, regarded as one of the experts on performance. Since early 2022, he’s been working on an ambitious project tentatively titled: White Labyrinth.
+
+Can you tell me a little bit about your project?
+You play as the owner of a tavern/inn, but you run it inside the dungeon where there are monsters and threats, including violent customers. It's a basecamp survival game. I’m working with an artist known as snowstorm on the game. We're planning to release it on Steam.
+What are some of the inspirations?
+Tycoon games from the 1990s in which you have to keep satisfying the customers to keep going. I reference Rimworld a lot for the survival aspects.
+Did you use Ruby before making White Labyrinth?
+I made a Discord bot written in Ruby, and that was my only prior programming experience.
+What challenges have you faced with development? Getting the graphics looking great has been the hardest part
+of it.
+What are some of your favorite aspects of using DragonRuby GTK with this project?
+DragonRuby GTK is the best game engine for my personal taste. I really have difficult times learning any software that comes with tons of user interface options (menus, buttons, windows, etc.) where many elements often intersect in an implicit way. DragonRuby is extremely explicit in that as a developer I can precisely control and manage what order and amount each tick/frame of a given moment will play out.
+To me, it's a very bottom-up focused way of developing a large project, allowing me to make sure I control every bit of it, ensuring less bugs in the later stage of development.
+
+What keeps you dedicated to the project? 37
+I enjoy making a game that I'd play myself, so it has to have good replayability.
+
+Interested in following along? Message Podo#6822 on Discord to get invited to the game’s server.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Screenshots from White Labyrinth
+
+38
+The Adventures of Dagron The Game Developing Dragon
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+To be continued…
+
+39
+Featured Games	Curated by Akzidenz
+
+Runelighter by LittleB0xes
+A strange and beautiful hybrid between dungeon crawler and card memory game. Pick up pairs of runes to gain a magical ability and use it to fight your foes. Watch out! Each time you play, pairs of runes will have a different effect.
+
+littleb0xes.itch.io/runelighter
+
+
+
+Balloon Story by Ceph
+Control the movement of a balloon by blowing air at it. It’s such a simple premise that you instantly know what you need to do. Actually doing it is another matter, because the simple gameplay quickly becomes challenging… and then nearly impossible.
+
+ferociousfeind.itch.io/balloon-story
+
+Fill the Glass
+by gabemcarvalho
+
+This is a perfect reminder that games don’t need to have fancy or complicated ideas to be fun. They just need to be executed well. Pick up a glass, fill it with water, put it on a table and repeat. It takes just twenty seconds of your time and it won’t waste a single one of them.
+gabemcarvalho.itch.io/fill-the-glass
+
+
+40
+Code: Ceph’s Snake Code by Ceph
+How’s that old saying go? There’s more than one way to ride a dragon! When coding games, there’s often more than one way to do something. Sometimes there are trade-offs, other times it’s just different. Code is an expression of how you think. Ceph shows another way to go about coding Snake.
+
+
+def tick(args)
+snake = args.state.snake ||= [[3, 3]] apple = args.state.apple ||= [6, 6] args.state.snake_length ||= 1 args.state.movement ||= 1 args.state.newmove ||= 1
+
+world_w = 16 world_h = 9
+
+if args.state.gamestate == :end
+$gtk.reset_next_tick if args.inputs.keyboard.space args.outputs.labels << {
+x: 640, y: 340, alignment_enum: 1, vertical_alignment_enum: 1, size_enum: 2,
+text: "Press SPACE to Restart" }
+end
+
+case args.state.gamestate when :end
+args.outputs.labels << { x: 640, y: 480, alignment_enum: 1,
+vertical_alignment_enum: 1, size_enum: 8,
+text: "Game Over" }
+else
+if args.state.movement % 2 == 0 if args.inputs.left_right != 0
+args.state.newmove = 2 - args.inputs.left_right end
+else
+if args.inputs.up_down != 0
+args.state.newmove = 1 - args.inputs.up_down
+41
+end end
+
+if args.tick_count % 12 == 0 args.state.movement = args.state.newmove move = [[0,  1], [1,  0], [0, -1], [-1, 0]]
+[args.state.movement] new_pos = [
+(snake.last[0]+move[0]) % world_w, (snake.last[1]+move[1]) % world_h
+]
+args.state.gamestate = :end if snake.include?(new_pos) snake << new_pos
+if new_pos == apple args.state.snake_length += 2
+if args.state.snake_length > 141 args.state.gamestate = :end
+end
+while snake.include?(apple)
+apple = [rand(world_w), rand(world_h)] end
+end
+if snake.length > args.state.snake_length snake.shift
+end
+args.state.snake = snake args.state.apple = apple
+end end
+# rendering object_size = 80 to_render = [] snake.each do |obj|
+to_render << {
+x: obj[0] * object_size, y: obj[1] * object_size, w: object_size, h: object_size,
+r: 71, g: 208, b: 52 }
+end
+to_render << {
+x: apple[0] * object_size, y: apple[1] * object_size, w: object_size, h: object_size,
+r: 206, g: 34, b: 48 }
+args.outputs.background_color = [176, 222, 245] args.outputs.sprites << to_render args.outputs.labels << {
+x: 20, y: 700, size_enum: 8,
+text: "Score: #{args.state.snake.length.idiv(2)}" }
+end
+42
+Tweetcart
+Code by hiro_r_b, words by Akzidenz & Levi
+
+A Tweetcart is a tiny program like an animation, a visual effect, or even a playable game. Tweetcart programmers use every trick in the book to squash the code down until it fits into 280 characters—just enough to fit in a Twitter post. Why would anyone do that? It takes a certain kind of wild genius. The Tweetcart below is by hiro_r_b, the undisputed champion of DragonRuby tweetcarting. Type the code below in to an empty DragonRuby GTK app/main.rb file to see what it makes.
+
+TICK{bg!srand 5 m,n=(tc/270*c=360).vector (q=[[0,0,99,0,0,16]]).each{|x,z,y,a,e,l| l.times{v=-cos(a*c)*l/4
+(0..(l-_1)/4).each{|j|sld!80+x*m+z*n-j,y,1,v,pal[21-j]} x+=sin(c*a=a*0.8+(rand-0.5)/h=4+l/4)*l/3
+y+=v
+z+=sin(c*e=e*0.8+(rand-0.5)/h)*l/3 31*rand<l&&q<<[x,z,y,a,e,l-4]}}}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+43
+Resources
+
+Continue your journey with DragonRuby Game Toolkit by checking out the following community resources. Don’t worry, the next issue of the zine will be out before you know it!
+
+
+
+
+
+
+
+
+
+Read the official docs! docs.dragonruby.org
+
+Join us on Discord! discord.dragonruby.org
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Build a simple, complete game in Building Games with DragonRuby, a free digital book. book.dragonriders.community
+
+
+
+
+
+
+
+
+
+Follow more advanced tutorials on the community website. www.dragonriders.community/recipes
+
+
+
+44
+Ruby Cheatsheet Basic Types
+name = "Francis" num = 583
+float = 10.5
+foods = ["apple", "pear"] address = {
+line1: "123 Sky Way", line2: "Apt 2", state: "New Dragon", zip: "12345",
+}
+hungry = true
+
+Comments
+# just a note to self
+
+Print to Console puts "anything"
+
+String Interpolation puts "Hello, #{name}."
+
+Loops
+5.times  do  |i| puts(i)
+end
+
+foods.each  do  |food| puts(food)
+end
+
+address.each  do  |key,  value| puts("#{key}:  #{value}")
+end
+
+Math
+5 + 5 # => 10 (add)
+
+
+
+
+5 - 2 # => 3 (subtract) 5 * 3 # => 15 (multiply) 6 / 4 # => 1.5 (divide) 9 % 2 # => 1 (modulus)
+
+Math.sin(r) Math.cos(r) Math.atan2(r2, r1)
+
+Random Numbers rand()  #  float  in  [0;  1) rand(5)  #  int  in  [0;  5)
+5  +  rand(3)  #  int  in  [5;  8)
+
+Conditionals &&  #  AND
+||  #  OR
+
+Logic
+if  monday?  ||  tuesday? puts  "not  fun  days"
+elsif  wednesday? puts  "fine  day"
+else
+puts  "great  days" end
+
+Methods
+def  add(num1,  num2) num1  +  num2
+end
+
+The return keyword is optional, but can be used to return early:
+
+def  add(num1,  num2)
+return  num1  if  num2.nil?
+
+
+45
+DragonRuby GTK Cheatsheet	by Kota & Dee
+
+
+Basic App
+def  tick(args) args.outputs.solids  <<  {
+x:  300,  y:200, w:  30,  h:  30
+} end
+
+Primitives Solids
+args.outputs.solids  <<  { x:  x_pos,  y:  y_pos,
+w:  width,  h:  height, r:  red,  g:  green,
+b:  blue,  a:  alpha }
+
+Sprites args.outputs.sprites  <<  {
+x:  x,  y:  y,  w:  w,  h:  h, r:  r,  g:  g,  b:  b,  a:  a, path:  'sprites/img.png', angle:  rotation_degrees,
+}
+
+Labels args.outputs.label  <<  {
+x:  x,  y:  y,  text:  "hi!", r:  r,  g:  g,  b:  b,  a:  a, alignment_enum:  0, size_enum:  0,
+font:  "font.ttf",
+}
+
+
+Rendered Bottom to Top solids
+static_solids sprites static_sprites primitives static_primitives labels static_labels lines static_lines borders static_borders
+
+State
+Store arbitrary data
+args.state.speed  =  8
+
+Set initial value in state args.state.speed  ||=  8
+
+Get number of passed ticks args.state.tick_count
+
+Input Directions
+args.inputs.up  (down,  left,
+right) Keyboard
+args.inputs.keyboard.key_down.z Controller
+args.inputs.controller_one.key_down.a Mouse
+args.inputs.mouse.click args.inputs.mouse.x args.inputs.mouse.y
+
+
+46
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+DragonRiders.Community 2023

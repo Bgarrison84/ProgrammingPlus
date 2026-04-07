@@ -1,0 +1,5545 @@
+﻿
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Copyright © 2021 RetroGameDev. All rights reserved.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Be you. The world will adjust.
+
+
+
+
+• • •
+
+
+
+
+
+
+• •
+
+
+• • • •
+
+
+• • •
+
+
+• • • • •
+
+
+
+
+•
+
+
+• • •
+
+
+• • •
+
+
+• •
+
+
+• • • • •
+
+
+• • • •
+•
+
+
+• • •
+
+
+• • •
+
+
+• • •
+
+
+
+
+
+
+• • • • • • •
+
+
+Welcome to RetroGameDev C64 Edition Volume 2.
+
+
+
+This book is for those who wish to further their game creation skills for the Commodore 64 and learn some of the more advanced features the computer offers.
+The response to the first volume has been amazing and I thank all of you for embracing the concept to provide a simple yet effective   approach   to   learning   a   difficult   subject.   The involvement in the forum, the awesome mini-game mods, and even some published games based on the code library have far exceeded expectations.
+The idea behind the first volume was to provide an abstracted library code framework in order that the assembly code details didn’t muddy the game development concepts presented. This worked well and will continue here. However, this time as requested, the library code is fully commented and a handy reference section has been added to the end of this book.
+Also, rather than two mini-games there is an in-depth look into the creation of a larger multi-screen game pushing further toward what a released product might look like.
+Iinvite everyone to take the Beach Bar game and either expand upon it or use the concepts presented to make your own totally new game. The code is completely royalty free!
+Furthermore,  feel  free  to  share  your  game  development journey  at  retrogamedev.com/forum  or  ask  any  questions relating to this book and I’ll do my very best to answer.
+
+
+Let’s keep these retro systems alive!
+
+
+
+
+
+1
+
+
+The information in this volume 2 book builds upon the first volume and is not intended as a replacement. Therefore some fundamental concepts from volume1 are skipped and assumed to be understood in order to follow along with the code explanations. These are:
+•   Number bases and uses.
+•   A basic introduction to C64 hardware.
+•   Fundamental 6502 assembly language explanations. •   How to run .prg files in an emulator or on hardware.
+
+
+
+To get the most from this book I suggest the following steps:
+•   Download the book assets.
+•   Run some of the pre-built prg’s (Commodore program files) in an emulator, on the C64 Mini/Maxi, the Mega65, or on an original Commodore 64/128.
+•   Follow through the book trying the experiments and heeding the warnings.
+
+
+
+
+
+
+
+
+
+
+
+
+•   Study the supplied code base using the Library Code chapter as reference.
+Have fun!
+
+
+
+2
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+3
+
+
+A Microsoft Windows 10 environment is assumed but other operating systems can also be configured for development. (See retrogamedev.com/forum for more information).
+
+
+
+•   Download and extract the book assets from retrogamedev.com/downloads.
+
+The tools and installers are in  Tools\
+The .code-workspace files are in Chapters\Chapter* The .spd, .bin, .ctm, .sid files are in Chapters\Content
+•   Install the Java runtime from Tools\Java\ JavaSetup8u281.exe.
+•   Install Visual Studio Code from Tools\VSCode\ VSCodeUserSetup-x64-1.52.1.exe.
+•   Open Visual Studio Code, select Extensions (1), search for kick (2), and install the Kick Assembler (C64) for Visual Studio Code extension by Paul Hocker (3).
+
+
+2
+
+3 1
+
+
+
+
+
+
+
+
+
+
+4
+•   Check File->Auto Save (1).
+
+
+
+
+
+
+
+1
+
+
+
+
+
+
+
+
+
+•   Select  the  gear  icon  (1)  on  the  Kick  Assembler extension,  then  Extension  Settings  and  open  the User settings tab.
+
+
+
+
+1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+5
+•   Fill  in  your  own  Kick  Assembler  extension  paths: (these may differ from the images below depending on where the files have been extracted to)
+
+
+o Kickassembler
+
+
+
+
+
+
+
+
+o C64 Debugger
+
+
+
+
+
+
+
+
+o VICE Emulator
+
+
+
+
+
+
+
+
+o Java Runtime
+
+
+
+
+
+
+
+
+
+6
+•   Open Tools\WinVICE\x64sc.exe.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+On the Settings menu:
+•   Check Sound settings->Sound playback, Drive settings->True drive emulation, and Save settings on exit.
+•   Uncheck Settings->Confirm quitting VICE. •   Select C64 model settings…->C64 NTSC (to
+match the images in this book, PAL also works).
+•   Select Joystick settings->Joystick settings… and set Joystick #2 to Keyset A, then choose Configure Keyset A to configure up/down/left/right/fire.
+
+
+
+7
+
+
+•   Open Ch1.code-workspace in Visual Studio Code.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+This is a simple program to clear the screen, set the screen color, then go around in an infinite game loop.
+A link to the same library code files has been added to each chapter workspace using File->Add Folder to Workspace…
+Therefore library code file changes are reflected in all chapters. If this behavior is not required then duplicate the library code and link to the copy instead.
+
+
+
+
+
+
+
+
+
+
+BasicUpstart is a Kick Assembler built in macro that inserts a short BASIC program at the specified memory location $0801  (the  default start location of a  C64  program when
+
+
+8
+entering the RUN command in BASIC). This executes a SYS command   to   run   the   machine   code   starting   at   the gameMainInit label.
+The #importlinetellsthe assembler to include the library code (at $0810 which is after the BASIC program) to make the macros and subroutines available for use.
+The screen is cleared and set to yellow using library macros before entering the gameMainUpdate infinite loop.
+The gameMainUpdate loop waits for the display scanline to reach number 250 before looping back around. Doing this locks the display framerate to 50fps (PAL) or 60 fps(NTSC).
+There are 2 ways of assembling and running the programs: •   Press F6 to assemble and run in the VICE emulator.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+9
+•   Press Shift-F6 to assemble and run in the C64 Debugger.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+If the debugger doesn’t work correctly, try right clicking on the Visual Studio Code shortcut, set Properties->Advanced->Run As Administrator, then close everything and run again.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+10
+When assembling and running a program, the file that contains the BasicUpstart must be highlighted (gameMain.asm (1) in each chapter unless otherwise stated).
+
+
+
+
+
+1
+
+
+
+
+
+
+
+
+
+Pressing F6 or Shift-F6 on one of the other game or library code files will only assemble that selected file and will not run correctly (this usually exits to a BASIC READY prompt).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+11
+
+
+•   Open Ch2.code-workspace in Visual Studio Code.
+
+It’s important that a few key concepts are clear before we begin in order to facilitate further explanations.
+
+
+
+The 6502 has some built-in memory locations called registers that are used as temporary work areas and to store the results of instructions. They are internal to the processor and don’t have a memory address, so are identified by their names.
+Three of these used often are the A (Accumulator), X, and Y registers. They are 8-bits (1 byte) in size. The A register is often used to perform calculations with, and the X and Y registers are used to copy memory, count, or index into memory.
+The 6502 cannot copy a byte from one memory address to another directly. It has to go through an internal register. Here a value is copied from one memory location ($FB) to another ($FC) going through the A register using 2 instructions.
+
+
+// Copy a byte from one memory location to another
+lda $FB // (l)oa(d) the (a)ccumulator with the value in $FB sta $FC // (st)ore the value in the (a)ccumulator to $FC
+
+
+Other hardware such as the graphics and audio chips also contain their own registers to control them, and these are mapped into the 6502’s memory address space. To command one of these chips to do something, it’s as simple as copying bytes of data into these memory locations.
+
+
+
+
+
+
+
+
+12
+
+
+Macros and subroutines are a way of writing code blocks that can be re-used and therefore provide a modular codebase.
+It’s  very  easy  to  get  into  a  spaghetti  code  situation  with assemblylanguage!Takingthe timeto beneatandtidy can save a lot of debugging down the road.
+The assembler takes each macro call and replaces it with a copy of the macro’s code. So even though we’ll refer to calling macros, they aren’t technically ‘called’ at runtime.
+A subroutine however, has only one copy of the code called at runtime with the assembly jsr instruction. Code flow redirects into the subroutine, then returns back to the memory location after the call using the assembly rts instruction.
+
+
+Macro called 3 times	Subroutine called 3 times
+
+
+code	call	code
+
+
+
+code	call
+
+
+
+code	call
+
+
+
+Therefore,  macros  generally  use  more  code  space  than subroutines but execute quicker because they don’t have the overhead of the jsr and rts instructions.
+
+
+
+
+
+
+
+13
+Here’s a simple macro thatprovides a re-usable method to set the screen  background  color.  The  naming  conventions  used  for clarity are ‘filename_purpose_parametertypes(parameters)’.
+
+
+// Set the background color
+.macro GAMEMAIN_SETBACKGROUNDCOLOR_V(bColor) {
+lda #bColor // bColor -> A
+sta BGCOL0  // A -> background color register }
+
+
+The parameter types are V = value and A = address. However, that’s just the naming convention. The thing that determines if a parameter is used correctly is the # symbol after theassembly instruction that uses it. # means treat the number as a value, the absence of # means treat the number as a memory address.
+For example, if we pass in 3 for bColor and omit the # after the lda instruction, then it would use the value stored in the $0003 memory location rather than the number 3 (cyan).
+
+A good sanity check is _V = use #, _A = don’t use #.
+So this macro copies the color value into the A register, then copies the number in the A register to the BGCOL0 register (which is the memory mapped graphics chip background color register defined in the libDefines.asm file).
+
+
+
+
+
+
+
+
+
+
+Another convention used is to prefix the parameter names with b for a byte (8-bit) or w for a word (16-bit).
+
+
+
+14
+Next is a subroutine to set the screen border color. As this is a subroutine and not a macro, it needs to be called with a jsr assembly instruction and must have an rts at the end to return to the calling location.
+
+
+// Set the border color gameMainSetBorderColorGreen: {
+lda #GREEN  // GREEN (5) -> A
+sta EXTCOL  // A -> border color register rts	// Return from subroutine
+}
+
+
+The restrictionwithsubroutines is that theycan’t have parameters (hence why this example has been hardcoded to GREEN).
+A compromise between macros and subroutines is to wrap a subroutine within a macro (_S used for a wrapped subroutine).
+
+
+
+// Set the border color
+.macro GAMEMAIN_SETBORDERCOLOR_S_V(bColor) {
+lda #bColor	// bColor -> A sta ZeroPage1	// A -> ZeroPage1
+jsr gameMainSetBorderColor  // Jump to subroutine }
+
+gameMainSetBorderColor: {
+lda ZeroPage1   // ZeroPage1 -> A
+sta EXTCOL	// A -> border color register rts	// Return from subroutine
+}
+
+
+The parameters are temporarily stored to memory locations in the macro before the subroutine is called. Then the subroutine reads the parameters back from the memory locations.
+
+This would be especially memory efficient if the subroutine was large and called many times because although the macro portion would be duplicated each time it’s called,the subroutine wouldn’t.
+
+
+15
+
+
+Labels are names given to constants, memory addresses, and registers using the .label assembly directive. The convention used here is FULLCAPITALS for registers and CapitalFirstLetters for the others.
+
+
+.label Space	= 32 .label ZeroPage1	= $02 .label BGCOL0	= $D021
+
+
+The other type of labels used are names given to the current area of memory  to  jump  to  with  a  jsr,  jmp,  or  one  of  the  branch instructions. They have a : at the end of the name and are most commonly used to identify subroutines.
+
+
+
+gameMainUpdate: LIBSCREEN_WAIT_V(250) jmp gameMainUpdate
+
+
+// Wait for scanline 250 // Jump back, infinite loop
+
+
+
+The .const assembly directive is used in the same way as .label for constants, memory addresses and registers except that its scope is only for the current code file.
+
+
+.const MathRandomMax = 64
+
+
+Variables are allocated using the .byte or .word assembly directives. The area of memory is allocated at the current program memory location. For example, if you had a variable before a subroutine, then the variable’s memory address would precede the subroutine’s memory address and vice versa.
+
+
+bMathRandomCurrent1: .byte 0
+
+
+
+
+16
+The zero page memory area (addresses $02->$FF) are also used and these are predefined in the libDefines.asm file.
+
+
+.label ZeroPage1 = $02 . . .
+
+
+Don’t allocate variables with .byte or .word directly in the middle  of  code  that  will  be  run  (e.g.  in  the  middle  of  a subroutine), as the data will be interpreted as machine code instructions and will most likely crash the program. Allocating before or after a subroutine or macro is fine as that will be outside of the program code flow.
+
+
+
+
+
+
+
+
+
+
+
+
+The X and Y registers on the 6502 can be used to index into memory. Think of them like arrays in a higher level language such as C or Java.
+Here the value 8 is stored into the A register and the value 3 into the X register. Then the value in the A register (8) is stored into the memory location $FE ($FB + 3).
+
+
+// Put the number 8 in memory location $FE
+lda #8 // (l)oa(d) the (a)ccumulator with the value 8 ldx #3 // (l)oa(d) the x register with the value 3 sta $FB,x // (st)ore the value in A to $FE
+
+
+
+
+17
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+•   Press F6 to assemble and run in the VICE emulator.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+18
+•   Press Shift-F6 to assemble and run in the C64 Debugger.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+19
+
+
+•   Open Ch3.code-workspace in Visual Studio Code.
+
+When developing a game there are a number of tools and methods used to help track down bugs and find code that causes gameplay slowdowns. We take a look here at some quick and simple methods of debugging and profiling and also begin to use the C64 Debugger tool.
+
+
+
+The library macros LIBSCREEN_DEBUG8BIT_VVA and LIBSCREEN_DEBUG16BIT_VVA  display  the  current value of a byte or word (i.e. 1 or 2 memory locations).
+The LIBSCREEN_DRAWTEXT_VVA macro can also be used to print a null terminated string to give variables an on-screen identifier.
+The first 2 parameters are the x (0-39) and y (0-24) screen character positions to print at, and the 3rd  parameter is the address of the variable or text.
+
+
+// Draw byte variable text LIBSCREEN_DRAWTEXT_VVA(1, 5, bVariableText) // Draw byte variable value LIBSCREEN_DEBUG8BIT_VVA(18, 5, bVariable)
+. . .
+// Draw word variable text LIBSCREEN_DRAWTEXT_VVA(1, 7, wVariableText) // Draw word variable value LIBSCREEN_DEBUG16BIT_VVA(18, 7, wVariable)
+
+
+
+
+
+
+
+
+
+
+
+20
+
+
+A simple way to profile how long a section of code takes to execute is to change the screen border color.
+We begin by waiting for a particular scanline each frame to synchronize the screen refresh rate to 50Hz (PAL) or 60Hz (NTSC). This is so our game code runs at a stable frame rate. Withoutsynchronization thegameloop would run as fast as possible and its speed would change depending on how much code was executed.
+
+
+LIBSCREEN_WAIT_V(250)          // Wait for scanline 250 LIBSCREEN_SETBORDERCOLOR_V(RED)// Start a profiling bar
+
+
+Usually the scanline number used to wait on is around 250 (the bottom of the visible character screen) so that any code affecting the screen can be run in the off screen area. This prevents screen tearing which is when the screen is updated while it’s still drawing.
+
+
+
+Square sprite
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Changing sprite position at this scanline causes screen tearing
+
+
+
+21
+The border color is changed around sections of code to show its location (relative to the frame update) and duration.
+•   Press F6 to assemble and run in the VICE emulator.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+There are also LIBSCREEN_PROFILESTART and END macros available that simply increment and decrement the current border color.
+
+
+
+
+
+
+
+
+
+
+22
+
+
+The C64 Debugger is a full-featured debugging tool used to analyze all aspects of the Commodore 64 internals at runtime. We only require a tiny proportion of its capabilities and you are encouraged to explore further by reading the manual.
+We also use the C64 Debug GUI which is a wrapper for the C64 Debugger that adds toolbars. It’s not a necessity but helps if you prefer icons over keyboard shortcuts.
+
+
+•   Click to the left of the SETBORDERCOLOR macro to add a breakpoint.
+
+
+
+
+•   Press Shift-F6 to assemble and run in the C64 Debugger.
+After a short delay, code execution halts on the first assembly instruction  of the  LIBSCREEN_SETBORDERCOLOR_V macro.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+23
+•   Press Ctrl-Shift-F3 to switch to the source code view.
+•   Press F11 or click Run (1) to continue (This runs a complete frame and stops again at the breakpoint).
+•   Press F10 or click Step (2) to step through the assembly code instructions one by one.
+Notice the 6502 CPU registers change as you step through the code (3).
+
+1  2  3
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Note that a quirk of the C64 Debug GUI means that you may need to click  a  toolbar view  on the  left pane  before the keyboard shortcuts will work.
+
+
+
+
+
+
+
+
+
+
+
+24
+
+
+•   Open Ch4.code-workspace in Visual Studio Code.
+
+An interrupt on the 6510processoroccurswhen asignal issent from an external chip to either the IRQ (Interrupt ReQuest) pin (1) or the NMI (Non-Maskable Interrupt) pin (2).
+
+
+
+
+1
+2
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+The 6510 will pause its current task, perform a different task, then  return  to  what  it  was  doing  previously.  This  is  not multiprocessing  as  the  6510  can  only  process  a  single instruction at a time.
+The difference betweenthe two interrupt types is that all IRQ’s can be switched offand on by using the sei(SEt Interrupt)and cli (CLear Interrupt) instructions, but NMI’s cannot (at least officially, there are workarounds). They also look at different memory addresses for the interrupt routine to call (also called interrupt vectors). The interrupt vectors are $FFFE-$FFFFfor an IRQ and $FFFA-$FFFB for an NMI.
+
+
+
+25
+A benefit of interrupts is that code can be run at a specific time without stalling to wait for an event to occur. E.g. run 60 times per second on a timer, or run every frame on a particular raster line (another word for scanline).
+For this book we only require Raster IRQ’s (i.e. generated by the VIC-II graphics chip when a specific raster line has been reached). However, the following information is still applicable for IRQ’s generated from other signals such as a timer.
+
+
+
+When an IRQ signal is generated, the 6510 will:
+•   Complete the current instruction.
+•   Save the Program Counter (PC) and Status register to the stack.
+•   Handle the IRQ routine.
+Then, when an rti instruction is encountered, the 6510 will:
+•   Restore the PC and status register from the stack. •   Continue with the instruction where it left off.
+
+The IRQ routine is handled with a …
+•   (1) jmp($FFFE) - an indirect jump where $FFFE-$FFFF contains $48 and $FF (little endian) so jumps to …
+•   (2) $FF48 - kernal interrupt prep routine that saves the A, X and Y registers to the stack, then does a …
+•   (3) jmp($0314) - an indirect jump where $0314-$0315 contains $31 and $EA (little endian) so jumps to …
+•   (4) $EA31 - kernal interrupt routine that maintains the clock, scans the keyboard, blinks the cursor, performs a few other functions, restores the A, X and Y registers from the stack, and executes an rti instruction.
+
+
+
+26
+
+Data	Address
+1
+2 KERNAL ROM	4
+
+
+
+
+RAM
+
+
+BASIC ROM
+
+
+
+
+
+
+
+
+
+
+
+
+
+RAM
+
+
+
+
+
+
+
+
+
+
+3
+
+
+27
+
+
+The designers of the interrupt system created it in such a way that it uses two indirect jumps rather than hardcoding the memory addresses.
+The first indirect jump via $FFFE-$FFFF is done so that if ever the kernal ROM routine memory locations changed in an update,  backwards  compatibility  would  be  maintained  by simply changing the jump address in ROM.
+The second indirect jump via $0314-0315 is in RAM and is placed there to allow the insertion of a custom IRQ routine into the IRQ code flow (also known as a wedge).
+In order to wedge a custom IRQ routine we need to:
+•   Replace the values in $0314-$0315 with our own interrupt routine memory address.
+•   Jmp to the $EA31 kernal interrupt routine at the end of our own interrupt routine.
+The updated IRQ routine with a wedge is handled with a …
+•   (1) jmp($FFFE) - an indirect jump where $FFFE-$FFFF contains $48 and $FF (little endian) so jumps to …
+•   (2) $FF48 - kernal interrupt prep routine that saves the A, X and Y registers to the stack, then does a …
+•   (3) jmp($0314) - an indirect jump where $0314-$0315 contains our own interrupt routine memory address so jumps to …
+•   (4) Our interrupt routine which will then jump to … •   (5) $EA31 - kernal interrupt routine that maintains
+the clock, scans the keyboard, blinks the cursor, performs a few other functions, restores the A, X and Y registers from the stack, and executes an rti instruction.
+
+
+
+28
+
+Data	Address
+1
+2 KERNAL ROM	5
+
+
+
+
+RAM
+
+
+BASIC ROM
+
+
+
+
+
+
+
+
+
+
+
+
+
+RAM
+
+
+
+
+
+4
+
+
+
+3
+
+
+
+29
+
+
+When  using  raster  IRQ’s,  it’s  sometimes  desirable  to  run multiple custom IRQ routines each frame.
+An example of this would be to split the screen between bitmap mode and character mode as used in some adventure games.
+In order to do this, the IRQ’s raster line and custom IRQ routine memory address are changed at the end of each custom IRQ routine therefore forming a chain.
+The last one of the frame points back to the first so that the chain can be executed again on the next frame.
+
+
+
+
+
+
+
+
+Run 1st IRQ at this raster line and set screen mode to bitmap. Then set to 2nd IRQ.
+
+
+
+
+
+
+
+
+Run 2nd IRQ at this raster line and set screen mode to character. Then set to 1st IRQ.
+
+
+
+
+
+
+
+30
+•   Start with the gameMain1.asm file.
+We first clear the screen and initialize the IRQ system with the scanline and memory address for the first custom IRQ routine using the LIBRASTERIRQ_INIT_VAV macro. This starts the raster IRQ signal happening each frame.
+The contents of the IRQ interrupt vector $FFFE-$FFFF are drawn  using  the  debug  macros.  (Note  these  values  are displayed as decimal so 72 = $48 and 255 = $FF).
+
+
+gameMainInit:
+// Clear the screen LIBUTILITY_SET1000_AV(SCREENRAM, Space) // Initialize irq
+LIBRASTERIRQ_INIT_VAV(Irq1Scanline, gameMainIRQ1,IrqFast) // Draw IRQ vector low text
+LIBSCREEN_DRAWTEXT_VVA(5, 0, irqVectorLowText) // Draw IRQ vector low byte LIBSCREEN_DEBUG8BIT_VVA(30, 0, $FFFE)
+// Draw IRQ vector high text LIBSCREEN_DRAWTEXT_VVA(5, 1, irqVectorHighText) // Draw IRQ vector high byte LIBSCREEN_DEBUG8BIT_VVA(30, 1, $FFFF)
+
+
+The main game loop constantly sets the screen color to blue and loops around. This makes the screen color blue whenever interrupt code is not running.
+
+
+gameMainUpdate: LIBSCREEN_SETSCREENCOLOR_V(BLUE)
+jmp gameMainUpdate // Jump back, infinite loop
+
+
+
+
+
+
+
+
+
+
+
+31
+Each IRQ routine is encased in the LIBRASTERIRQ_START and END macros.
+The first IRQ routine sets the screen color to green, waits for some time(equivalent toafew scanlines),then setsthe scanline and  IRQ  address  to  the  next  IRQ  routine  using  the LIBRASTERIRQ_SET_VAV macro.
+
+
+gameMainIRQ1:
+LIBRASTERIRQ_START_V(IrqFast)	// Start the irq LIBSCREEN_SETSCREENCOLOR_V(GREEN) // Set the screen color LIBUTILITY_WAITLOOP_V(50)	// Wait for a while
+// Point to 2nd irq
+LIBRASTERIRQ_SET_VAV(Irq2Scanline, gameMainIRQ2, IrqFast) LIBSCREEN_SETSCREENCOLOR_V(WHITE) // Set the screen color LIBRASTERIRQ_END_V(IrqFast)	// End the irq
+
+
+By setting the screen color to white just before exiting the IRQ routine, white will display on screen until code control passes back to the main game loop where the screen color is set back to blue. This enables us to see how long the ROM code at $EA31 takes to execute.
+The second IRQ routine only differs in the screen color it sets and that it sets the scanline and IRQ address back to the first IRQ.
+
+
+gameMainIRQ2:
+LIBRASTERIRQ_START_V(IrqFast)	// Start the irq LIBSCREEN_SETSCREENCOLOR_V(RED)   // Set the screen color LIBUTILITY_WAITLOOP_V(50)	// Wait for a while
+// Point to 1st irq
+LIBRASTERIRQ_SET_VAV(Irq1Scanline, gameMainIRQ1, IrqFast) LIBSCREEN_SETSCREENCOLOR_V(WHITE) // Set the screen color LIBRASTERIRQ_END_V(IrqFast)	// End the irq
+
+
+
+
+
+
+
+
+32
+The green and red bars have been artificially lengthened by using the LIBUTILITY_WAITLOOP_V macro to be able to see the color bars, so the ROM code (white bar) actually takes many times longer to execute than our custom IRQ code.
+This gets worse if a key is pressed on the keyboard as extra code inside the $EA31 ROM routine is then called to handle the keypress. This is a problem as that frame time could be better used for game code.
+
+
+•   Press F6 to assemble and run in the VICE emulator.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+33
+To view the IRQ interrupt vector in the C64 Debugger:
+•   Click to the left of the gameMainIRQ1 label to add a breakpoint.
+
+
+
+
+•   Press Shift-F6 to assemble and run in the C64 Debugger.
+•   Press Ctrl-F2 to switch to the disassembler, data dump and memory map view.
+•   Mouse over and scroll down the memory map (1) to get to the bottom.
+The last two memory locations ($fffe and $ffff) contain 48 and ff (2). ($fff0 is the label for the start of the row).
+
+
+
+
+
+
+
+
+
+
+
+1
+
+
+
+2
+
+Note that the left hand column shows the same memory locations as the center section, but translated into assembly instructions for easier viewing of code.
+
+
+
+34
+
+
+Many times when developing a game, the functionality of the $EA31 ROM routine is not required so removing it would free up frame time for other purposes.
+A simple way to achieve this is to override the address stored in the IRQ vector ($FFFE-$FFFF) to point straight to our custom IRQ routine.
+However, there are 3 caveats:
+•   The IRQ vector is in Kernal ROM which is read only. •   The $FF48 Kernal ROM routine stores and restores
+the A, X, and Y registers which is still desirable.
+•   The $EA31 ROM routine calls an rti instruction to return from the interrupt which is also required.
+To get around these issues we can:
+•   Turn off Kernal ROM to expose RAM instead allowing the IRQ vector to be modified.
+•   Manually store/restore the A, X and Y registers as part of our custom IRQ routine.
+•   Call rti when the custom IRQ routine is finished.
+Note that as the BASIC ROM uses the Kernal ROM, it must also be turned off. The reverse is not the case. It is possible to turn off the BASIC ROM and leave the Kernal ROM enabled.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+35
+
+Data	Address
+1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+RAM
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2
+
+
+
+
+
+
+
+36
+•   Switch to the gameMain2.asm file.
+There are only few small changes required to the code to use faster IRQ’s.
+
+The basic and kernal ROM’s are disabled with a macro call.
+
+
+gameMainInit:
+// Disable BASIC & Kernal ROMs LIBUTILITY_DISABLEBASICANDKERNAL() . . .
+
+
+The IrqFast constant that is passed into the IRQ macros is changed to true. This causes the macros to correctly handle the A, X, & Y registers and also call rti (See the Library Code chapter for macro explanations.
+
+
+.const IrqFast = true . . .
+gameMainIRQ1:
+LIBRASTERIRQ_START_V(IrqFast)	// Start the irq LIBSCREEN_SETSCREENCOLOR_V(GREEN) // Set the screen color LIBUTILITY_WAITLOOP_V(50)	// Wait for a while
+// Point to 2nd irq
+LIBRASTERIRQ_SET_VAV(Irq2Scanline, gameMainIRQ2, IrqFast) LIBSCREEN_SETSCREENCOLOR_V(WHITE) // Set the screen color LIBRASTERIRQ_END_V(IrqFast)	// End the irq
+. . . gameMainIRQ2:
+LIBRASTERIRQ_START_V(IrqFast)	// Start the irq LIBSCREEN_SETSCREENCOLOR_V(RED)   // Set the screen color LIBUTILITY_WAITLOOP_V(50)	// Wait for a while LIBRASTERIRQ_SET_VAV(Irq1Scanline, gameMainIRQ1, IrqFast) // Point to 1st irq
+LIBSCREEN_SETSCREENCOLOR_V(WHITE) // Set the screen color LIBRASTERIRQ_END_V(IrqFast)	// End the irq
+
+
+
+
+
+
+
+
+
+37
+The time taken between exiting the custom IRQ routine and returning to the game update code (white bar) is now greatly reduced, and keypresses on the keyboard have no effect.
+The contents of the IRQ interrupt vector $FFFE-$FFFF has changed to 026 ($1A) and 011 ($0B) so the memory address of the custom IRQ routine is $0B1A.
+
+
+•   Press F6 to assemble and run in the VICE emulator.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+38
+•   Click to the left of the gameMainIRQ1 label to add a breakpoint.
+
+
+
+
+•   Press Shift-F6 to assemble and run in the C64 Debugger.
+•   Press Ctrl-Shift-F3 to switch to the source code view.
+The  break  point  memory  address  for  the  gameMainIRQ1 custom IRQ routine is $0b1a (1) which is correct.
+
+The source code shows the first instruction which is inside the LIBRASTERIRQ_START_V  macro (Click  on the  address and press up/down arrows to go see the source code before and after).
+
+
+
+
+
+
+
+
+
+1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+39
+
+
+The Commodore 64 only has 8 hardware sprites but the actual constraint is 8 sprites per scanline. It’s therefore possible to change a sprite’s attributes as soon as it has been drawn to allow many more sprites on the screen.
+
+
+8 hardware sprites
+
+
+
+
+
+
+
+
+
+
+
+
+Change sprite attributes here
+
+Same 8 hardware sprites in different screen positions
+
+
+
+
+
+
+
+
+To use sprite multiplexing in the most efficient manner may require a complex algorithm to sort sprites into the correct vertical screen order. However, this depends on the sprite usage required for a particular game.
+
+For the Beach Bar game, sprite multiplexing will be used for the crabs (See Chapter 11) and they are laid out in horizontal formations and are unable to move in the vertical direction. This allows for a much simpler process of drawing sprites, changing  attributes,  then  redrawing  sprites  and  so  on…, without any sprite sorting requirements.
+
+
+
+40
+•   Switch to the gameMain3.asm file.
+In addition to the fast irq setup from the previous section, the 8 hardwaresprites are enabled and the sprite multicolors setup. Then the sprite animations are set for each sprite.
+
+
+gameMainInit: . . .
+// Enable all 8 hardware sprites LIBSPRITE_ENABLEALL_V(true)
+// Set the sprite multicolor mode LIBSPRITE_MULTICOLORENABLEALL_V(true) // Set the sprite multicolors
+LIBSPRITE_SETMULTICOLORS_VV(LIGHT_RED, BROWN) // Initialize the sprite animations GAMEMAIN_SPRITESANIMINIT()
+
+
+To set the animations for each sprite, a loop for SpriteMax (8) times reads the start and end frames from an array before calling the LIBSPRITE_PLAYANIM_AAAVV library macro.
+
+
+.macro GAMEMAIN_SPRITESANIMINIT() {
+ldx #0  // Start at index 0 stx bSprite
+loop:
+// Read this element's variables lda bStartFrameArray,x
+sta bStartFrame
+lda bEndFrameArray,x sta bEndFrame
+// Set the sprite animation details LIBSPRITE_PLAYANIM_AAAVV(bSprite, bStartFrame, bEndFrame,
+AnimDelay, true)
+// Loop for SpriteMax times inx
+inc bSprite cpx #SpriteMax bne loop
+}
+
+
+
+
+
+
+41
+The player character’s sprite data is imported into the program at the $2800 memory location.
+
+
+//=========================================================== // Data
+
+// Add sprite data at the $2800 memory location *= $2800 "Sprites"
+.import binary "..\..\Content\BeachBarSprites1.bin"
+
+
+This memory location matches with the SPRITERAM label in libDefines.asm (See the Sprite Pointers section on page 133 in  the  C64  Programmer’s  Reference  Guide  for  more information on sprite memory locations).
+
+
+// Sprite Memory
+// 160 decimal * 64(sprite size) = 10240(hex $2800) .label SPRITERAM = 160
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+42
+Each custom IRQ routine calls an update macro to change each sprite’s positions and colors for a particular row.
+
+
+gameMainIRQ1:
+LIBRASTERIRQ_START_V(IrqFast)  // Start the irq GAMEMAIN_SPRITESUPDATE_VV(wXPosRow1Array, Irq1Scanline + S
+canlineOffset, BLACK)
+LIBRASTERIRQ_SET_VAV(Irq2Scanline, gameMainIRQ2, IrqFast) // Point to 2nd irq
+LIBRASTERIRQ_END_V(IrqFast)	// End the irq
+
+The sprite update macro calls the library macros individually rather than in a loop due to the limited frame time available between sprite rows.
+
+
+.macro GAMEMAIN_SPRITESUPDATE_VV(wXPosArray, bYPos, bColor) {
+// These are unrolled for speed - i.e. not put into a loop LIBSCREEN_PROFILESTART()
+LIBSPRITE_SETALLCOLORS_V(bColor) LIBSPRITE_SETPOSITION_VAV(0, wXPosArray, bYPos) LIBSPRITE_SETPOSITION_VAV(1, wXPosArray + (2*1), bYPos) LIBSPRITE_SETPOSITION_VAV(2, wXPosArray + (2*2), bYPos) LIBSPRITE_SETPOSITION_VAV(3, wXPosArray + (2*3), bYPos) LIBSPRITE_SETPOSITION_VAV(4, wXPosArray + (2*4), bYPos) LIBSPRITE_SETPOSITION_VAV(5, wXPosArray + (2*5), bYPos) LIBSPRITE_SETPOSITION_VAV(6, wXPosArray + (2*6), bYPos) LIBSPRITE_SETPOSITION_VAV(7, wXPosArray + (2*7), bYPos) LIBSCREEN_PROFILEEND()
+}
+
+The position and color changes must be complete before the next row begins to draw or else some of the scanlines of the sprite could draw with the previous sprite row attributes.
+
+
+
+
+
+
+
+
+
+
+
+43
+The LIBSPRITE_UPDATE library macro is called once per frame to update the sprite animation frames.
+
+
+
+gameMainUpdate: LIBSCREEN_WAIT_V(250) LIBSPRITE_UPDATE() jmp gameMainUpdate
+
+
+// Wait for scanline 250 // Update the sprites
+// Jump back, infinite loop
+
+
+
+•   Press F6 to assemble and run in the VICE emulator.
+
+The profile bars show the amount of time taken for each custom IRQ routine to update the sprite positions and colors ready for the next sprite row.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+44
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+45
+
+
+It may be useful at this stage to test out the final game we’re aiming to develop before we build it from the ground up.
+
+
+
+•   Run prgs\beachbar.prg in the VICE emulator or on real Commodore 64/128 hardware.
+The game is configured to use a joystick in port 2 (or keys mapped to this joystick in VICE).
+The information HUD shows Energy Bar (1), Drink Color Held (2), Drinks Required Yes/No? (3), Towels Required Yes/No? (4), Number of Drinks Available (5), Number of Towels Available (6), Score (7), and High Score (8).
+
+
+
+
+
+1         2  3  4    5       6                7                  8 1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+46
+•   Press Fire to start the game.
+The bar customers begin to sit and order drinks. The Drink Icon (1) above their headshows the Drink Color they require.
+•   Press Fire over a Drink Crosshatch (2) to fetch the appropriate Drink Color.
+•   Press Fire when over the Drink Icon (1)  to deliver the drink to the customer.
+Taking too long to deliver a drink will cause the customer to leave and the Energy Bar to be depleted.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2 1
+
+
+
+
+
+
+
+
+
+
+
+47
+•   Press Fire over the Replenish Drinks Icon (1) to replenish the Number of Drinks Available.
+Touching the crabs will cause the Energy Bar to be depleted.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+48
+The sun lounger customers begin to request towels. They wait next to the sun lounger they have chosen.
+•   Press Fire over a Sun Lounger Crosshatch (1) to deliver a towel to the customer.
+Taking too long to deliver a towel will cause the customer to leave and the Energy Bar to be depleted.
+
+
+
+
+
+
+
+
+
+
+
+
+
+1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+49
+•   Press Fire over the New Towels Icon (1) to replenish the Number of Towels Available.
+Touching the crabs will cause the Energy Bar to be depleted.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+50
+
+
+
+
+•   Open BeachBarSprites1.spd in SpritePad. Included are 8 multicolor frames of character animation. To preview animation frame sequences:
+•   Click multiple frames + the Shift key (1).
+•   Click the Send range to Animator icon (2). •   Click the Play icon (3).
+•   Change the animation speed with the Timer value (4).
+
+
+
+
+2
+
+1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+3
+4
+
+
+
+
+51
+
+
+
+
+
+
+
+
+
+
+
+To save the sprite data:
+•   Choose File->Save Project As… to save the .spd project file.
+•   Choose File->Import/Export…->Raw / PRG->Export Sprite Data… to export the Raw Data .bin file.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+52
+
+
+•   Open Ch6.code-workspace in Visual Studio Code. •   Start with the gameMain1.asm file.
+
+In the initialize code, the 8 hardware sprites are enabled and the multicolors are setup (these are global colors for all 8 sprites). Then a subroutine is called to initialize the player.
+
+
+// Enable all 8 hardware sprites LIBSPRITE_ENABLEALL_V(true)
+// Set the sprite multicolor mode LIBSPRITE_MULTICOLORENABLEALL_V(true) // Set the sprite multicolors
+LIBSPRITE_SETMULTICOLORS_VV(LIGHT_RED, BROWN)
+
+// Call the player initialize subroutine jsr gamePlayerInit
+
+
+The player sprite is initialized by setting the current animation frame, start position, and color.
+Note that sprite X positions use a word rather than a byte because the visible X position on screen can be > 255.
+
+
+gamePlayerInit:
+// Set sprite animation frame, position, and color LIBSPRITE_SETFRAME_AV(bPlayerSprite, PlayerStartFrame) LIBSPRITE_SETPOSITION_AAA(bPlayerSprite, wPlayerX,bPlayerY) LIBSPRITE_SETCOLOR_AV(bPlayerSprite, BLACK)
+rts
+
+
+The exported sprite data is added to the program by importing it at the correct memory location. The *= $2800 directive tells the assembler to start placing data at memory location $2800 onwards.
+
+
+// Add sprite data at the $2800 memory location *= $2800 "Sprites"
+.import binary "..\..\Content\BeachBarSprites1.bin"
+
+
+53
+
+
+
+
+
+
+
+
+
+
+
+•   Press F6 to assemble and run in the VICE emulator.
+
+
+The player sprite is in the starting position using a downward facing animation frame.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+54
+
+
+•   Switch to the gameMain2.asm file.
+
+A macro and a subroutine call are added to update the player’s movement and animation.
+The LIBSPRITE_UPDATE library macro handles the actual updating  of  sprite  animation  frames  at  the  correct  time, allowing the game code to use abstract animation play macros.
+
+
+
+LIBSPRITE_UPDATE() jsr gamePlayerUpdate
+
+// Update the sprites
+// Update the player subroutines
+
+
+
+The player’s position and animation frame are then updated and the x and y positionsare drawn to thescreen fordebugging purposes.
+
+
+gamePlayerUpdate:
+jsr gamePlayerUpdatePosition jsr gameplayerUpdateAnimation // Debug print the position
+LIBSCREEN_DEBUG16BIT_VVA(0, 1, wPlayerX) LIBSCREEN_DEBUG8BIT_VVA(2, 2, bPlayerY) rts
+
+
+Updating  the  position  consists  of  checking  for  a  joystick direction press and adding or subtracting the player speed in that direction.
+
+
+gamePlayerUpdatePosition: LIBINPUT_GET_V(GameportLeftMask) // Check left
+bne gPUPRight // If left not pressed, skip to right check // Subtract X speed
+LIBMATH_SUB16BIT_AVA(wPlayerX, PlayerSpeed, wPlayerX) jmp gPUPEndmove // Skip all other input checks
+. . .
+
+
+
+
+
+55
+Then the player’s x and y positions are clamped to the screen bounds and the player position is set to the player sprite.
+
+
+gamePlayerUpdatePosition: . . .
+// clamp the player x position LIBMATH_MIN16BIT_AV(wPlayerX, PlayerXMax) LIBMATH_MAX16BIT_AV(wPlayerX, PlayerXMin)
+
+// clamp the player y position LIBMATH_MIN8BIT_AV(bPlayerY, PlayerYMax) LIBMATH_MAX8BIT_AV(bPlayerY, PlayerYMin)
+
+// Set the player's sprite position LIBSPRITE_SETPOSITION_AAA(bPlayerSprite, wPlayerX,bPlayerY)
+
+
+The five separate animation states are implemented as a jump table, where the current state is stored in a variable and one of the subroutines in the jump table is chosen based on the current state.
+
+Each animation state can jump to any of the other states.
+
+
+
+
+
+Idle
+
+
+
+Left	Right
+
+
+
+
+Up	Down
+
+
+
+
+
+
+
+56
+Each subroutine’s address is a 16-bit number, therefore they require a word to store.
+
+
+gamePlayerAnimationJumpTable:
+.word gamePlayerUpdateAnimationIdle .word gamePlayerUpdateAnimationLeft .word gamePlayerUpdateAnimationRight .word gamePlayerUpdateAnimationUp .word gamePlayerUpdateAnimationDown
+
+
+Updating the animation consists of using the bPlayerAnim variable as a lookup index into the jump table. The index is multiplied by 2 as each table entry consists of 2 bytes (a word). The low and high bytes are copied into 2 adjacent temporary variables and then an indirect jump is used to the selected subroutine.
+
+
+gameplayerUpdateAnimation:
+lda bPlayerAnim	// Get the current state into A asl	// X2 as table is in words
+tay	// Copy A to Y
+lda gamePlayerAnimationJumpTable,y// Lookup low byte sta ZeroPage1	// Store in a temporary variable lda gamePlayerAnimationJumpTable+1,y // Lookup high byte sta ZeroPage2	// Store in temporary variable+1 jmp (ZeroPage1)	// Indirect jump to subroutine
+
+
+An  indirect  jump  (specified  by  enclosing  the  address  in brackets)  uses  the  8-bit  address  passed  in  and  the  8-bit address+1 to construct a 16-bit memory address to jump to.
+With a standard jmp instruction the address is hardcoded, but with an indirect jmp instruction the address can be changed while the program is running.
+
+
+
+
+
+
+
+
+57
+The state update subroutines check for joystick input and call the appropriate state set subroutine.
+
+
+gamePlayerUpdateAnimationIdle: LIBINPUT_GET_V(GameportLeftMask) // Check left
+bne gPUIRight // If left not pressed, skip to right check jsr gamePlayerSetAnimationLeft
+gPUIRight:
+LIBINPUT_GET_V(GameportRightMask) // Check right bne gPUIUp // If right not pressed, skip to up check jsr gamePlayerSetAnimationRight
+gPUIUp:
+LIBINPUT_GET_V(GameportUpMask) // Check up
+bne gPUIDown // If up not pressed, skip to down check jsr gamePlayerSetAnimationUp
+gPUIDown:
+LIBINPUT_GET_V(GameportDownMask) // Check down bne gPUIEnd // If down not pressed, skip to end jsr gamePlayerSetAnimationDown
+gPUIEnd: rts
+
+
+The state set subroutines update the player animation state variable,  stop  the  current  animation,  and  start  the  new animation (if required).
+
+
+
+
+gamePlayerSetAnimationLeft:
+lda #PlayerAnimLeft // Load the state number sta bPlayerAnim	// Store the state number
+LIBSPRITE_STOPANIM_A(bPlayerSprite) // Stop existing anims // Play the new anim LIBSPRITE_PLAYANIM_AVVVV(bPlayerSprite, 0, 1, PlayerAnimDe
+lay, true) rts
+
+
+
+
+
+
+
+
+
+
+58
+•   Press F6 to assemble and run in the VICE emulator.
+The  player sprite  can now  walk around using  the  correct animations and is bound by the screen limits.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+59
+
+
+
+
+•   Open BeachBarScreens.ctm in CharPad.
+Included isacustom256entry character set anda40x25 screen using those characters.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+To save memory space thecharacter colors are saved as 1 entry per character in the character set (256 entries) rather than 1 entry per screen location (which would be 1000 entries).
+This means that if the same character is required with different colors, the character must be duplicated in the character set.
+
+
+
+
+
+
+
+
+
+
+
+
+60
+To save the environment data:
+•   Choose File->Save Project As… to save the .ctm project file.
+•   Choose File-> Import/Export->Binary…->Export Character Set… to save the .bin character set file.
+•   Choose File-> Import/Export->Binary…->Export Character Set Attributes… to save the .bin character set colors file.
+•   Choose File-> Import/Export->Binary…->Export Map… to save the .bin screen file.
+
+
+There’s 1 CharPad project file (BeachBarScreens.ctm) and 1 custom character set (BeachBarScreensCharset.bin) for all 4 background screens.
+•   BeachBarScreenTopLeft.bin •   BeachBarScreenTopRight.bin
+•   BeachBarScreenBottomLeft.bin •   BeachBarScreenBottomRight.bin
+
+Swapping the screen files for editing is achieved by importing a different .bin screen file into the same project:
+•   Choose File-> Import/Export->Binary…->Import Map… to import a .bin screen file.
+
+
+
+
+
+
+
+
+
+
+
+
+
+61
+
+
+•   Open Ch7.code-workspace in Visual Studio Code.
+
+The character data is imported at the address to match one of the preset memory slots in libDefines.asm, and passed into the library  macro  LIBSCREEN_SETCHARMEMORY_V  (See the Character Memory section on page 103 in the C64 Programmer’s Reference Guide for more information on character set memory locations).
+The screen data can be placed at any available RAM area.
+
+
+*= $2000 "Characters" // Add at $2000 memory location .import binary "..\..\Content\BeachBarScreensCharset.bin"
+
+//=========================================================== . . .
+
+*= $3080 "Screens" // Add at $3080 memory location gameDataBackground:
+.import binary "..\..\Content\BeachBarScreenTopLeft.bin" .import binary "..\..\Content\BeachBarScreenTopRight.bin" .import binary "..\..\Content\BeachBarScreenBottomLeft.bin" .import binary "..\..\Content\BeachBarScreenBottomRight.bin"
+gameDataBackGroundCol:
+.import binary "..\..\Content\BeachBarScreensColors.bin"
+
+
+In the initialize code, the screen is put into multicolor mode and  the  screen  multicolors  are  setup.  Then  the  custom character set memory is pointed to, and the screen characters and colors are copied into screen RAM.
+
+
+// Set the background multicolor mode LIBSCREEN_SETMULTICOLORMODE_V(true) // Set the background multicolors
+LIBSCREEN_SETMULTICOLORS_VV(BLACK, BROWN) // Set the custom character set
+LIBSCREEN_SETCHARMEMORY_V(CharacterSlot2000) // Set the background screen
+LIBSCREEN_SETBACKGROUND_AA(gameDataBackground + (PlayerSc reenTopLeft*1000), gameDataBackGroundCol)
+
+
+
+62
+
+
+A subroutine call is added to the player update to change the screen map when switching screens.
+
+
+gamePlayerUpdate: . . .
+jsr gamePlayerUpdateMap rts
+
+
+As with the player animations, a jump table is used to select between different subroutines to call based on the current map screen number. A 16-bit word containing the memory address of each subroutine is stored in the jump table.
+
+
+gamePlayerMapJumpTable:
+.word gamePlayerUpdateMapTopLeft .word gamePlayerUpdateMapTopRight .word gamePlayerUpdateMapBottomLeft .word gamePlayerUpdateMapBottomRight
+
+
+The update map subroutine works the same as the animation update subroutine but uses the map jump table instead.
+
+
+gameplayerUpdateMap:
+lda bMapScreen	// Get the current state into A asl	// Multiply by 2
+tay	// Copy A to Y
+lda gamePlayerMapJumpTable,y // Lookup low byte
+sta ZeroPage1	// Store in a temporary variable lda gamePlayerMapJumpTable+1,y// Lookup high byte
+sta ZeroPage2	// Store in temporary variable+1 jmp (ZeroPage1)	// Indirect jump to subroutine
+
+
+
+
+
+
+
+
+
+63
+Each screen state can jump to two of the other states.
+
+
+
+
+
+Top Left
+
+
+
+
+
+
+Bottom Left
+
+Top Right
+
+
+
+
+
+
+Bottom Right
+
+
+
+
+
+
+There is one UpdateMap subroutine for each screen that the player can be on.
+For example if the player is on the top left screen (the bar screen), then the gamePlayerUpdateMapTopLeft is running which does …
+
+
+X Processing:
+•   If the player X position < player X Max position then skip to Y processing, otherwise …
+•   Set player X position to player X Min position and … •   Set screen to top right
+Y Processing:
+•   If the player Y position < player Y Max position then skip to end, otherwise …
+•   Set player Y position to player Y Min position and … •   Set screen to bottom left
+
+
+
+64
+The other 3 subroutines work in a similar manner but switch to screens in different directions.
+
+
+
+
+
+gamePlayerUpdateMapTopLeft: // X direction
+lda wPlayerX+1 // If high byte is 0 skip X processing beq gPUS1EndX
+
+lda wPlayerX// If low byte < PlayerXMax skip X processing cmp #<PlayerXMax
+bmi gPUS1EndX
+
+lda #>PlayerXMin // Set player X position to XMin sta wPlayerX+1
+lda #PlayerXMin+1 sta wPlayerX
+
+// Set screen to top right LIBSCREEN_SETBACKGROUND_AA(gameDataBackground + (PlayerSc
+reenTopRight*1000), gameDataBackGroundCol) lda #PlayerScreenTopRight
+sta bMapScreen
+
+gPUS1EndX:
+// Y direction
+lda bPlayerY //If PlayerY < PlayerYMax skip Y processsing cmp #PlayerYMax
+bmi gPUS1EndY
+
+lda #PlayerYMin+1 // Set player Y position to YMin sta bPlayerY
+
+// Set screen to bottom left LIBSCREEN_SETBACKGROUND_AA(gameDataBackground + (PlayerSc
+reenBottomLeft*1000), gameDataBackGroundCol) lda #PlayerScreenBottomLeft
+sta bMapScreen
+
+gPUS1EndY: rts
+
+
+
+
+
+
+
+
+65
+•   Press F6 to assemble and run in the VICE emulator.
+
+
+The background screen displays along with the player sprite.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+66
+
+
+•   Open Ch8.code-workspace in Visual Studio Code.
+
+
+
+A subroutine call is added to the player update to perform background collisions.  This  stops  the  player  from passing through some of the background graphics.
+
+
+gamePlayerUpdate: . . .
+jsr gamePlayerUpdateBackgroundCollisions . . .
+rts
+
+
+Points are defined for the left, right, and bottom. They are relative to the top left (0,0) of the sprite.
+
+
+
+.const PlayerLeftPointX .const PlayerRightPointX .const PlayerPointY
+
+= 5 = 20
+= 31 // 50-19
+
+
+
+From these 3 points a bottom left collision (1) and a bottom right collision (2) are performed.
+
+
+
+
+
+
+
+
+
+
+
+
+
+1	2
+
+
+67
+There’s also a 50 pixel offset adjustment for the Y point because that’s the Y position the sprite needs to be to make it fully visible at the top of the screen and aligned with the first row of screen characters.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+68
+
+
+The	gamePlayerUpdateBackgroundCollisions	subroutine transforms the player’s current position by the left collision points   then   calls   the   gamePlayerUpdateCollisionsCollide subroutine to perform the collision response. The same is performed for the right collision points.
+
+After the collisions, the player’s new position is stored ready for use the next frame by the collision response subroutine.
+
+
+gamePlayerUpdateBackgroundCollisions: // Left point
+LIBMATH_SUB16BIT_AVA(wPlayerX, PlayerLeftPointX, wPlayerCol lisionX)
+LIBMATH_SUB8BIT_AVA(bPlayerY, PlayerPointY, bPlayerCollisio nY)
+
+jsr gamePlayerUpdateCollisionsCollide
+
+// Right point
+LIBMATH_SUB16BIT_AVA(wPlayerX, PlayerRightPointX, wPlayerCo llisionX)
+
+jsr gamePlayerUpdateCollisionsCollide
+
+// Store previous player position lda wPlayerX+1
+sta wPlayerPreviousX+1 lda wPlayerX
+sta wPlayerPreviousX lda bPlayerY
+sta bPlayerPreviousY rts
+
+
+
+
+
+
+
+
+
+
+
+
+
+69
+The gamePlayerUpdateCollisionsCollide subroutine performs 4 distinct stages to determine if a collision point collided with a certain background character, and whether or not to reset the player back to a previous position.
+
+
+The 4 stages are:
+•   Find the background character x and y from the pixel x and y.
+•   Find the background character ID at the character x and y.
+•   Check if the background character ID > PlayerCharCollIndex.
+•   If so, it’s a collision so reset player to previous position.
+
+
+gamePlayerUpdateCollisionsCollide:
+// Stage 1 - Find the character x & y from the pixel x & y LIBSCREEN_PIXELTOCHAR_AAAA(wPlayerCollisionX, bPlayerCollis
+ionY, bPlayerXChar, bPlayerYChar)
+
+// Stage 2 - Get the character ID from the character x & y LIBSCREEN_GETCHARACTER_AAA(bPlayerXChar, bPlayerYChar, Zero
+Page1)
+
+// Stage 3 - Check if character ID > PlayerCharCollIndex lda #PlayerCharCollIndex
+cmp ZeroPage1
+bcs gPUCCNoCollision
+
+// Stage 4 - Collision response reset to previous position lda wPlayerPreviousX+1
+sta wPlayerX+1
+lda wPlayerPreviousX sta wPlayerX
+lda bPlayerPreviousY sta bPlayerY
+
+gPUCCNoCollision: rts
+
+
+
+
+70
+In CharPad the characters have been created in such a way that character ID’s > PlayerCharCollIndex (which has been set to 100) (1) are collidable. The player can walk straight over ID’s below that.
+Hovering the mouse pointer over a character will display its index.
+
+
+
+
+
+
+
+
+
+
+1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+71
+Finally the code to set the player sprite’s position is separated out into its own subroutine so that it can occur after the background collisions have taken place.
+
+
+gamePlayerUpdate: . . .
+jsr gameplayerUpdateSprite rts
+
+
+
+•   Press F6 to assemble and run in the VICE emulator. The player now collides with the background.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+72
+
+
+•   Open Ch9.code-workspace in Visual Studio Code.
+
+
+
+There are a maximum of 6 bar customers at any time (1 for each chair at the bar). The variables used to track the state of each bar customer such as position, state, current chair etc. are stored in variable arrays. There are 6 entries in each variable array (1 for each bar customer).
+
+
+
+// arrays bBarStateArray: wBarXArray: bBarYArray: bBarWalkDirArray: bBarTimerHArray: bBarTimerLArray: bBarChairTakenArray: bBarChairArray:
+. . .
+
+
+.byte   0, 0, 0, 0, 0,  0 .byte   0, 0, 0, 0, 0,  0 .byte   0, 0, 0, 0, 0,  0 .byte   0, 0, 0, 0, 0,  0 .byte   0, 0, 0, 0, 0,  0 .byte   0, 0, 0, 0, 0,  0 .byte   0, 0, 0, 0, 0,  0 .byte   0, 1, 2, 3, 4,  5
+
+
+// current element values bBarSprite:	.byte 0 bBarState:	.byte 0 bBarElement:	.byte 0 wBarX:	.word 0 bBarY:	.byte 0 bBarWalkDir:	.byte 0 bBarChair:	.byte 0 . . .
+
+
+The update subroutines loop through each bar customer, copy the current bar customer’sarray valuesinto the current element values, do any updates required, then copy the updated values back to the variable arrays.
+
+
+
+Get variables
+
+
+Update
+
+Set variables
+
+
+
+
+73
+
+
+The random numbers are seeded using a built in timer register so that the game plays differently each time. Then subroutine calls are added to initialize and update the bar gameplay.
+
+
+// Seed the random number lists LIBMATH_RANDSEED_AA(bMathRandomCurrent1, TIMALO) LIBMATH_RANDSEED_AA(bMathRandomCurrent2, TIMALO) . . .
+
+jsr gameBarInit	// Call the bar initialize subroutine . . .
+
+gameMainUpdate: . . .
+jsr gameBarUpdate // Update the bar subroutines
+
+
+The bar is initialized by looping through each bar customer to set some defaults including the start timer value and sprite position.
+
+
+gameBarInit: ldx #0
+gBILoop:
+inc bBarSprite // x+1 jsr gameBarGetVariables lda #0
+sta bBarState sta wBarX
+sta bBarWalkDir // Fill the chair lda #True
+sta bBarChairTakenArray,x
+// Get a random timerhigh wait time (0->5) LIBMATH_RAND_AAA(bMathRandoms2, bMathRandomCurrent2, wBar
+Timer+1)
+// Get a random timerlow wait time (0->255) LIBMATH_RAND_AAA(bMathRandoms1, bMathRandomCurrent1, wBarT
+imer)
+jsr gameBarSetVariables LIBSPRITE_SETPOSITION_AAA(bBarSprite, wBarX, bBarY) inx
+cpx #BarSpriteMax bne gBILoop
+rts
+
+
+74
+The 16-bit timer value (wBarTimer) is initialized with random values for the high byte (0->5) and low byte (0->255) for the waiting time between states. E.g. how long to wait for a drink to be served, or how long to spend drinking.
+The update subroutine loops through each customer, updates the state, then updates the sprites if currently on the bar screen. This is because if not displaying the bar screen the simulation still needs to run but the sprites will be used for the currently displayed screen.
+
+
+gameBarUpdate: ldx #0
+stx bBarSprite gBULoop:
+inc bBarSprite // x+1 jsr gameBarGetVariables jsr gameBarUpdateState jsr gameBarSetVariables // only if on bar screen lda bMapScreen
+bne gBUNotOnBarScreen jsr gameBarUpdateSprite
+gBUNotOnBarScreen: inx
+cpx #BarSpriteMax bne gBULoop
+rts
+
+
+The 3 gameplay states (Walking, Waiting, and Drinking) are implemented with 2 jump tables (1 for the simulation and 1 for the sprite updates).
+
+
+gameBarUpdateStateJumpTable:
+.word gameBarUpdateStateWalking .word gameBarUpdateStateWaiting .word gameBarUpdateStateDrinking
+
+gameBarUpdateSpriteJumpTable:
+.word gameBarUpdateSpriteWalking .word gameBarUpdateSpriteWaiting .word gameBarUpdateSpriteDrinking
+
+
+
+
+75
+
+
+The walkingstate iswherethe bar customerswalk leftand right across the screen and is the default on game start.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+76
+
+
+
+
+
+
+
+
+
+
+
+The  sprite  is  updated  by  setting  the  left or right walking animation and clearing the drink icon (drawn to the screen while in a previous waiting state).
+
+
+
+gameBarUpdateSpriteWalking:
+
+lda bBarWalkDir beq gBUSWRight
+
+// ------------ Walking Left ----------------------
+
+LIBSPRITE_PLAYANIM_AAAVV(bBarSprite, bBarWalk3, bBarWalk4, BarAnimDelay, true)
+jmp gBUSpWaEnd
+
+// ------------ Walking Right ---------------------
+
+gBUSWRight:
+
+LIBSPRITE_PLAYANIM_AAAVV(bBarSprite, bBarWalk1, bBarWalk2, BarAnimDelay, true)
+
+// ------------------------------------------------
+
+gBUSpWaEnd:
+
+// Clear the drink icon LIBSCREEN_SETCHARACTER_S_AAV(bBarDrinkColumn1, bBarDrinkRo
+w, Space)
+LIBSCREEN_SETCHARACTER_S_AAV(bBarDrinkColumn2, bBarDrinkRo w, Space)
+
+rts
+
+
+
+
+77
+
+
+The waiting state is where the bar customers sit on the bar stools with a drink icon above their head waiting for a drink.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+78
+
+
+
+
+
+
+
+
+
+
+
+
+The sprite is updated by stopping the animation, setting the sitting frame, and drawing the correct drink icon above the bar customer’s head.
+
+
+
+
+gameBarUpdateSpriteWaiting:
+
+// Draw the sitting sprite LIBSPRITE_STOPANIM_A(bBarSprite) LIBSPRITE_SETFRAME_AA(bBarSprite, bBarSit)
+
+// Draw the drink icon LIBSCREEN_SETCHARACTER_S_AAA(bBarDrinkColumn1, bBarDrinkRo
+w, bBarDrinkChar1)
+LIBSCREEN_SETCOLOR_S_AAA(bBarDrinkColumn1, bBarDrinkRow, b BarDrinkColor)
+LIBSCREEN_SETCHARACTER_S_AAA(bBarDrinkColumn2, bBarDrinkRo w, bBarDrinkChar2)
+LIBSCREEN_SETCOLOR_S_AAA(bBarDrinkColumn2, bBarDrinkRow, b BarDrinkColor)
+
+rts
+
+
+
+
+
+
+
+
+
+
+
+79
+
+
+The drinking state is where the bar customers sit on the bar stools, drinking their drink with no icon above their head.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+The sprite is updated by stopping the animation, setting the sitting frame, and clearing the drink icon.
+
+
+gameBarUpdateSpriteDrinking:
+
+// Draw the sitting sprite LIBSPRITE_STOPANIM_A(bBarSprite) LIBSPRITE_SETFRAME_AA(bBarSprite, bBarSit)
+
+// Clear the drink icon LIBSCREEN_SETCHARACTER_S_AAV(bBarDrinkColumn1, bBarDrinkRo
+w, Space)
+LIBSCREEN_SETCHARACTER_S_AAV(bBarDrinkColumn2, bBarDrinkRo w, Space)
+
+rts
+
+
+80
+•   Press F6 to assemble and run in the VICE emulator.
+The customers now go to the bar and order drinks. If they receivethe correct drink they’ll drink forawhilebefore leaving. If they’re left waiting for too long they’ll also leave. Note that sprites are displayed incorrectly on other screens until those screens are implemented.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+81
+
+
+Open Ch10.code-workspace in Visual Studio Code.
+
+
+
+There are a maximum of 6 beachgoers at any time (1 for each sun lounger). The variables work the same way as the bar in that there is 1 array entry for each beachgoer and these are fed though the current element variables.
+
+
+
+// arrays
+bLoungersStateArray:	.byte bLoungersXArray:	.byte bLoungersYArray:	.byte bLoungersWalkDirArray:	.byte bLoungersTimerHArray:	.byte bLoungersTimerLArray:	.byte bLoungersChairTakenArray:   .byte bLoungersChairArray:	.byte . . .
+// current element values bLoungersSprite:	.byte 0 bLoungersState:	.byte 0 bLoungersElement:	.byte 0 wLoungersX:	.word 0 bLoungersY:	.byte 0 bLoungersWalkDir:	.byte 0 bLoungersChair:	.byte 0 . . .
+
+
+0, 0, 0, 0, 0,  0 0, 0, 0, 0, 0,  0 0, 0, 0, 0, 0,  0 0, 0, 0, 0, 0,  0 0, 0, 0, 0, 0,  0 0, 0, 0, 0, 0,  0 0, 0, 0, 0, 0,  0 0, 1, 2, 3, 4,  5
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+82
+
+
+The subroutine calls are added to initialize and update the sun lounger gameplay.
+
+
+// Call the loungers initialize subroutine jsr gameLoungersInit
+. . .
+
+gameMainUpdate: . . .
+jsr gameLoungersUpdate // Update the loungers subroutines
+
+
+The  sun  loungers  are  initialized  by  looping  through  each beachgoer to set some default values. The timer is purposely defaulted to be higher than the bar customers in order that the beachgoers appear later when the game is started.
+
+
+gameLoungersInit: ldx #0
+gLILoop:
+jsr gameLoungersGetVariables // Reset some variables
+lda #0
+sta bLoungersState sta wLoungersX
+sta bLoungersWalkDir // Fill the chair lda #True
+sta bLoungersChairTakenArray,x
+// Get a random timerhigh wait time (0->5) LIBMATH_RAND_AAA(bMathRandoms2, bMathRandomCurrent2, wLoun
+gersTimer+1)
+// Add a large minimum delay to start a little later than the bar game
+LIBMATH_ADD8BIT_AVA(wLoungersTimer+1, 7, wLoungersTimer+1) // Get a random timerlow wait time (0->255) LIBMATH_RAND_AAA(bMathRandoms1, bMathRandomCurrent1, wLoun
+gersTimer)
+jsr gameLoungersSetVariables inx
+cpx #LoungersSpriteMax bne gLILoop
+rts
+
+
+
+83
+The update subroutine loops through each beachgoer, updates the state, then updates the sprites if currently on the sun lounger screen. This is similar the  bar update in that the simulation always runs, with the difference being the screen that it will update the sprites on.
+
+
+gameLoungersUpdate: ldx #0
+stx bLoungersSprite gLULoop:
+inc bLoungersSprite // x+1 jsr gameLoungersGetVariables jsr gameLoungersUpdateState jsr gameLoungersSetVariables // only if on loungers screen lda bMapScreen
+cmp #2
+bne gLUNotOnLoungersScreen jsr gameLoungersUpdateSprite
+gLUNotOnLoungersScreen: inx
+cpx #LoungersSpriteMax bne gLULoop
+rts
+
+
+The  3  gameplay  states  (Walking,  Waiting,  And Lying) are implemented with 2 jump tables (1 for the simulation and 1 for the sprite updates).
+
+
+
+gameLoungersUpdateStateJumpTable:
+.word gameLoungersUpdateStateWalking .word gameLoungersUpdateStateWaiting .word gameLoungersUpdateStateLying
+
+gameLoungersUpdateSpriteJumpTable:
+.word gameLoungersUpdateSpriteWalking .word gameLoungersUpdateSpriteWaiting .word gameLoungersUpdateSpriteLying
+
+
+
+
+
+
+
+84
+
+
+The walking state is the same as for the bar except that the bLoungersWalkYArray has different Y values for the loungers.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+85
+
+
+
+
+
+
+
+
+
+
+
+The  sprite  is  updated  by  setting  the  left or right walking animation and drawing the current lounger without a towel.
+
+
+gameLoungersUpdateSpriteWalking: lda bLoungersWalkDir
+beq gLUSpWaRight
+
+// ------------ Walking Left ----------------------
+
+LIBSPRITE_PLAYANIM_AAAVV(bLoungersSprite, bLoungersWalk3, bLoungersWalk4, LoungersAnimDelay, true)
+jmp gLUSpWaEnd
+
+// ------------ Walking Right ---------------------
+
+gLUSpWaRight:
+LIBSPRITE_PLAYANIM_AAAVV(bLoungersSprite, bLoungersWalk1, bLoungersWalk2, LoungersAnimDelay, true)
+
+// ------------------------------------------------
+
+gLUSpWaEnd:
+// Draw the lounger without a towel LIBSCREEN_SETCHARACTER_S_AAV(bLoungersChairColumn1, bLoung
+ersChairRow1, LoungersNoTowel_1_1) LIBSCREEN_SETCHARACTER_S_AAV(bLoungersChairColumn2, bLoung
+ersChairRow1, LoungersNoTowel_2_1) LIBSCREEN_SETCHARACTER_S_AAV(bLoungersChairColumn1, bLoung
+ersChairRow2, LoungersNoTowel_1_2) LIBSCREEN_SETCHARACTER_S_AAV(bLoungersChairColumn2, bLoung
+ersChairRow2, LoungersNoTowel_2_2) LIBSCREEN_SETCHARACTER_S_AAV(bLoungersChairColumn1, bLoung
+ersChairRow3, LoungersNoTowel_1_3) LIBSCREEN_SETCHARACTER_S_AAV(bLoungersChairColumn2, bLoung
+ersChairRow3, LoungersNoTowel_2_3) rts
+
+
+86
+
+
+The waiting state is where the beachgoers stand in front of the sun loungers waiting for a towel to be laid down.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+87
+
+
+
+
+
+
+
+
+
+
+
+The sprite is updated by stopping the animation, and setting the standing frame.
+
+
+
+gameLoungersUpdateSpriteWaiting: // Draw the standing sprite
+LIBSPRITE_STOPANIM_A(bLoungersSprite) LIBSPRITE_SETFRAME_AA(bLoungersSprite, bLoungersWalk1) rts
+
+
+
+
+The lying state is where the beachgoers lie on the sun loungers with a towel underneath them.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+88
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+The sprite is updated by stopping the animation, setting the lying frame, and drawing the current lounger with a towel.
+
+
+
+gameLoungersUpdateSpriteLying: // Draw the lying sprite
+LIBSPRITE_STOPANIM_A(bLoungersSprite) LIBSPRITE_SETFRAME_AA(bLoungersSprite, bLoungersLie)
+
+// Draw the lounger with a towel LIBSCREEN_SETCHARACTER_S_AAV(bLoungersChairColumn1, bLoung
+ersChairRow1, LoungersTowel_1_1) LIBSCREEN_SETCHARACTER_S_AAV(bLoungersChairColumn2, bLoung
+ersChairRow1, LoungersTowel_2_1) LIBSCREEN_SETCHARACTER_S_AAV(bLoungersChairColumn1, bLoung
+ersChairRow2, LoungersTowel_1_2) LIBSCREEN_SETCHARACTER_S_AAV(bLoungersChairColumn2, bLoung
+ersChairRow2, LoungersTowel_2_2) LIBSCREEN_SETCHARACTER_S_AAV(bLoungersChairColumn1, bLoung
+ersChairRow3, LoungersTowel_1_3) LIBSCREEN_SETCHARACTER_S_AAV(bLoungersChairColumn2, bLoung
+ersChairRow3, LoungersTowel_2_3) rts
+
+
+
+
+
+
+
+
+
+89
+•   Press F6 to assemble and run in the VICE emulator.
+The beachgoers now wait in front of the sun loungers. If they receive a towel they’ll lie for a while before leaving. If they’re left waiting for too long they’ll also leave. Note that sprites are displayed incorrectly on other screens until those screens are implemented.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+90
+
+
+•   Open Ch11.code-workspace in Visual Studio Code.
+
+
+
+The crabs use the interrupt library macros (see Chapter 4) to do sprite multiplexing in order to display 12 crab sprites.
+The LIBRASTERIRQ_INIT_VAV macro is called first to start raster IRQ’s happening every frame.
+The gameCrabsUpdate subroutine is called in the main game loop to update the crab’s x movements.
+Then the 2 custom interrupt routines are triggered at scanlines 10 and 140 to call separate crab update subroutines (Top and Bottom) which set the top 6 and bottom 6 crab positions.
+
+
+// Constants
+.const IrqFast = true .const Irq1Scanline = 10 .const Irq2Scanline = 140
+//============================================================ . . .
+// Initialize the irq
+LIBRASTERIRQ_INIT_VAV(Irq1Scanline, gameMainIRQ1, IrqFast) //============================================================
+. . .
+jsr gameCrabsUpdate	// Update the crabs subroutines . . .
+//============================================================ // Interrupt Handlers
+gameMainIRQ1:
+LIBRASTERIRQ_START_V(IrqFast)   // Start the irq jsr gameCrabsUpdateTop
+// Point to the 2nd irq LIBRASTERIRQ_SET_VAV(Irq2Scanline, gameMainIRQ2, IrqFast) LIBRASTERIRQ_END_V(IrqFast)	// End the irq
+//=========================================================== gameMainIRQ2:
+LIBRASTERIRQ_START_V(IrqFast)   // Start the irq jsr gameCrabsUpdateBottom
+// Point to the 1st irq LIBRASTERIRQ_SET_VAV(Irq1Scanline, gameMainIRQ1, IrqFast) LIBRASTERIRQ_END_V(IrqFast)	// End the irq
+
+
+91
+
+
+The gameCrabsUpdate subroutine loops through sprites 1-6 (0 is for the player) and sets the animation frames and color.
+Then the gameCrabsUpdateXOffset subroutine is called that slides the bCrabsXOffset value back and forth between 0 and CrabsOffsetXMax (70).
+
+
+gameCrabsUpdateXOffset:
+// Skip every other frame to slow down crabs movement lda bCrabsSkipMove
+eor #1	// Toggle sta bCrabsSkipMove
+bne gCUXEnd
+lda bCrabsXOffsetLeft
+beq gCUXRight	// If moving right jump to gCUXRight
+
+// Left directional movement gCUXLeft:
+dec bCrabsXOffset// Move left by 1
+bne gCUXEnd	// If not at 0, jmp to end lda #False	// If at 0, toggle left flag sta bCrabsXOffsetLeft
+jmp gCUXEnd	// Skip over right movement
+
+// Right directional movement gCUXRight:
+inc bCrabsXOffset // Move right by 1 lda bCrabsXOffset
+cmp #CrabsOffsetXMax
+bne gCUXEnd	// If not at CrabsOffsetXMax, jmp to end lda #True	// If at CrabsOffsetXMax, toggle left flag sta bCrabsXOffsetLeft
+gCUXEnd: rts
+
+
+
+
+
+
+
+
+
+
+
+
+92
+The gameCrabsUpdateTop subroutine (called from the raster interrupt) loops through sprites 1-6 and applies the x offset to the sprite position.
+
+
+. . .
+bCrabsDirArray:	.byte   0,  0, 0, 1, 1, 1 . . .
+// Apply x offset to position lda bCrabsDir
+beq gCUTNotReverseDir // Add if going right
+LIBMATH_SUB8BIT_AAA(wCrabsX, bCrabsXOffset, wCrabsX) jmp gCUTReverseDirEnd
+gCUTNotReverseDir:
+// Subtract if going left LIBMATH_ADD8BIT_AAA(wCrabsX, bCrabsXOffset, wCrabsX)
+gCUTReverseDirEnd:
+
+// Set the sprite position LIBSPRITE_SETPOSITION_AAA(bCrabsSprite, wCrabsX, bCrabsY) . . .
+
+
+This is based on the bCrabsDirArray entry to say whether it should be the left or right direction, so 3 sprites have the offset subtracted and 3 sprites have it added.
+
+
+
+
+
+
+Offset subtracted
+
+
+
+
+
+Offset added
+
+
+The  gameCrabsUpdateBottom  subroutine  doesn’t  need  to recalculate the x positions as it uses the same values. The only thing that changes is the y positions.
+
+
+93
+
+
+Detecting collisions between the player and the crabs uses the VIC-II built in pixel collision functionality. This tells us that a collision has occurred but not the exact sprite the player has collided with (this is ok as all crab collisions are handled the same way).
+
+A call to the gameplayerUpdateSpriteCollisions subroutine is added to gamePlayerUpdate.
+
+
+gamePlayerUpdate: . . .
+jsr gamePlayerUpdateSpriteCollisions . . .
+rts
+
+If a collision is detected then the player sprite color is set to red. A frame wait is implemented so that energy isn’t decreased every frame.
+
+
+gamePlayerUpdateSpriteCollisions: LIBSPRITE_SETCOLOR_AV(bPlayerSprite, BLACK)
+
+// Only do if on Top Right or Bottom Right screen lda bPlayerMapScreen
+cmp #PlayerScreenTopRight beq gPUSCOK
+cmp #PlayerScreenBottomRight beq gPUSCOK
+jmp gPUSCEnd gPUSCOK:
+// If sprite collided, set player sprite color to RED LIBSPRITE_DIDCOLLIDESP_A(bPlayerSprite)
+beq gPUSCEnd LIBSPRITE_SETCOLOR_AV(bPlayerSprite, RED)
+// Only decrease energy after PlayerSpriteCollWait dec bPlayerSpriteCollision
+bne gPUSCEnd
+// Will decrease energy here lda #PlayerSpriteCollWait sta bPlayerSpriteCollision
+gPUSCEnd: rts
+
+
+
+94
+•   Press F6 to assemble and run in the VICE emulator.
+The crabs now movesideto side onthe Top Right and Bottom Right screens. If the player collideswith acrab then the player’s sprite color will turn red.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+95
+
+
+•   Open Ch12.code-workspace in Visual Studio Code.
+
+
+
+The Commodore 64 uses the SID (Sound Interface Device) chip to play back music and sound effects.
+SID files (.sid extension) contain both the audio data and the program code used for playback and are created with music tracker software such as GoatTracker 2.
+The creation of these files is beyond the scope of this book but there are vast collections of free SID files available from sites such as hvsc.c64.org.
+
+E.g. A search for the word beach produces the following:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+96
+SID files need to be imported to a specific memory address which can be located in the Tune Details, $1000 in this example (1).
+
+The libSound library macros assume the Init Address is the same as the Load Address and the Play Address is the Init Address + 3.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+97
+
+
+•   Start with the gameMain1.asm file.
+
+The sound isinitialized by passing the SID file memory address to the LIBSOUND_INIT_A macro.
+The SID file is imported at the memory address that matches the required Load Address from the Tune Details. Note the SID file has a 126 byte ($7E) header that must be skipped.
+
+
+. . .
+LIBSOUND_INIT_A(gameMainSID)	// Initialize the sound . . .
+// Add sound data at the $1000 memory location *= $1000 "Sounds"
+gameMainSID:
+// $7E is the size of the header to be skipped .import binary "..\..\Content\Bahama_Beach.sid", $7E
+
+
+In a raster interrupt routine the LIBSOUND_UPDATE_A macro is called once per frame to update the sound playing.
+
+
+
+gameMainIRQ1: LIBRASTERIRQ_START_V(IrqFast) LIBSOUND_UPDATE_A(gameMainSID) LIBRASTERIRQ_END_V(IrqFast)
+
+
+// Start the irq
+// Update the sound player // End the irq
+
+
+
+•   Press F6 to assemble and run in the VICE emulator.
+
+
+
+
+
+
+
+
+
+
+
+
+
+98
+
+
+•   Switch to the gameMain2.asm file.
+
+The Beach Bar game music is implemented as the previous section but with the SID file imported in the gameData.asm file along with all the other data.
+
+
+// Add sound data at the $1000 memory location *= $1000 "Sound Data"
+gameDataSID:
+// $7E is the size of the header to be skipped .import binary "..\..\Content\Calypso_Bar.sid", $7E
+
+
+The sound effect data has also been created in GoatTracker 2 and the instrument data exported as a set of byte lists.
+
+
+
+SFX_Crab: SFX_Fail1: SFX_Fail2: . . .
+
+.byte $0E,$EE,$00,$DC,$81,$DC,$DC,$DC . . . .byte $0E,$EE,$00,$98,$21,$98,$98,$98 . . . .byte $0E,$EE,$00,$AC,$81,$AC,$21,$AB . . .
+
+
+
+The LIBSOUND_PLAYSFX_AA library macro is called to play the sound effects in game.
+
+
+// Play the sfx LIBSOUND_PLAYSFX_AA(gameDataSID, SFX_Crab)
+
+
+It is possible to manually create and play SID sound effects but as the beach bar game doesn’t use this method it’s suggested to refer to the RetroGameDev C64 Edition Volume 1 book to investigate further.
+
+
+
+
+
+
+
+99
+•   Press F6 to assemble and run in the VICE emulator.
+The background music now plays and sound effects play for various in game events.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+100
+
+
+•   Open Ch13.code-workspace in Visual Studio Code.
+
+
+
+There are 2 gameflow states implemented with a jump table (the same as previous chapters).
+The game starts in the menu state. When the fire button is pressed it transitions to the game state. When the energy reaches zero, it returns to the menu state.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+101
+
+
+The HUD (Heads Up Display) panel is used to give feedback on the current state of the game.
+
+
+
+
+There are various HUD subroutine calls throughout the code to modify the HUD variables for energy, customers waiting, drinks, towels, and scores. E.g.
+
+
+gameBarUpdateStateWaiting: . . .
+// Lose some Energy
+jsr gameHUDDecreaseEnergy . . .
+
+
+The gameHUDUpdate subroutine is called each frame directly after the gameFlowUpdate subroutine.
+
+
+
+gameMainUpdate: LIBSCREEN_WAIT_V(250) LIBSPRITE_UPDATE() jsr gameFlowUpdate jsr gameHUDUpdate
+jmp gameMainUpdate
+
+
+// Wait for scanline 250 // Update the sprites
+// Update the game flow subroutines // Update the HUD subroutines
+// Jump back, infinite loop
+
+
+
+This in turn calls a multitude of subroutines to update all the individual HUD elements on the HUD panel.
+
+
+gameHUDUpdate:
+jsr gameHUDUpdateEnergy
+jsr gameHUDUpdateBarCustomers
+jsr gameHUDUpdateLoungersCustomers jsr gameHUDUpdateNumDrinks
+jsr gameHUDUpdateNumTowels
+jsr gameHUDUpdateDrinksCarrying jsr gameHUDUpdateScore
+jsr gameHUDUpdateHiScore rts
+
+
+102
+The Energy, BarCustomers, and LoungersCustomers updates use  the  LIBSCREEN_SETCOLOR macros  to change  the color of a specific character on the HUD panel.
+
+
+gameHUDUpdateBarCustomers:
+lda bHudBarCustomers // Load number of bar customers bne gHUBCRed // If not 0, skip to red
+// Set icon to green LIBSCREEN_SETCOLOR_S_VVV(HUDBarCustomersColumn,HUDRow, GRE
+EN)
+jmp gHUBCEnd // Skip to end gHUBCRed:
+// Set icon to red LIBSCREEN_SETCOLOR_S_VVV(HUDBarCustomersColumn,HUDRow, RED)
+gHUBCEnd: rts
+
+The NumDrinks and NumTowels updates convert the specific HUD variable to ASCII to look up the digit from the character set with LIBSCREEN_SETCHARACTER macro.
+
+
+gameHUDUpdateNumDrinks: lda bHudNumDrinks
+ora #$30	// Convert to ascii sta ZeroPage9
+LIBSCREEN_SETCHARACTER_S_VVA(HUDNumDrinksColumn, HUDRow, Z eroPage9)
+rts
+
+The scores are more complex because we require more than 1 digit in the HUD panel and it’s processor intensive to extract individual decimal digits from a variable.
+The solution to this is to use the built in Decimal Mode of the 6510 when we increment the score which has the effect of storing each digit as 0-9 in an easy format for display.
+
+
+gameHUDIncreaseScore:
+sed // Set decimal mode LIBMATH_ADD16BIT_AVA(wHudScore,HUDScoreIncrease,wHudScore) cld // Clear decimal mode
+rts
+
+
+103
+The scores are stored in a word (in decimal format), then extracted for display by taking 2 digits from the low byte (4 bits per digit) and 1 digit from the high byte.
+
+
+gameHUDUpdateScore:
+// -------- 1st digit --------lda wHudScore+1
+
+// get low nibble and #%00001111
+
+// convert to ascii ora #$30
+sta ZeroPage9
+
+LIBSCREEN_SETCHARACTER_S_VVA(HUDScoreColumn1, HUDRow, Zero Page9)
+
+// -------- 2nd digit --------lda wHudScore
+
+// get high nibble and #%11110000
+
+// convert to ascii lsr
+lsr lsr lsr
+ora #$30
+sta ZeroPage9
+
+LIBSCREEN_SETCHARACTER_S_VVA(HUDScoreColumn2, HUDRow, Zero Page9)
+
+// -------- 3rd digit --------lda wHudScore
+
+// get low nibble and #%00001111
+
+// convert to ascii ora #$30
+sta ZeroPage9
+
+LIBSCREEN_SETCHARACTER_S_VVA(HUDScoreColumn3, HUDRow, Zero Page9)
+
+rts
+
+
+
+104
+
+
+
+
+
+
+
+
+
+
+
+
+Memory Map ----------
+Default-segment:
+$0801-$080d Basic Loader $1000-$19bf Sounds $2000-$27ff Characters $2800-$307f Sprites $3080-$411f Screens $4120-$5b97 Code
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+105
+The Noice Kick Assembler memory viewer can be used to display memory visually.
+
+Paste the contents of the Kick Assembler Build OUTPUT window into the memory map window at kickassmemoryview.insoft.se.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+106
+And that brings us to the end of our journey, although you could take the development further. Some ideas to get you started are a title screen, more music, save/load high scores, and animated background graphics (such as the sea).
+
+Enjoy!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+107
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+108
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+109
+
+
+As with the first volume it has been decided to provide the library code as a set of macros rather than subroutines, even though subroutines can provide a smaller memory footprint in certain use cases.
+The main reasons were:
+•   When including the library code, only the macros used take up memory, whereas one copy of each subroutine would be assembled even if not used.
+•   Subroutines have a speed disadvantage of the extra jsr and rts instructions.
+•   With run-time loops (not Kick Assembler build-time loops)  it’s  more  memory  efficient  to  use  a  macro without the jsr and rts as macros are only placed into memory once in this instance.
+•   Macros can have parameters passed in.
+However,  if  the  memory  space  saving  of  subroutines  is required, it’s trivial to convert a macro to a subroutine or wrapped subroutine (See Chapter 2: Key Concepts – Macros and Subroutines)
+Also see the example wrapped subroutine code for:
+LIBSCREEN_SETCHARACTER_S. LIBSCREEN_SETCOLOR_S.
+
+
+In addition to the following library code reference, it can be useful  to  study  the  reference  books  found  in  the  Credits section.
+
+
+
+
+
+
+
+
+110
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+=========================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+111
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+=========================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+112
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+=========================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+113
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+=========================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+114
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+=========================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+115
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+=========================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+116
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+=========================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+117
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+=========================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+118
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+=========================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+119
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+=========================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+120
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+=========================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+121
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+=========================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+122
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+=========================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+123
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+=========================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+124
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+=========================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+125
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+=========================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+126
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+=========================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+127
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+=========================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+128
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+129
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+=========================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+130
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+131
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+=========================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+132
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+=========================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+133
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+=========================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+134
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+=========================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+135
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+=========================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+136
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+=========================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+137
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+=========================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+138
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+=========================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+139
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+140
+
+
+
+
+Cover Art:
+
+
+Rick Nath Andy Jackson surface3d.co.uk
+
+
+
+
+
+
+Music and Sfx:
+
+
+Andrzej Kucharski (Akadem) bit.ly/3cnVuIr
+
+Kamil Degorski (Djinn) bit.ly/3iXdPO0
+
+
+Richard/TND tnd64.unikat.sk
+
+
+
+
+
+
+
+
+
+141
+
+
+
+Tools:
+
+
+Oracle Java java.com
+
+
+Microsoft Visual Studio Code code.visualstudio.com
+
+
+Kick Assembler – Mads Nielsen theweb.dk/KickAssembler
+
+
+Kick Assembler extension - Paul Hocker bit.ly/36iiLYE
+
+
+C64 Debugger - slajerek sourceforge.net/projects/c64-debugger
+
+
+C64 Debug GUI - stigzler magoarcade.org/wp/c64debuggui
+
+
+VICE Emulator vice-emu.sourceforge.io
+
+
+
+
+
+142
+
+CharPad / SpritePad – Subchrist Software subchristsoftware.com
+
+
+GoatTracker 2 – jauernig, loorni sourceforge.net/projects/goattracker2
+
+
+Noice Memory Viewer – Swoffa, Bernie kickassmemoryview.insoft.se
+
+
+
+Reference Books:
+
+
+Commodore 64 Programmer’s Reference Guide Commodore Business Machines, Inc.
+
+
+Mapping the Commodore 64 Sheldon Leemon
+
+
+Assembly Language Programming with the C64 Marvin L. De Jong
+
+
+Assembly in One Step David A. Wheeler
+
+
+
+
+
+143
+
+
+
+Special Thanks:
+
+
+John Dale (OldSkoolCoder) oldskoolcoder.co.uk youtube.com/c/OldSkoolCoder
+
+
+Glenn Cline (GRay Defender) graydefender.com youtube.com/c/GRayDefender
+
+
+Michal Taszycki 64bites.com
+
+
+Andrew Jacobs obelisk.me.uk
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+144

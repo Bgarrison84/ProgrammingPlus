@@ -1,0 +1,4 @@
+[ZoneTransfer]
+ZoneId=3
+HostUrl=https://us-east.storage.cloudconvert.com/tasks/050fa4f2-8151-46ee-8529-6e8ba39f8a79/beginningprogrammingwithpythonfordummies3rdedition.txt?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=cloudconvert-production%2F20260330%2Fva%2Fs3%2Faws4_request&X-Amz-Date=20260330T010716Z&X-Amz-Expires=86400&X-Amz-Signature=3f75384e45d3cdeb427815fc24bdc4123a3b4fae9b429cda5f8245a0d108e502&X-Amz-SignedHeaders=host&response-content-disposition=attachment%3B%20filename%3D%22beginningprogrammingwithpythonfordummies3rdedition.txt%22&response-content-type=text%2Fplain&x-id=GetObject
+ReferrerUrl=https://cloudconvert.com/

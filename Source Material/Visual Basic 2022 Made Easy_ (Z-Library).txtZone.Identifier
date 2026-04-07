@@ -1,0 +1,4 @@
+[ZoneTransfer]
+ZoneId=3
+HostUrl=https://us-east.storage.cloudconvert.com/tasks/c272db33-e572-4bf9-8aba-4f075a4867aa/Visual%20Basic%202022%20Made%20Easy_%20%28Z-Library%29.txt?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=cloudconvert-production%2F20260330%2Fva%2Fs3%2Faws4_request&X-Amz-Date=20260330T010713Z&X-Amz-Expires=86400&X-Amz-Signature=f22a5165e79764343e9e08f6cc87275d1bfe11e6add932def78736c9b4f1995b&X-Amz-SignedHeaders=host&response-content-disposition=attachment%3B%20filename%3D%22Visual%20Basic%202022%20Made%20Easy_%20%28Z-Library%29.txt%22&response-content-type=text%2Fplain&x-id=GetObject
+ReferrerUrl=https://cloudconvert.com/

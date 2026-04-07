@@ -1,0 +1,4299 @@
+﻿
+
+
+
+C#
+
+The Ultimate Intermediate Guide To Learn C# Programming Step By Step
+
+
+© Copyright 2020 - All rights reserved.
+
+The content contained within this book may not be reproduced, duplicated or transmitted without direct written permission from the author or the publisher.
+
+Under no circumstances will any blame or legal responsibility be held against the publisher, or author, for any damages, reparation, or monetary loss due to the information contained within this book, either directly or indirectly.
+
+Legal Notice:
+
+This book is copyright protected. It is only for personal use. You cannot amend, distribute, sell, use, quote or paraphrase any part, or the content within this book, without the consent of the author or publisher.
+
+Disclaimer Notice:
+
+Please note the information contained within this document is for educational and entertainment purposes only. All effort has been executed to present accurate, up to date, reliable, complete information. No warranties of any kind are declared or implied. Readers acknowledge that the author is not engaged in the rendering of legal, financial, medical or professional advice. The content within this book has been derived from various sources. Please consult a licensed professional before attempting any techniques outlined in this book.
+
+By reading this document, the reader agrees that under no circumstances is the author responsible for any losses, direct or indirect, that are incurred as a result of the use of the information contained within this document, including, but not limited to, errors, omissions, or inaccuracies.
+
+
+
+TABLE OF CONTENTS
+
+CHAPTER 1: INTRODUCTION - SETUP AND HISTORY OF C# CHAPTER 2: C# INTERFACES
+Properties in Interfaces CHAPTER 3: NAMESPACES
+Nested Namespaces
+CHAPTER 4: ADVANCED DECISION STATEMENTS AND FLOW CONTROL The != Operator
+Conditional Operators: && and || CHAPTER 5: REFLECTION
+MethodInfo
+CHAPTER 6: COLLECTIONS ArrayList
+ArrayList Operations Size Function
+Clear Function Contains Function IndexOf Function Insert Function Remove Function RemoveAt Function Reverse Function Sort Function GetRange Function
+Stack
+Stack Operations Count Function Clear Function Pop Function Peek Function ToArray Function Contains Function
+Queue
+Count Property DeQueue Function Clear Function Contains Function ToArray Function
+SortedList
+SortedList Operations Count Property Clears Function ContainsKey Function
+ContainsValue Function IndexOfKey Function IndexOfValue Function Remove Function RemoveAt Function
+CHAPTER 7: INDEXERS CHAPTER 8: GENERICS
+Generic Classes
+Generics List <T> Collection Generic Methods
+CHAPTER 9: GARBAGE COLLECTION
+CHAPTER 10: LAMBDA EXPRESSIONS AND EXPRESSION TREES Lambda Expressions
+Expression Trees Exercise
+
+CHAPTER 11: NULLABLE TYPES Structures of Nullable types in C# Syntax for Nullable types in C# The HasValue and Value Property The Null Coalescing Operator
+CHAPTER 12: ANONYMOUS TYPES Var Statement
+Creating and Using Anonymous Types in C# Comparing Two Anonymous Instances
+CHAPTER 13: LINQ Query Operators
+Where Operator Select
+Working with Other Data Types LINQ and SQL
+Mapping LINQ to SQL Selecting Data:
+LINQ and Lambda Expressions Working with XML
+Retrieve and Delete XML Data Insert and Update XML data
+CHAPTER 14: THE FACTORY AND COMPOSITE PATTERN Factory Pattern
+The Factory Pattern, in C# Sports Ball Creator
+Composite Pattern
+The Composite Pattern, in C# File Manager
+CHAPTER 15: THE OBSERVER PATTERN How it essentially works:
+The Observer Pattern, in C# Implementing the Observer Pattern
+Manhunt
+CHAPTER 16: THE FACADE PATTERN How the Facade Pattern Works
+Creating the Facade Pattern The Facade Pattern, in C# Applying the Facade Pattern
+Galactic Starship with Warp Drive Identify the Major Procedures
+CHAPTER 17: ASYNCHRONOUS PROGRAMMING Async
+Await
+CHAPTER 18: GAME DEVELOPMENT Content Pipeline
+The Structure of a MonoGame Program Textures
+Taking in Information from Keyboard and Mouse Basic Unit Collision
+Artificial Intelligence CONCLUSION REFERENCES
+
+
+
+
+
+CHAPTER 1:
+
+
+INTRODUCTION - SETUP AND HISTORY OF C#
+
+Microsoft announced C# in 2000 and launched the language in 2002. C# was supposed to be called "Cool," which stands for “C-like object-orientated programming." C# is a C-based programming language. It is pronounced C "sharp"; the hash symbol was meant to suggest that C# is the later iteration of C++.
+
+Below is the timeline of C#, detailing what has been added to each version ("C# Introduction" ): Jan 2002
+C# 1.0
+
+● Typesafe programming language ● Modern
+● OOP (Object Oriented Programming) Nov 2005
+C# 2005
+
+● Generics
+● Partial classes
+● Anonymous types
+● Iterators
+● Nullable types ● Static classes
+Nov 2007
+
+C# 2007
+
+● Improvements of previous additions ● Extensions methods
+● Expression trees ● Partial methods
+April 2010
+
+C# 4.0.
+
+● Dynamic binding techniques
+
+
+
+
+Aug 2012
+
+C# 5.0
+
+● Unique	naming	and	arguments (optional)
+
+
+●   Asynchronous  Programming  (A  huge  addition  allowing  programmers  to  create  multithreaded applications)
+●   Attributes for caller info July 2015
+C# 6.0 (This includes this book includes this version and above)
+
+● Exception filters
+● String interpolation
+● Namespaces	including	static	type members
+● Compiler as a service August 2017
+
+C# 7.0
+
+● Out variables
+● Tuples and deconstruction ● Pattern matching
+● Local functions
+● Expanded expression-bodied members ● Ref locals and returns
+
+September 2019 C# 0.8
+● Readonly members
+● Default interface methods
+● Pattern matching enhancements:
+○ Switch expressions
+○ Property patterns ○ Tuple patterns
+○ Positional patterns ● Using declarations
+● Static local functions ● Disposable ref structs
+● Nullable reference types ● Asynchronous streams ● Indices and ranges
+● Null-coalescing assignment
+● Unmanaged constructed types
+● Stackalloc in nested expressions
+● Enhancement of interpolated verbatim strings
+Running C# on Windows
+
+You are probably familiar with all of the things we are going to cover in this chapter, but we have to go through them because going through the basics is always a good idea. Think of it as a much-needed refresher from those who have stepped away from programming for a bit. It's still a better idea to work with C# on Windows, as C# is a Microsoft language. The Windows operating system is optimized for it.
+
+Mac Users:
+
+You can work with C# on Mac. Microsoft has released a Visual Studio version for Mac, but the experience of working with C# on a Windows laptop is better. It helps that you can run virtual Windows Os on Mac using tools like Virtual Box by Oracle.
+
+1. Object-Oriented Language
+
+Everything in C# is an object except for primitive data types. Objects, as you may know, have properties and building functions. If you have worked with other object-oriented languages, you have seen this. We are going to see more of this in the upcoming chapters. C# is easily maintainable and modular because it is object-oriented.
+
+2. Strongly Typed
+
+As you would expect from a programming language based-off C, C# is strongly typed. Meaning, unlike Javascript, you have to specify data types in your program. This significantly reduces run-time error. This is referred to as type safety. The benefit of type safety becomes more apparent as you work with bigger applications.
+
+3. Automatic Garbage Collection
+
+C# regularly runs garbage collection, which removes unused objects and dangling pointers, refreshing memory. The .NET framework runs this task. You do not have to do these cumbersome tasks yourself; it saves you time and allows you to focus on your applications' functionality.
+
+4. Easy to Learn
+
+C# is a high-level programming language, which makes it easier to learn. Unlike low-level programming languages like C and C++, many of the tasks you would have to perform – like memory management and pointers – are done automatically. This makes your code a lot more concise and focused. Something that would take ten lines of code in C can take about three lines of code in C#.
+
+5. Application Range
+
+C# is at the crux of Microsoft's ecosystems. Many of its technologies run on it. Windows Phone used C#, ASP.NET used C# for its backend, and Windows Form and Windows Presentation Framework also run on C#. If you are building something to run on Windows and want it to run well, C# is the best choice. There are other ways you can write programs that will run on Windows, but performance won't be the same unless you go the extra mile to optimize your program. From web development, to applications, operating systems, and game engines, C# can do plenty.
+
+6. Part of Visual Studio
+
+Microsoft's Visual Studio is one of the most widely used IDEs globally, and C# is the part of Visual Studio languages that highlights the importance and power of the language.
+
+7. Huge Developer Community
+
+When working with a program, it is always a big help when the development community for it is larger. This means that if problems arise, it is more likely that someone has encountered that problem, logged it, and found a solution for it. As a result, you will not be stuck for long, and you always have free support available. C# has the 4th largest community on Stack Overflow. What's also interesting is that Stack Overflow is written in C#.
+
+Environment Setup
+
+Here is some of what we talked about in the first book. When working with C#, it is best to do it on a Windows machine with the latest .Net framework installed. When you install Visual Studio, all the files and frameworks you need to develop in C# will be loaded to your system. Visual Studio is the go-to IDE for C#. You can download the latest Visual Studio here. You should see this when you do.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+You will find Visual Studio in three versions: the Community version, which is free, Professional, and Enterprise versions, which are paid. The community version requires you to have a Microsoft account. If you are on a Windows machine, you probably have one already. If you don't have one, it is easy to create, and it is free. The installation process is just like downloading any other program. It does not do anything extra.
+
+Running Your First Program
+
+Follow these steps to run your first C# program.
+
+1.  Open Visual Studio on the start menu or search for it in the Windows search box ("Visual Studio"):
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2.  Create a new project by selecting File -> New -> Project as shown below.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+3.  You will be faced with many C# program options. Select "Console App (.NET Framework)" and give it the application name you choose. I named it "MyProgram." Click OK.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+4.  You will be navigated to a window where you can write C# code. Copy the following code in the window and press the green button labeled "Start" from the top menu.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+When you run the script, as you have by pressing the 'Start" button, the console window will display the result of running the script. In this case, it displays the message: “Congratulations, you wrote your first Program". It looks like this:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+To understand what happened, let's take a look at the code that we wrote:
+
+using System;
+using System.Collections.Generic; using System.Linq;
+using System.Text;
+using System.Threading.Tasks; namespace MyProgram
+{
+class Program {
+static void Main(string[] args) {
+Console.WriteLine("Congratulations, you wrote your first Program"); Console.ReadKey();
+} }
+}
+Using statements, the ones on top, are declared to import libraries that contain pre-built functions called methods that we may need in our code. Any chunks of code in C# are placed within a class that is inside a namespace. This is to be expected, since the program is object-orientated. In the program we wrote, our class is Program, and our namespace is "MyProgram ''.
+
+Classes, as a type of object, contain methods within them. Our program class has the Main method whose return type is void, and method type is static. The Main method is where the C# code we will execute begins. To write the line, we used the WriteLine method, which is part of the Console class. We passed the text we want to see displayed in the console. Then we used the ReadKey method of the Console class to prevent the text from disappearing once it is printed on the screen.
+
+That is pretty much all there was to our first program.
+
+
+
+
+
+CHAPTER 2:
+
+
+C# INTERFACES
+
+Interfaces are classes that contain declarations of functions that can be inherited by other classes. The classes that inherit the method define the method.
+
+Interfaces are defined like this:
+
+public interface interfacename {
+// interface methods declaration }
+The inheriting class then defines the methods like this:
+
+class classname : interfacename {
+// interface method definition }
+
+Here is an application using interfaces.
+
+using System; namespace Demo {
+// Defining the interface public interface Score
+{
+// Declaring the interface methods void DisplayScore();
+int Calculate(); }
+public class Player : Score {
+public int PlayerID; public string PlayerName; public int score1,score2;
+
+// Defining the interface methods public void DisplayScore()
+{
+Console.WriteLine("The score for try  1 is " + score1); Console.WriteLine("The score for try 2 is " + score2);
+}
+public int Calculate() {
+return (score1 + score2); }
+}
+class Program {
+
+// The main function
+static void Main(string[] args) {
+Player  player1 = new Player();
+
+player1.playerID = 1; player1.PlayerName = "John";
+
+player1.score1 = 10; player1.score2 = 20;
+
+player1.DisplayScore();
+Console.WriteLine("The Total score is " + player1.Calculate());
+
+Console.Read(); }
+} }
+
+Here is what we see happen in the code above:
+
+●   We define an interface class called 'Score,' which has a 'Display' method and a 'Calculate' method.
+●   We then define the implementation of these functions in the 'Player’ class. This what we should see in the console:
+The score for try 1 is 10 The score for try 2 is 20 The Total score is 30
+We can also have a class inherit multiple interfaces at once. Let’s look at an example of this. Below is an application of multiple interfaces.
+using System; namespace Demo {
+// Defining the interface public interface Score
+{
+// Declaring the interface methods void DisplayScore();
+int Calculate(); }
+
+public interface location {
+// Declaring the interface methods void InputCity(string city);
+void DisplayCity();
+
+}
+
+public class Player : Score, location {
+public int PlayerID; public string PlayerName; public int score1, score2; private string city;
+
+// Defining the interface methods public void InputCity(string pcity) {
+city = pcity; }
+
+public void DisplayCity() {
+Console.WriteLine("The player is from" + city); }
+
+public void DisplayScore() {
+Console.WriteLine("The score for try 1 " + score1); Console.WriteLine("The score for try 2 " + score2);
+}
+
+public int Calculate() {
+return (score1 + score2); }
+}
+
+class Program {
+// The main function
+static void Main(string[] args) {
+
+Player player1 = new Player();
+
+player1.PlayerID = 1; player1.PlayertName = "John";
+
+player1.score1 = 10; Player1.score2 = 20;
+
+player1.DisplayScore();
+Console.WriteLine("The Total score " + player1.Calculate());
+
+player1.InputCity("New York");
+
+player1.DisplayCity();
+
+Console.Read(); }
+} }
+
+With the above program:
+
+●  We  have  defined  two  interfaces:  the  ‘Score’  interface  and  the  ‘Location’ interface.
+●  The ‘Player’ class takes both interfaces and defines the methods. Here is what the program should display:
+The score for try 1 is 10 The score for try 2 is 20 The Total score is 30
+The player is from New York Properties in Interfaces
+It is possible to define properties in the interface. They can only have a “get” or “set” keyword, which tells us if they are read-only or read-write properties.
+
+Below is the syntax.
+
+public interface interfacename {
+// Property declaration: datatype propertyname {
+get; set;
+} }
+If both the get and set methods are defined, it means that the property is a read-write property. Here is an example of how properties in interfaces work.
+
+Using the properties in interfaces
+
+using System; namespace Demo {
+// Defining the interface public interface Score
+{
+// Read write property int score
+{
+get; set;
+}
+// Read write property string Try
+{
+get; set;
+}
+// Read only property int PlayerID
+{
+get; }
+}
+
+public class Player : Score {
+public int PlayerID;
+public string PlayertName;
+
+public int score  // read-write instance property {
+get {
+return marks;
+
+} set {
+score = value; }
+}
+
+public string Try  // read-write instance property {
+get {
+return Try; }
+set {
+Try = value; }
+}
+
+public int PlayerID  // read-write instance property {
+get {
+return 1; }
+} }
+
+class Program {
+// The main function
+static void Main(string[] args) {
+Player player1 = new Playert();
+
+player1.PlayerID = 1; player1.PlayerName = "John";
+
+player1.score = 20; player1.try = "first try";
+
+Console.WriteLine("The score is " + player1.marks); Console.WriteLine("The try is the " + player1.try); Console.WriteLine("The PlayerID is " + player1.PlayerID);
+
+Console.Read(); }
+} }
+
+In the above program:
+
+●   We have set 3 properties in the interface.
+●   The  ‘Try’  and  ‘Score’  properties  are  read-write  properties  because  they  have  ‘get’  and  ‘set’ methods.
+●   The ‘PlayerID’ only has the ‘get’ property, which means it is a read-only property. ●   We then define the implementation of these properties in the class.
+In regard to the program, the result should be in this format:
+
+The score is 20
+
+The try is the first try The PlayerID is 1
+
+
+
+
+
+CHAPTER 3:
+
+
+NAMESPACES
+
+Namespaces allow us to separate and use functions that have similar names and parameters but serve different purposes (“C# Namespaces”). It is not common for programming languages to allow it. Every function has to have a name that is unique.
+
+Here’s the syntax:
+
+namespace namespaceName {
+Class definition {
+// Define the functions }
+}
+All functions defined will belong to the ‘namespaceName’ namespace. In some programs, you will need the following definition.
+
+using System;
+
+It will result in using the functions defined in the ‘System’ namespace. Example: The program below is used to showcase how to use namespaces. using System;
+// One namespace namespace NameA{
+public class ClassA {
+public void FunctionA(){
+Console.WriteLine("This is from namespace A"); }
+} }
+
+// Second namespace namespace NameB{
+public class ClassB {
+public void FunctionA() {
+Console.WriteLine("This is from namespace B"); }
+} }
+
+namespace Demo {
+class Program {
+
+// The main function
+static void Main(string[] args) {
+// Using the namespaces
+NameA.ClassA clsA = new NameA.ClassA(); clsA.FunctionA();
+
+NameB.ClassB clsB = new NameB.ClassB(); clsB.FunctionA();
+
+Console.Read(); }
+} }
+
+In the program above:
+
+●   We defined two namespaces: NameA and NameB. Both have classes with similar functions defined.
+●   We can call each function via its namespace in the main program. The program gives us the following output:
+This is from namespace A This is from namespace B
+We can call the functions with the “using” directive to avoid specifying the functions’ specific namespace, like below:
+
+This program is used to showcase the usage of the clause for namespaces.
+
+using System; using NameA; using NameB;
+
+// One namespace namespace NameA{
+public class ClassA {
+public void FunctionA(){
+Console.WriteLine("This is from namespace A"); }
+} }
+
+// Second namespace namespace NameB{
+public class ClassB {
+public void FunctionA() {
+Console.WriteLine("This is from namespace B"); }
+} }
+
+namespace Demo {
+class Program {
+
+// The main function
+static void Main(string[] args) {
+// Using the namespaces ClassA clsA = new ClassA(); clsA.FunctionA();
+
+ClassB clsB = new ClassB(); clsB.FunctionA();
+
+Console.Read(); }
+} }
+
+In regard to the program, the result should be in this format: This is from namespace A
+This is from namespace B Nested Namespaces
+Namespaces can also be nested, which means placing one namespace inside of another. Here’s how the syntax looks:
+
+namespace namespaceName1 {
+Class definition {
+// Define the functions
+
+}
+
+namespace namespaceName2 {
+Class definition {
+// Define the functions }
+} }
+
+I have highlighted the namespaces curly braces so you can see they are nested and for easy navigation. Below is how we would access function A.
+
+namespaceName1.FunctionA
+
+
+We would access function B this way.
+
+namespaceName1.namespaceName2.FunctionB
+
+
+You can see we are using dot notation, another sign that what we are essentially dealing with are objects. Using the nested namespaces.
+using System;
+
+// One namespace namespace NameA{
+public class ClassA {
+public void FunctionA(){
+
+Console.WriteLine("This is from namespace A which contains namespace B"); }
+}
+
+// inner namespace namespace NameB {
+public class ClassB {
+public void FunctionA() {
+Console.WriteLine("This is from namespace B inside Namespace A"); }
+} }
+}
+
+namespace Demo {
+class Program
+
+{
+
+// The main function
+
+static void Main(string[] args) {
+// Using the namespaces
+
+NameA.ClassA clsA = new NameA.ClassA(); clsA.FunctionA();
+
+NameA.NameB.ClassB clsB = new NameA.NameB.ClassB(); clsB.FunctionA();
+
+Console.Read(); }
+} }
+
+In the program above:
+
+●   We have nested namespace NameB inside namespace NameA. They both have a similar function defined despite NameB being inside NameA.
+●   We then access specific functions via dot notation. We end up with the following result:
+This is from namespace A which contains namespace B This is from namespace B inside Namespace A
+
+
+
+
+
+CHAPTER 4:
+
+
+ADVANCED DECISION STATEMENTS AND FLOW CONTROL The != Operator
+The != operator is used to check if two given operands are NOT equal. The ! operator can also be used to negate conditions. It is used to execute code when the opposite of a condition is true.
+
+The syntax would be like this:
+
+bool levelComplete = (score >= pointsNeededToPass); if(!levelComplete)
+{
+Console.WriteLine("You haven't won yet. Keep trying..."); }
+You can use the ! operator with other operators, but you should keep in mind that the ! has higher precedence than relational operators. This means its condition is checked before the others. If you want a relational operator to be checked before negation, you will need to put the relational conditionals in parentheses just like you would in math, like this:
+
+if(!(score > oldHighScore)) {
+}
+
+// that's the same as: if(score <= oldHighScore) {
+}
+In programming, there are many ways of doing the same thing. You just have to choose the most simple and appropriate. One shouldn’t complicate code unnecessarily.
+
+Conditional Operators: && and ||
+
+Your conditional operators can be made to track more than one thing. Let’s say you are making a game where a player controls an avatar through tough terrain. The player loses when the avatar's energy is gone, or food is gone. If they run out of energy, they can always have food as long as it’s available. If they run out of food, they can live off their energy until they hit the next stash. The only way for them to lose is if they have no energy and no food. So, you will need to have a conditional that checks both conditions and only ends the game when both conditions are met.
+
+To do this, you will need to use the AND operator (&&).
+
+This is where we play with the conditional operators. We have the AND operator (&&), as mentioned, and the OR operator (||), and these are what we use to check several elements at a time:
+
+int food = 20; int energy = 40;
+
+if(food <= 0 && energy <= 0) {
+Console.WriteLine("Game over"); }
+This means if the food is less than or equal to zero and energy is less than or equal to zero, the game should end.
+
+The || operator only needs one condition to be true. It would work better in a game where you can die in two ways. Let’s imagine our avatar can die when their energy is zero or when they run out of time (in this instance, we don’t have the food variable). Only one of these things needs to be true for the game to end, not both of them.
+
+int energy = 50; int time = 40;
+
+if(time < 0 || energy < 0) {
+Console.WriteLine("You lost. Try again!”) }
+You should know that by default, computers do “lazy evaluations,” which means they will not check the second condition if the first one is met. The only time it will check the second condition (energy) is if the first one (time) is not met.
+
+It is possible to put multiple conditional operations together. You can get very creative by using parentheses. But always, when you make these conditions, remember to make it simple for others to read and never make things too complicated for their purpose.
+
+
+
+
+
+CHAPTER 5:
+
+
+REFLECTION
+
+The ability of C# to retrieve information from sections of code during runtime is called reflection. You would use reflection if you wanted to know more information about a method (“C# Reflection”). We can do more than that: we can also create objects and invoke methods during runtime through reflections
+
+In the example below, we use “Type” datatype to get information about a class. Using the Type to get information on a class
+using System; using System.IO;
+
+namespace Demo {
+class Player
+{		// Defining the members public int id;
+public string name;
+
+public void Display() {
+Console.WriteLine("The player ID is " + id); Console.WriteLine("The name of the player is " + name);
+} }
+
+class Program {
+// The main function
+static void Main(string[] args) {
+Player player1 = new Player();
+
+// Trying to get the type of object
+Type myTypeObj = player1.GetType();
+
+Console.WriteLine("The object is of Type " + myTypeObj); Console.Read();
+} }
+}
+
+
+
+Here’s what we have done:
+
+Using ‘Type,’ we got information about the ‘player1’ object. We were able to get the class of the object.
+Below is what we would see as the output: The object is of Type Demo.Player MethodInfo
+The following reflection method is used to get information about a method from a class. Below is an example:
+The next program showcases the way to use MethodInfo.
+
+using System; using System.IO;
+using System.Reflection;
+
+namespace Demo {
+class Player {
+// Defining the members public int id;
+
+public  string name;
+
+public void Display() {
+Console.WriteLine("The ID is " + id); Console.WriteLine("The player name is " + name);
+} }
+
+class Program {
+// The main function
+static void Main(string[] args) {
+
+Player player1 = new Player();
+
+// Trying to get the type of object
+Type myTypeObj = player1.GetType();
+
+Console.WriteLine("The object is of Type " + myTypeObj);
+
+// Using reflection to get information about the Display method MethodInfo myMethodInfo = myTypeObj.GetMethod("Display");
+
+Console.WriteLine("Is the method a static method\? " + myMethodInfo.IsStatic + “\.”); Console.Read();
+} }
+}
+
+The program will give us the following results: The object is of Type Demo.Player
+Is the method a static method? False.
+
+
+
+
+
+CHAPTER 6:
+
+
+COLLECTIONS
+
+Collections are special classes that simplify working with special data classes (“Collection in C#”).
+
+For instance, collections have a size() method inside an ArrayList collection that can get an array’s size without cumbersome code.
+
+C# has the following collection classes:
+
+●   ArrayList - Array containers are used to store continuous values of the same data type.
+●   SortedList – These are sequence containers that permit the insertion of constant time and delete operations. Iterations can be done in both directions.
+●   Stacks - This is a type designed for a LIFO (last-in-first-out) situation, where items are inserted and extracted from one end of the container.
+●   Queues - This is a type designed for a FIFO (first-in-first-out) situation, where items are inserted into one side and then extracted on the other.
+Let’s look at these in more detail. It’s important to have a clear understanding of these concepts.
+
+Arrays are great because we can make them as small or as big as we need them to be. Because the memory used is contiguous, we know that arrays are efficient and frugal.  But arrays are not dynamic. With the computing needs of today, programmers have to get creative to overcome this. This used to be a strength because it meant arrays wouldn’t grow out of control and take over system memory. Computers back then did not have the sort of memory available for us today, so arrays played an important role in preventing processes from hogging memory.
+
+These days, programmers can write ever more dynamic programs that can shrink and expand as the need arises because computers have more memory, and they are stronger. This is good for programmers because it means they write more exciting things as there is now room for them to do so (without being irresponsible, of course).
+
+This is why lists have become more popular over arrays when programmers are looking for versatility and power. If you have worked with programming languages like Python, this is not new to you. A list is a flexible array.
+
+Lists can go to whatever size is needed at any given time as things change. Lists don’t have a defined length. They can always be added to. They are like fossils; there was a time when there weren’t any. They have now developed over millions of years, and things that are alive today and those that will be alive in the future will be added to that list of fossils until there is no Earth anymore. How many fossils can be added to the list is not limited by any inherent size. The only limit is how low long the Earth will exist. If the Earth existed forever, and with it life, we would have fossils being added forever. The same principle applies to lists.
+
+Lists also come with full-fledged built functions. To use lists and take advantage of all their features, you will need to import the Systems.Collections namespace.
+
+When using lists, you will have to declare the list and its type, like this: List<type> name = new List<type>();
+You add items using the Add method, like this: myList.add(2);
+myList.add(5); myList.add(8);
+You can also add existing arrays to the lists using the AddRange method like this: myList.addRange(arrayName);
+You can remove items from a list in one of two ways: by the item’s value or the item’s index. The indices of lists work the same as array indices.
+
+myList.remove(5); // will remove the 5, removing by value myList.removeAt(0); // will remove the 2, removing by index
+// only 8 is left within the list. Notice we are working on the list we made in the previous example.
+
+I hope this illustrated how flexible lists are. ArrayList
+The arrayList containers store values of the same data type. Let's look at an example of this. You define ArrayLists the following way:
+ArrayList variablename=new ArrayList():
+“Variablename” is the variable we assign to the Arraylist so that we can use all kinds of methods on it. This is us using the Add method to add an item to the arrayList.
+
+Variablename.Add(element)
+
+We can access this element by its index if we need. The following examples illustrate an ArrayList. Here is an application of array lists.
+using System;
+using System.Collections;
+
+namespace Demo {
+class Program {
+// The main function
+static void Main(string[] args) {
+// Defining the ArrayList ArrayList ar = new ArrayList();
+
+// Adding elements to the array list ar.Add(10);
+ar.Add(15); ar.Add(23);
+
+// Displaying the elements of the array
+Console.WriteLine(" The first element of the array is " + ar[0]); Console.WriteLine(" The second element of the array is " + ar[1]); Console.WriteLine(" The third element of the array is " + ar[2]);
+
+Console.Read(); }
+} }
+
+This is what we are going to see in the console: The first element of the array is 10
+The second element of the array is 15 The third element of the array is 23
+We can add all kinds of data types to an ArrayList.
+
+This program shows the way to use array lists of strings.
+
+using System;
+using System.Collections;
+
+namespace Demo {
+class Program {
+// The main function
+static void Main(string[] args) {
+// Defining the ArrayList ArrayList ar = new ArrayList();
+
+// Adding elements to the array list ar.Add("Hi");
+ar.Add("There"); ar.Add("World");
+
+// Displaying the elements of the array
+Console.WriteLine(" The first element of the array is " + ar[0]); Console.WriteLine(" The second element of the array is " + ar[1]); Console.WriteLine(" The third element of the array is " + ar[2]);
+
+Console.Read(); }
+} }
+
+The output in the console will be: The first element of the array is Hi
+The second element of the array is There The third element of the array is World
+The ArrayList class has many methods that can be used to manipulate data. ArrayList Operations
+The section below summarizes the various operations available for ArrayList.
+
+
+Function
+
+size
+
+Clear()
+
+Description
+
+This property tells us the size of the ArrayList
+
+This function removes all elements in an ArrayList
+
+
+
+Contains()
+
+
+IndexOf()
+
+InsertAt()
+
+Remove()
+
+RemoveAt()
+
+Reverse()
+
+Sort()
+
+
+GetRange()
+
+This method checks if an ArrayList contains a particular element then returns a Boolean value: True if it does and False if it doesn’t.
+
+This returns the index of the specified element in the ArrayList.
+
+This method inserts a value/item in a particular index in the ArrayList
+
+This method removes an item from an arrayList.
+
+This method will remove an item at a specified index
+
+This method reverses elements in an ArrayList.
+
+This method sorts the elements in an array alphabetically or in ascending order if they’re numbers.
+
+This method is used to extract an array and add it to an ArrayList.
+
+
+Let’s look at how each method briefly defined above works. Size Function
+This property tells us the size of the ArrayList, as in the number of elements in it. We are going to use the intuitive Count method to do this.
+
+Using count property
+
+using System;
+using System.Collections;
+
+namespace Demo {
+class Program {
+// The main function
+static void Main(string[] args) {
+// Defining the ArrayList ArrayList ar = new ArrayList();
+
+// Adding elements to the array list ar.Add(11);
+ar.Add(13); ar.Add(15);
+
+// Displaying the size of the array list
+Console.WriteLine(" The size of the array list is " + ar.Count);
+
+Console.Read(); }
+} }
+Below is what the console will print:
+
+The size of the array list is 3 Clear Function
+This function removes all elements in an ArrayList Using the clear method
+using System;
+using System.Collections;
+
+namespace Demo {
+class Program {
+// The main function
+static void Main(string[] args) {
+// Defining the ArrayList ArrayList ar = new ArrayList();
+
+// Adding elements to the array list ar.Add(12);
+ar.Add(14); ar.Add(17);
+
+// Clearing all the elements of the array list ar.Clear();
+
+Console.WriteLine(" The size of the array list is " + ar.Count); Console.Read();
+} }
+}
+
+It should tell us there is nothing in the array, like below: The size of the array list is 0
+Contains Function
+
+This method checks if an ArrayList contains a particular element, then returns a Boolean value: True if it does and False if it doesn’t.
+
+The next program shows how to use the contains method.
+
+using System;
+using System.Collections;
+
+namespace Demo {
+class Program {
+// The main function
+static void Main(string[] args) {
+// Defining the ArrayList ArrayList ar = new ArrayList();
+
+// Adding elements to the array list ar.Add(13);
+ar.Add(27); ar.Add(30);
+
+Console.WriteLine("Does the array contain the value 3? " + ar.Contains(30)); Console.Read();
+} }
+}
+
+The program should return true, like this: Does the array contain the value 3? True IndexOf Function
+This returns the index of a specified element in the ArrayList. Here is an application of the IndexOf method.
+using System;
+using System.Collections;
+
+namespace Demo {
+class Program {
+// The main function
+static void Main(string[] args) {
+// Defining the ArrayList ArrayList ar = new ArrayList();
+
+// Adding elements to the array list ar.Add(50);
+ar.Add(2000); ar.Add(37);
+
+Console.WriteLine("The index of value 37 is  " + ar.IndexOf(37)); Console.Read();
+} }
+}
+
+The program should print this in the console: The index of value 37 is 2
+Insert Function
+
+This method inserts a value/item in a particular index in the ArrayList. The program below showcases the insert method.
+using System;
+using System.Collections;
+
+namespace Demo {
+class Program {
+// The main function
+static void Main(string[] args) {
+// Defining the ArrayList ArrayList ar = new ArrayList();
+// Adding elements to the array list ar.Add(100);
+ar.Add(22); ar.Add(37);
+
+Console.WriteLine("The index of value 37 is " + ar.IndexOf(37));
+
+// Inserting the value 4 at Index position 2 ar.Insert(2, 4);
+
+Console.WriteLine("The value at index 2 is " + ar[2]); Console.Read();
+} }
+}
+
+This is what we should see in the console: The index of value 37 is 2
+The index of value 2 is 4 Remove Function
+This method removes an item from an arrayList.
+
+Using the remove method
+
+using System;
+using System.Collections; namespace Demo
+{
+class Program {
+// The main function
+static void Main(string[] args) {
+// Defining the ArrayList ArrayList ar = new ArrayList();
+
+// Adding elements to the array list ar.Add(19);
+ar.Add(200); ar.Add(37);
+
+Console.WriteLine("The value at position 1 is " + ar[1]);
+
+// Removing a value ar.Remove(200);
+
+Console.WriteLine("The value at position 1 is " + ar[1]); Console.Read();
+} }
+}
+This is what we should see in the console:
+
+The value at position 1 is 200 The value at position 1 is 37 RemoveAt Function
+This method will remove an item at a specified index
+
+This program shows the way to use the RemoveAt method.
+
+using System;
+using System.Collections;
+
+namespace Demo {
+class Program {
+// The main function
+static void Main(string[] args) {
+// Defining the ArrayList ArrayList ar = new ArrayList();
+
+// Adding elements to the array list ar.Add(89);
+ar.Add(202); ar.Add(303);
+
+Console.WriteLine("The value at position 1 is " + ar[1]);
+
+// Removing a value ar.RemoveAt(1);
+Console.WriteLine("The value at position 1 is " + ar[1]); Console.Read();
+} }
+}
+
+This is what we should see in the console: The value at position 1 is 202
+The value at position 1 is 302 Reverse Function
+This method reverses elements in an ArrayList. Using the reverse method
+using System;
+
+using System.Collections;
+
+namespace Demo {
+class Program {
+// The main function
+static void Main(string[] args) {
+// Defining the ArrayList ArrayList ar = new ArrayList();
+
+// Adding elements to the array list ar.Add(22);
+ar.Add(27); ar.Add(40);
+
+Console.WriteLine("The value at index 0 is " + ar[0]); Console.WriteLine("The value at index 1 is " + ar[1]); Console.WriteLine("The value at index 2 is " + ar[2]);
+
+// Reversing the list ar.Reverse();
+
+Console.WriteLine("The value at index 0 is " + ar[0]); Console.WriteLine("The value at index 1 is " + ar[1]); Console.WriteLine("The value at index 2 is " + ar[2]);
+
+Console.Read(); }
+} }
+
+In regard to the program, the result should be in this format: The value at index 0 is 22
+The value at index 1 is 27 The value at index 2 is 40 The value at index 0 is 40 The value at index 1 is 27 The value at index 2 is 22 Sort Function
+This method sorts the elements in an array
+
+The program below is used to showcase the way to use the sort method.
+
+using System;
+using System.Collections;
+
+namespace Demo {
+class Program {
+// The main function
+static void Main(string[] args) {
+// Defining the ArrayList ArrayList ar = new ArrayList();
+
+// Adding elements to the array list ar.Add(“c”);
+ar.Add(“a”); ar.Add(“b”);
+
+Console.WriteLine("The value at index 0 is " + ar[0]); Console.WriteLine("The value at index 1 is " + ar[1]); Console.WriteLine("The value at index 2 is " + ar[2]);
+
+// Sorting the list ar.Sort();
+
+Console.WriteLine("The value at index 0 is " + ar[0]); Console.WriteLine("The value at index 1 is " + ar[1]); Console.WriteLine("The value at index 2 is " + ar[2]);
+
+Console.Read();
+
+} }
+}
+
+The console will print the following: The value at index 0 is c
+The value at index 1 is b The value at index 2 is a The value at index 0 is a The value at index 1 is b The value at index 2 is c
+If the values were numbers, it would put them in ascending order. GetRange Function
+This method is used to extract an array and add it to an ArrayList Using the GetRange method
+using System;
+using System.Collections;
+
+namespace Demo {
+class Program {
+// The main function
+static void Main(string[] args) {
+// Defining the ArrayList ArrayList ar = new ArrayList();
+
+// Adding elements to the array list ar.Add(10);
+ar.Add(20); ar.Add(3); ar.Add(4);
+
+// Creating the new arraylist ArrayList ar1 = new ArrayList(); ar1 = ar.GetRange(0, 2);
+
+Console.WriteLine("The value at index 0 is " + ar1[0]); Console.WriteLine("The value at index 1 is " + ar1[1]); Console.Read();
+} }
+}
+
+We will see this in the console: The value at index 0 is 10 The value at index 1 is 20 Stack
+In computer programming, you are going to come across stacks a lot, whether they are in game development, writing algorithms, or caching. Stacks are preferable because they are very easy to keep track of. They make tracking processes easy since they use the last-one-first-out process of caching.
+
+A stack functions the way it sounds like it would. It is a tower of things, with new items being added on top of the pile. It is not necessarily an organized way of doing things, but it can be very powerful. In a regular stack, as in a computer stack, it is dangerous to remove things that are in the middle of the bottom of the tower, so things that are added last are removed first, and you cannot remove things in the middle or the bottom.
+
+Adding stuff to the stack is called pushing. You can perform this whenever you need it. Removing an item is called popping. When you pop something, it is removed from the stack, but you can do something with it. You can also throw it away completely.
+
+Lists and stacks are important to computer programming. If you master them, you will see your skill improve overall as you will be able to manipulate data, keep logs, and run algorithms more efficiently.
+
+Below is the syntax of the stack.
+
+Stack variablename=new Stack ():
+‘Variablename’ is the variable we give to the stack.
+
+Below we are using the push method to add elements to the stack.
+
+Variablename.Push(element)
+
+The ‘element’ is the value being added to the stack. Using stacks
+using System;
+using System.Collections; namespace Demo
+{
+class Program {
+// The main function
+static void Main(string[] args) {
+// Defining the Stack Stack ar = new Stack();
+
+// Adding elements to the Stack ar.Push(1);
+ar.Push(2); ar.Push(3); Console.Read();
+} }
+}
+The Stack class has many operations that can be performed on it. We will briefly go over them below:
+
+
+Stack Operations Below is a summary. Function
+Count Clear Pop Peek ToArray
+Contains
+
+
+
+
+
+Description
+
+It tells us how many elements are in the stack
+
+It is used to remove all elements in the stack
+
+It is used to remove the last element on the stack
+
+It is used to look at the last element in the stack. It does not remove it.
+
+It is used to put all elements into an array
+
+It is used to check if a stack contains a certain element.
+
+
+
+Count Function
+
+Below we are using the count operation to find out how many elements are in the stack Using the count property
+using System;
+using System.Collections;
+
+namespace Demo {
+class Program {
+// The main function
+static void Main(string[] args) {
+// Defining the Stack Stack ar = new Stack();
+
+// Adding elements to the Stack ar.Push(11);
+
+ar.Push(22); ar.Push(33);
+
+Console.WriteLine("The number of elements on the stack is " + ar.Count); Console.Read();
+} }
+}
+
+
+The console will print the following answer for us: The number of elements on the stack is 3
+Clear Function
+
+Below we use the clear function to remove all elements in the stack. Using the clear function
+using System;
+using System.Collections;
+
+namespace Demo {
+class Program {
+// The main function
+static void Main(string[] args) {
+// Defining the Stack Stack ar = new Stack();
+
+// Adding elements to the Stack ar.Push(45);
+ar.Push(77); ar.Push(99); ar.Push(54);
+
+Console.WriteLine("The number of elements on the stack is " + ar.Count); // Clearing the stack
+ar.Clear();
+
+Console.WriteLine("The number of elements on the stack is " + ar.Count); Console.Read();
+} }
+}
+
+We should get the following result in the console: The number of elements on the stack is 4
+The number of elements on the stack is 0 Pop Function
+Below we are using pop to remove the last element that was added. Using the pop function
+using System;
+using System.Collections;
+
+namespace Demo {
+class Program {
+// The main function
+static void Main(string[] args) {
+// Defining the Stack Stack ar = new Stack();
+
+// Adding elements to the Stack ar.Push(87);
+ar.Push(90); ar.Push(15);
+
+Console.WriteLine("The number of elements in the stack is" + ar.Count()); Console.WriteLine("We have popped an element reducing the number of elements to " + ar.Pop()); Console.Read();
+} }
+}
+
+In regard to the program, the result should be in this format: The number of elements in the stack is 3
+We have popped an element reducing the number of elements to 2 Peek Function
+We are going to use peek to look at the last element in the stack. Here is an application of the peek function.
+using System;
+using System.Collections;
+
+namespace Demo {
+class Program {
+// The main function
+static void Main(string[] args) {
+// Defining the Stack Stack ar = new Stack();
+
+// Adding elements to the Stack ar.Push(11);
+ar.Push(22); ar.Push(333);
+
+Console.WriteLine("The element at the top of the stack is " + ar.Peek()); Console.Read();
+} }
+}
+
+We should see this result in the console: The element at the top of the stack is 333 ToArray Function
+We are going to use the ToArray method to dump the content of a stack into an array. The next program shows the way to use the ToArray function.
+using System;
+using System.Collections;
+
+namespace Demo {
+class Program {
+// The main function
+static void Main(string[] args) {
+// Defining the Stack Stack ar = new Stack();
+object[] ar1 = new object[3];
+
+// Adding elements to the Stack ar.Push(11);
+ar.Push(22); ar.Push(33);
+
+// Transfering the elements to an array ar1=ar.ToArray();
+
+Console.WriteLine("The first element is " + ar1[0].ToString()); Console.WriteLine("The second element is " + ar1[1].ToString()); Console.WriteLine("The third element is " + ar1[2].ToString());
+
+Console.Read(); }
+}
+
+}
+
+We should see this in the console: The first element is 33
+The second element is 22 The third element is 11 Contains Function
+Below we use the function to find out if a stack contains a particular element. This program is used to showcase the contains function.
+using System;
+using System.Collections;
+
+namespace Demo {
+class Program {
+// The main function
+static void Main(string[] args) {
+// Defining the Stack Stack ar = new Stack();
+
+// Adding elements to the Stack ar.Push(800);
+ar.Push(342); ar.Push(3);
+
+// Transfering the elements to an array
+Console.WriteLine("Does the stack contain the element 800? True or False? " + ar.Contains(800)); Console.Read();
+} }
+}
+
+Here is what we should get in the console:
+
+Does the stack contain the element 800? True or False? True Queue
+The Queue collection is a first-in-first-out collection, the opposite of a stack collection. The syntax below is for defining a queue:
+
+Queue variablename=new Queue ():
+
+Just like before, “variablename” stands for whatever variable we assign to the Queue collection. The “Enqueue'' method adds an element of the queue
+
+Variablename.Enqueue (element)
+
+In the example above, the element stands for the value being added to the queue. Below, we illustrate how queues are used.
+Here is an application of queues.
+
+using System;
+using System.Collections;
+
+namespace Demo {
+class Program {
+// The main function
+static void Main(string[] args) {
+// Defining the Queue Queue ar = new Queue();
+
+// Adding elements to the Queue ar.Enqueue(“apples”); ar.Enqueue(“beans”);
+
+ar.Enqueue(“carrots”);
+
+Console.Read(); }
+} }
+
+Queues have a number of operations that can be performed on them. Below we will look at those operations. Queue Operations
+
+Function
+
+Count
+
+Clear
+
+ToArray
+
+Dequeue
+
+Contains
+
+Description
+
+It tells us the number of elements in the queue
+
+Used to delete all element in the queue
+
+Used to deposit elements into an array
+
+Used to remove elements from the queue (the first element)
+
+Used to find out if a queue contains a certain element
+
+
+
+Count Property
+
+It is essential for obtaining the number of elements in the queue. Using the count property
+using System;
+using System.Collections;
+
+namespace Demo {
+class Program {
+// The main function
+static void Main(string[] args) {
+// Defining the Queue Queue ar = new Queue();
+
+// Adding elements to the Queue ar.Enqueue(1);
+ar.Enqueue(2); ar.Enqueue(3);
+
+Console.WriteLine("There are " + ar.Count + “ elements in the queue.”); Console.Read();
+} }
+}
+
+This is what we should expect to see in the console: There are 3 elements in the queue.
+DeQueue Function
+
+Here is an example of dequeue. Using the DeQueue function
+using System;
+using System.Collections;
+
+namespace Demo {
+class Program {
+// The main function
+static void Main(string[] args) {
+// Defining the Queue Queue ar = new Queue();
+
+// Adding elements to the Queue ar.Enqueue(1);
+ar.Enqueue(2);
+
+ar.Enqueue(3);
+
+Console.WriteLine("The first element out of the queue is " + ar.Dequeue()); Console.WriteLine("The second element out of the queue is " + ar.Dequeue()); Console.WriteLine("The third element out of the queue is " + ar.Dequeue());
+
+Console.Read(); }
+} }
+
+In regard to the program, the result should be in this format: The first element out of the queue is 1
+The second element out of the queue is 2 The third element out of the queue is 3 Clear Function
+This function is used to delete functions in the queue. Using the clear function
+using System;
+using System.Collections;
+
+namespace Demo {
+class Program {
+// The main function
+static void Main(string[] args) {
+// Defining the Queue Queue ar = new Queue();
+
+// Adding elements to the Queue ar.Enqueue(1);
+ar.Enqueue(2); ar.Enqueue(3);
+
+Console.WriteLine("There are " + ar.Count + “ elements in the queue.”);
+
+// Clearing the queue ar.Clear();
+Console.WriteLine("There are " + ar.Count + “ elements in the queue.”); Console.Read();
+} }
+}
+
+This is what you should expect to see in the console: There are 3 elements in the queue.
+There are 0 elements in the queue. Contains Function
+Below we will use the contains method to check if the queue has a particular element in it. The program below is used to showcase the contains function.
+using System;
+using System.Collections;
+
+namespace Demo {
+class Program {
+// The main function
+static void Main(string[] args) {
+// Defining the Queue Queue ar = new Queue();
+
+// Adding elements to the Queue ar.Enqueue(“red”); ar.Enqueue(“roses”); ar.Enqueue(“wine”);
+
+Console.WriteLine("Does the queue contain roses? True or false? " + ar.Contains(“roses”)); Console.Read();
+} }
+}
+
+The program should output this in the console:
+
+Does the queue contain roses? True or false? True. ToArray Function
+We are going to use the ToArray method to input all elements in the queue into an array. Use the ToArray function.
+using System;
+using System.Collections;
+
+namespace Demo {
+class Program {
+// The main function
+static void Main(string[] args) {
+// Defining the Queue Queue ar = new Queue();
+Object[] ar1 = new Object[3];
+
+// Adding elements to the Queue ar.Enqueue(“All”); ar.Enqueue(“Things”); ar.Enqueue(“End”);
+
+ar1 = ar.ToArray();
+
+Console.WriteLine("The first element of the array is " + ar1[0].ToString()); Console.WriteLine("The second element of the array is " + ar1[1].ToString()); Console.WriteLine("The third element of the array is " + ar1[2].ToString());
+
+Console.Read(); }
+} }
+
+In regard to the program, the result should be in this format: The first element of the array is All
+The second element of the array is Things The third element of the array is End SortedList
+SortedLists store data in key/value pairs. This data can be accessed by key or index. Below is the syntax we use to initiate a SortedList collection.
+
+SortedList variablename=new SortedList ():
+
+To add something to the collection, you need to use the Add() method in the following way.
+
+Variablename.Add (key,value)
+
+As you can see, items are added with their key and the value. Below is an example of how that might look in the real world.
+
+The next program is used to show how to use SortedList.
+
+using System;
+using System.Collections;
+
+namespace Demo {
+class Program {
+// The main function
+static void Main(string[] args) {
+
+// Defining the SortedList SortedList ar = new SortedList();
+
+// Adding elements to the SortedList ar.Add(111,"Chicken"); ar.Add(222,"Master"); ar.Add(333,"Egg");
+
+// Displaying the values of each element in the SortedList Console.WriteLine("The first value of the SortedList is " + ar[111].ToString()); Console.WriteLine("The second value of the SortedList is " + ar[222].ToString()); Console.WriteLine("The third value of the SortedList is " + ar[333].ToString());
+
+Console.Read(); }
+} }
+From above:
+
+● Each element consists of a key and value. ● We can access each element with its key
+This is what we should see in the console when we run the code:
+
+The first value of the SortedList is Chicken The second value of the SortedList is Master The third value of the SortedList is Egg
+Like the collections we have looked at, SortedList collections have their own methods. SortedList Operations
+Below are brief descriptions of SortedList methods.
+
+
+Function
+
+Count
+
+Clears()
+
+Description
+
+It tells us how many items are in the SortedList
+
+Removes all elements in the SortedList
+
+
+
+ContainsKey()
+
+ContainsValue()
+
+IndexOfKey()
+
+IndexOfValue()
+
+Remove()
+
+RemoveAt()
+
+Checks if the collection contains a specific key
+
+Checks if a SortedList contains a particular value
+
+It gives us the index of a particular key
+
+It gives us the index of a particular value
+
+Removes an item/location from the SortedList
+
+Removes item/object at a particular location
+
+
+
+Count Property
+
+We are going to use the Count method to find out how many items are in the SortedList.
+
+using System;
+using System.Collections;
+
+namespace Demo {
+class Program {
+// The main function
+static void Main(string[] args) {
+// Defining the SortedList SortedList ar = new SortedList();
+
+// Adding elements to the SortedList ar.Add(1,"One");
+ar.Add(2,"Ring"); ar.Add(3,"To Rule Them All");
+
+Console.WriteLine("There are " + ar.Count + " items in the SortedList!"); Console.Read();
+} }
+
+}
+
+We should get the following result in the console: There are 3 items in the SortedList
+Clears Function
+
+We are going to use clear to remove all items in the SortedList.
+
+using System;
+using System.Collections;
+
+namespace Demo {
+class Program {
+// The main function
+static void Main(string[] args) {
+// Defining the SortedList SortedList ar = new SortedList();
+
+// Adding elements to the SortedList ar.Add(1, "One Ring");
+ar.Add(2, "To");
+ar.Add(3, "Rule Them All!");
+
+Console.WriteLine("There are " + ar.Count + " items in the SortedList! :)");
+
+// Clearing all the elements of the list ar.Clear();
+Console.WriteLine("There are " + ar.Count + " items in the SortedList. :("); Console.Read();
+} }
+}
+
+In regard to the program, the result should be in this format: There are 3 items in the SortedList! :)
+There are 0 items in the SortedList. :( ContainsKey Function
+We are going to use ContainsKey to find if the SortedList contains a specific key. Here is an application of the ContainsKey function.
+using System;
+using System.Collections;
+
+namespace Demo {
+class Program {
+// The main function
+static void Main(string[] args) {
+// Defining the SortedList SortedList ar = new SortedList();
+
+// Adding elements to the SortedList ar.Add(767, "One");
+ar.Add(090, "Two"); ar.Add(999, "Three");
+
+Console.WriteLine("True or false, does the SortedLIst contain the key 999? " + ar.ContainsKey(999)+ “.”); Console.Read();
+} }
+}
+
+We should see the following result in the console:
+
+True or false, does the SortedList contain the key 999? True. ContainsValue Function
+Below we are going to use ContainsValue to find out if a SortedList contains a specific value.
+
+The program below is used to showcase the ContainsValue function.
+
+using System;
+using System.Collections;
+
+namespace Demo {
+class Program {
+// The main function
+static void Main(string[] args) {
+// Defining the SortedList SortedList ar = new SortedList();
+
+// Adding elements to the SortedList ar.Add(1, "One Ring To Rule Them All"); ar.Add(2, "Sam helped Frodo");
+ar.Add(3, "Sing along");
+Console.WriteLine("True or False, does the SortedList contain the Value \"One Ring To Rule Them All\"? " + ar.ContainsValue("One Ring To Rule Them All")+".");
+Console.WriteLine("True or False, does the SortedList contain the Value \"Snowhite\"? " + ar.ContainsValue("Snow White")+ ".");
+
+Console.Read(); }
+} }
+
+The console should display the following results when you run the code:
+
+True or False, does the SortedList contain the Value "One Ring To Rule Them All"? True. True or False, does the SortedList contain the Value "Snowhite"? False.
+IndexOfKey Function
+
+We are going to use the IndexOfKey method to find out what the index of a key is. The next program is used to show the way to use the IndexOfKey function.
+using System;
+using System.Collections;
+
+namespace Demo {
+class Program {
+// The main function
+static void Main(string[] args) {
+// Defining the SortedList SortedList ar = new SortedList();
+
+// Adding elements to the SortedList ar.Add(767, "One");
+ar.Add(090, "Two"); ar.Add(999, "Three");
+Console.WriteLine("The index of the key 999 is " + ar.IndexOfKey(999)+". :)"); Console.Read();
+} }
+}
+
+We should observe the following result in the console: The index of the key 999 is 2. :)
+IndexOfValue Function
+
+We will use the IndexOfValue method to find out the index of a value of our interest. This program shows how to use the IndexOfValue function.
+using System;
+using System.Collections; namespace Demo
+{
+class Program {
+// The main function
+static void Main(string[] args)
+
+{
+// Defining the SortedList SortedList ar = new SortedList();
+
+// Adding elements to the SortedList ar.Add(1, "One Ring To Rule Them All");
+ar.Add(2, "Sam helped Frodo"); ar.Add(3, "Snow White");
+
+Console.WriteLine("The Snow White value is at index " + ar.IndexOfValue("Snow White")+ ". :)");
+
+Console.Read(); }
+} }
+
+We should see the following result in the console: The Snow White value is at index 2. :)
+Remove Function
+
+This function is used to remove an object from the SortedList. Using the remove function
+using System;
+using System.Collections;
+
+namespace Demo {
+class Program {
+// The main function
+static void Main(string[] args) {
+// Defining the SortedList SortedList ar = new SortedList();
+
+// Adding elements to the SortedList ar.Add(1, "One Ring To Rule Them All");
+ar.Add(2, "Sam helped Frodo"); ar.Add(3, "Snow White");
+
+Console.WriteLine("The Snow White value is at index " + ar.IndexOfValue("Snow White")+ ". :)"); // Removes element with key 3, aka Snow White
+ar.Remove( 3 );
+Console.WriteLine("Is Snow White still at index 2? True or False? " + ar.ContainsValue("Snow White")+ ".");
+
+Console.Read(); }
+} }
+
+We will see the following results in the console: The Snow White value is at index 2. :)
+Is Snow White still at index 2? True or False? False. RemoveAt Function
+We are going to use the RemoveAt method to remove an item at a particular index. The program below is used to show how to use the RemoveAt function.
+using System;
+using System.Collections;
+
+namespace Demo {
+class Program {
+// The main function
+static void Main(string[] args) {
+// Defining the SortedList SortedList ar = new SortedList();
+
+// Adding elements to the SortedList ar.Add(1, "One Ring To Rule Them All"); ar.Add(2, "Sam helped Frodo");
+
+ar.Add(3, "Snow White");
+
+Console.WriteLine("Snow White is at index “ + ar.IndexOfValue(“Snow Wite”); //Removes Snow White at index 2
+ar.RemoveAt(2);
+Console.WriteLine("Is Snow White Still at 2? True or False? " + ar.ContainsValue("Snow White"));
+
+Console.Read(); }
+} }
+
+You should expect to see this in the console: The Snow White value is at index 2. :)
+Is Snow White still at index 2? True or False? False.
+
+
+
+
+
+CHAPTER 7:
+
+
+INDEXERS
+
+Indexers allow custom classes to be indexed like an array. Each member is accessed with the array access operator ([]) instead of properties (you would expect that since it is a class) (“C# Indexers”).
+
+Indexers are defined like this:
+
+type this[int index] {
+get {
+//returns values }
+set {
+//sets values }
+}
+
+Here is how you would access the class: Example[2];
+In the example below, we will use it as an album collection searcher, which tells us what year an album was released.
+
+using System;
+using System.Collections.Generic;
+
+namespace ConsoleApplication1 {
+class Program {
+static void Main() {
+Album main_floor = new Album();
+
+//Adds Items
+main_floor.AddItem(new Item("The Crux", 2012)); main_floor.AddItem(new Item("Chromatica", 2020));
+
+//Uses indexer to grab Year
+Console.WriteLine("The Crux by HURT was released in " + main_floor["The Crux"] + " and Chromatica by Lady Gaga in " + main_floor["Chromatica"] + ".");
+Console.ReadKey(); }
+}
+
+class Album {
+List<Item> Items = new List<Item>();
+
+public void AddItem(Item item) {
+Items.Add(item); }
+
+public double this[string index] {
+get {
+foreach (Item item in Items) {
+if (item.Name == index) {
+return item.Year; }
+}
+
+//Used to signify that there is not item return -1;
+}
+
+set {
+//You can also use this to set a value much like setting a value in //an attribute
+}
+
+} }
+
+//Simple class to hold item class Item
+{
+public Item(string name, double year) {
+Name = name; Year = year;
+}
+
+public string Name { get; } public double Year { get; }
+} }
+
+
+We should get this result in the console:
+
+The Crux by HURT was released in 2012 and Chromatica by Lady Gaga in 2020.
+
+If you have trouble seeing what I did there, copy and paste the code in your IDE. It will be highlighted properly, and the code will be easier to follow.
+
+
+
+
+
+CHAPTER 8:
+
+
+GENERICS
+
+Generics allow us to declare lists, classes, and other elements without specifying their data type. In other words, you will be able to make methods and classes that can work with any data type. Parameters will function as placeholders for different data types. A compiler will use the methods according to the data types provided. Generics improve code reusability and flexibility. Let us look at the example below, so you can have a more vivid example of what generics do.
+
+We will use the Display here and later to show how this works. In this example, we use multiple methods to display integers.
+using System;
+using System.Collections;
+
+namespace Demo {
+class Program {
+// Display method for Integers public static void Add(int i)
+{
+Console.WriteLine(“The value is “ + i); }
+
+// Display method for double numbers public static void Add(double i)
+{
+Console.WriteLine(“The value is “ + i); }
+
+// The main function
+static void Main(string[] args) {
+Display(1); Display(1.1); Console.Read();
+} }
+}
+
+In regard to the program, the result should be in this format: The value is 1
+The value is 1.1
+
+In the previous example, we were creating two methods that perform the same task. However, we need one for integers and another for double data type. We can make this program more generic with the ‘Generic’ data type.
+
+Example: The next program shows how to use the generic data type.
+
+using System;
+using System.Collections.Generic;
+
+namespace Demo {
+class Program {
+// Generic Display method
+public static void Display<T>(T i) {
+Console.WriteLine(" This is value " + i); }
+
+// The main function
+static void Main(string[] args) {
+// Calling the generic with the data type Display<int>(1); Display<double>(1.1);
+
+Console.Read(); }
+} }
+
+The program will print this in the console: This is value 1
+The is value 1.1 Generic Classes
+Classes can also be generic. The syntax declaration of a generic class is given below.
+
+public class classname<T>
+
+
+In this code, ‘classname’ is the name of the class. Let’s look at an example of a generic class. Example: The program below showcases the way to use the generic class.
+using System;
+using System.Collections.Generic;
+
+namespace Demo {
+// Generic class
+public class GenericSet<T> {
+private T[] array;
+public GenericSet(int size) {
+array = new T[size + 1]; }
+public T getItem(int index) {
+return array[index]; }
+public void setItem(int index, T value) {
+array[index] = value; }
+}
+class Program {
+// The main function
+static void Main(string[] args) {
+
+GenericSet<int> gn=new GenericSet<int>(2); gn.setItem(1,1);
+gn.setItem(2,2);
+
+Console.WriteLine("Item number one is " + gn.getItem(1)); Console.WriteLine("Item number two " + gn.getItem(2));
+
+Console.Read(); }
+} }
+
+In regard to the program, the result should be in this format: Item number one is 1
+Item number two is 2 Generics List <T> Collection
+Generic collections allow us to make data collections that have Array and ArrayList functionalities. So, they are more like arrays. You have to declare them and initialize them, just like below:
+
+Example 1:
+
+using System;
+using System.Collections.Generic; namespace MySampleApplication {
+public class Program
+
+{
+public static void Main(string[] args) {
+
+List<int> myRows = new List <int> (); myRows.Add(11); myRows.Add(22); myRows.Add(33);
+
+
+foreach(int i in myRows) {
+Console.WriteLine("Number " + i + " in the house!"); }
+
+} }
+}
+
+
+The type signature of List class is List<T> where T can be any data type: springs, char, int, double, and others. If you define a list of int, it will only hold int, and it’s the same with any other data type. In the example above, the list will only contain integers because that is how we defined it. Furthermore, we can use the Add() method to add as many integers as we want. Lists allow us to use many methods on them, like Contains, Remove, Count, etc.
+
+Below is the output of the example above: Number 11 in the house!
+Number 22 in the house! Number 33 in the house!
+This works because we have declared myRows, which stores int data types. We used the Add method to add integers and a foreach loop to print the values of those integers in the console.
+
+Generic Methods
+
+Generic methods and classes give us high code reusability in a variety of circumstances across data types. What’s amazing about generic methods is that they can be used in spaces where the containing class is not generic or where a class has parameters that are not initially defined. The generic method always follows this pattern: “method name (type param syntax)”. Let’s take a look below.
+
+Example 2:
+
+namespace MySampleApplication {
+public static class MathExp {
+public static T Max<T>(T first, params T[] values) where T : IComparable
+{
+T max = first;
+foreach (T item in values) {
+if (item.CompareTo(max) > 0) {max = item;  }
+}
+return max; }
+public static T Min<T>(T first, params T[] values) where T : IComparable
+{
+T mini = first;
+foreach (T item in values) {
+if (item.CompareTo(mini) < 0) { mini = item; }
+}
+return mini; }
+}
+
+
+The sample class “MathExp'' has two generic methods: “Min <T> and Max <T>.” The function of these is straightforward. Min<T> finds and returns the smallest value in a list. Max<T> finds the greatest value in a list. The <T> is the placeholder for any kind of data type like int, strings, floats, etc.
+
+Here is an example of both methods: Console.WriteLine (MathEx.Max<int> (63, 800, 700))
+Console.WriteLine (MathEx.Max<string> (“Almonds,” “Walnuts,” “Pistachios”)) Our output will be:
+800 Pistachios
+In the example, we had to specify the data type in the list in the “<>.” What is interesting is that even if we don’t specify the data type, the C# compiler would still be able to run the method because it can find out what data type is in the list. This is known as type interfacing. To see it in action, we have to try the code again, like this:
+
+Here is an example of both methods: Console.WriteLine (MathEx.Max(63, 800, 700))
+Console.WriteLine (MathEx.Max(“Almonds,” “Walnuts,” “Pistachios”)) Our output will be:
+800 Pistachios
+Our output is the same as before, even when we didn’t specify the data type in the list. The only time that this method would fail is if we mixed different data types in one list. So, you can’t run it on a list of integers and floats, for example.
+
+
+
+
+
+CHAPTER 9:
+
+
+GARBAGE COLLECTION
+
+When you create an object, CLR allocates memory from the Heap. This process repeats each time new objects form and are made. But it cannot go on forever, because memory is limited. Now and then, the system has to purge unused objects and make space for new ones. Garbage Collection, or GC, manages memory. It allocates and reclaims memory. It allocates memory for new objects and then goes to the heap to remove objects that are not in use by the program. This means enough memory is still available.
+
+Memory Facts
+
+When the process is triggered, it is given a piece of virtual space that stems from your physical memory. Physical memory is the actual memory that your computer uses, RAM. Programs deal with virtual space - that’s their working memory. Machines deal with physical space.
+
+Virtual memory has free-blocks that are called holes. When an object asks for memory, GC looks for an empty block and assigns it to the objects. Virtual memory is the memory that the computer has given to the program or code to work within.
+
+Below are the three types of blocks in virtual memory: There are three blocks in virtual memory:
+●  Free, which is empty space
+●  Reserved, which is already allocated
+●  Committed,  which  is  reserved  for  physical  memory  and  cannot  be allocated
+How Does GC Work?
+
+The Heap is a memory block that is used for storing objects. When GC happens in the Heap, it looks for inactive objects and removes them, and then it compacts the remaining objects to free up more memory.
+
+The Heap is managed by a group of generations. These generations store and handle short-term and long-term objects. These generations are:
+
+●   0 Generation – it holds short-term, temporary objects that don’t last long. GC is activated frequently. ●   1 Generation – is the buffer existing between short-term and long-term objects
+●   2 Generation – holds long-term objects, such as static and global variables, that need to last longer, and that the program may depend on. When an object is not collected in 0 generation, it is moved up to 1 Generation. That object is called a survivor. If it is not collected again in 1 generation it is moved up to 2 Generation because it must be important if it is still active.
+How Does GC Determine the Live Objects?
+
+To determine if an object is live or not, GC will check the information below:
+
+●  All  object  handles  that  are  not  allocated  by  CLR  or  by  user  code  are collected
+●  Static objects which are referenced by another object are tracked ●  GC uses the Stack Walker and JIT Stack.
+When Does GC Get Triggered?
+
+There is no set time when GC gets triggered. It is triggered when the conditions below are met:
+
+●   When virtual memory space is low
+●   When the memory is repressed past a certain threshold. If GC discovers a high level of living objects, it increases the allocation
+●   It is also triggered and is called specifically using the GC.Collect() method. This is rare because GC is always active and performs actions when needed.
+What are the Managed/Unmanaged Objects or Resources?
+
+In a nutshell:
+
+●   Any object created, managed, and within the CLR scope is a managed object. It is managed if it is impure .Net code, runtime-managed, and within the .NET scope. So any classes within the .NET framework would count as managed objects.
+●   Any project that is not CLR managed is created externally to the .NET library and is not a managed object. These include COM objects, connect objects, interop objects, and all third party library objects even when they are referenced within the .NET framework.
+Cleaning up all the Resources that are Unmanaged
+
+GC cannot clean unmanaged objects. It is the programmer's responsibility to explicitly get rid of them when a task is completed. Unmanaged objects are hidden around operating system resources like database connections, file streams, class handles, pointer, registries, etc. GC can track the life cycle of managed and unmanaged resources, but the responsibility of removing unmanaged objects lies with the programmer.
+
+Here are a few ways you can do this:
+
+● Implementing   the   Dispose   method   and   the   IDisposable interface
+● By the “using” code block
+You can implement the Dispose method in two ways:
+
+●   By using the SafeHandle class, a built-in abstract class containing the IDisposable interface and CriticalFinalizerObject. You will need to implement both
+●   By overriding the Object.Finalize method, which cleans the unmanaged resource used by an object before the object is destroyed.
+Let’s look at the code which allows us to do this:
+
+The 'using' Statement
+
+The ‘using’ statement ensures that the object is removed. If the object falls outside of scope, the Dispose method is called. It acts the same way as the Try. I will show you how it works by creating a class with IDisposable implementation. The ‘using’ statement will call Dispose no matter what:
+
+class testClass : IDisposable {
+public void Dispose() {
+// Dispose of the objects here // clean resources Console.WriteLine(00);
+} }
+
+//call class class Program {
+static void Main() {
+// Use the using statement with the class that implements Dispose. using (testClass objClass = new testClass())
+{
+Console.WriteLine(01); }
+Console.WriteLine(02); }
+}
+
+//output 01
+00 02
+
+//it is exactly the same as the TRY...Finally code below
+
+{
+clsDispose_Fin objClass = new clsDispose_Fin(); try
+{
+//the code goes here }
+finally
+
+{
+if (objClass != null) ((IDisposable)objClass).Dispose();
+} }
+
+
+In a set up like this, once the 01 is printed, the ‘using’ code block calls the Dispose method, followed by the statement after the ‘using’ block
+
+Quick Primer
+
+●   Object-oriented programming, or OOP, is programming that makes code that reflects real-world objects
+●   C# classes describe what a category of objects does, the data type it will hold, functions, and uses
+●   Creating new objects is as easy as Random random = new Random(). This will create a Random object which generates random numbers
+●   Destructors are generally not needed in C# because Garbage Collection disposes of an object when it is not in use
+●   Stack and Heap help manage memory
+●   Garbage Collector allocates and deallocates memory
+●   GC manages the Heap - a memory block used for storing objects
+●   GC is not scheduled; it is triggered when certain conditions are met. ●   CLR creates and manages managed objects
+●   Unmanaged objects are hidden or wrapped around the resources of the operating system
+●   We can use the Dispose method and/or the ‘using’ statement to remove unmanaged objects
+
+
+
+
+
+CHAPTER 10:
+
+
+LAMBDA EXPRESSIONS AND EXPRESSION TREES
+
+In this section, we are going to discuss Lambda expressions and expression trees. We are going to learn how they are created and how to use them to simplify and enhance our code. Understanding delegates, which we discussed in the first book, is essential.
+
+Lambda Expressions
+
+Lambda Expressions are anonymous, unspecified functions that create delegates or expression trees. They provide fast and easy ways of defining delegates. They are methods without declaration-like access modifiers. They will make your code more compact, reducing lines of code and making it easy to maintain and reuse.
+
+With Lambda Expressions, we can write our methods at the same place we are going to use them. They are like anonymous methods, but they have a smarter syntax.
+
+Lambdas are critical in method-based LINQ queries that can be fed in the standard query operator methods like the “Where.”
+
+Below is the basic structure of Lambda Expressions : Parameters => Executed code
+Example 1:
+
+x =>	x*x;
+
+The input parameter is ‘x,’ and ‘x*x’ is the expression. The x value is returned after it has been multiplied by itself.
+
+Lambda expressions can be assigned to delegate as show below:
+
+delegate int del(int i);
+static void Main(string[] args){ del myDelegate = x => x * x;
+int resultVariable= myDelegate(8); }
+
+We have assigned the Lambda Expression “x => x * x” to a delegate called “myDelegate”. Then we called myDelegate and passed “8”. The result is stored in an integer variable named “resultVariable” which gave us 64.
+
+Example 2:
+
+Class LambdaExpression{ static void Main(string[] args){
+List<string> names=new List<string>(); names.Add(‘Mark’); names.Add(‘Jeff’); names.Add(‘Johnson’);
+string resultString=names.Find(name=>name.Equals(‘Jeff’)); }
+}
+
+Above we have declared a list of String values “names”. Then we added names to that list with the list.Add method. Then we use the list.Find, passing the Lambda Expression “name=>name.Equals(‘Jeff’)” which then saves our result in a string literal called “resultString”
+
+Example 3:
+
+namespace lambdaexample {
+class QueryOperator {
+static void Main(string[] args) {
+int[] numbers = { 1, 1, 2, 3, 5, 8, 13, 21, 34 };
+double averageNumber = numbers.Where(num => num % 2 == 1).Average(); Console.WriteLine(averageNumber);
+
+Console.ReadLine(); }
+} }
+
+
+In the previous example, we have declared an array of integers called numbers. The array holds Fibonacci numbers. Then we used a Lambda Expression next to the where clause like this: numbers.Where(num => num % 2 == 1).Average(). This expression finds odd numbers in the list and gets their average with the “Average()” method, saving  the  result  in  the  “averageNumber”  variable.  The  result  is  then  printed  using  a  console  statement: Console.WriteLine(averageNumber).
+
+Expression Trees
+
+Expression trees are data structures that contain expressions like Lambda Expressions. At their core, expressions are pieces of code that have a tree structure. You can use them to run Lambda Expressions on data sets. They are like a binary tree because binary trees can quickly find data. They give us the ability to translate executable code into data. For example, you can change the LINQ query expression to function on another SQL database process.
+
+Example 4:
+
+Func <int, int, int> function = (a, b) => a + b; The above statement has three parts:
+● The declaration: Func<int,int,int> function ● An equals sign operator: =
+● A Lambda Expression: (a,b) => a+b;
+The  executable  code  is  located  in  the  “function”  variable  which  can  house  the  result  from  the  Lambda Expression((a,b) => a+b). The Lambda Expression looks like this:
+
+int d = function(12, 8);
+
+When we call it, the variable ‘d’ will be equal to 20.
+
+Because Expression trees are data structures, the code can be converted into a data structure by using LINQ syntax. To do this, you will have to add the Linq.Expressions namespace:
+
+using System.Linq.Expressions;
+
+Then you would create the Expression tree like this: Expression<Func<int, int, int>> expression = (a,b) => a + b;
+The Lambda Expression is now changed into an Expression Tree, which looks like this: “Expression<X>.” You won’t be able to execute the identifier expression because it now counts as a data structure.
+
+In Visual Studio (IDE), you can use the “ExpressionTreeVisualizer” to see the expression tree of the expression statement.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+The diagram above shows us the Lambda Expression and its integral parts in the TreeView Control. The Expression<x> class contains four properties:
+
+● Body
+● Parameters ● NodeType ● Type
+These are clearly visible when we make the tree collapse, as shown below.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+BinaryExpression body = (BinaryExpression)expression.Body; ParameterExpression left = (ParameterExpression)body.Left; ParameterExpression right = (ParameterExpression)body.Right; Console.WriteLine(expression.Body);
+Console.WriteLine(‘ The expression’s left section: ‘ +
+‘{0}{4} The NodeType: {1}{4} The right part: {2}{4} The Type: {3}{4}’, left.Name, body.NodeType, right.Name, body.Type, Environment.NewLine);
+
+
+The  code  above  helps  us  explore  the  expression  tree.  We  start  by  declaring  the  “body”  variable  of  the “BinaryExpressions” type. This holds the body of the expressions, which is (a+b). We access the parameter on the left with “(ParameterExpression)body.Left” which is the “left” variable of the “parameterExpression” type. This is the   variable   “a”.   Then   we   use   the   “(ParameterExpression)body.Right”   in   the   “right”   variable   of   the “parameterExpression” type to access the variable “b.” Then we print the body of the expression in the console with its NodeType, the left & right, and the expression type with built-in methods.
+
+Exercise Task 1:
+Write a Lambda Expression, which calculates the total number of scores greater than 57 in this series (31-, 23, 64, 40, 85, 55, 50, and 99).
+
+Solution
+
+class SampleLambda {
+static void Main() {
+int[] scores = { 31-, 23, 64, 40, 85, 55, 50, 99}; int highScores = scores.Where(n => n > 57).Count();
+Console.WriteLine(‘{0} scores are greater than 57’, highScores); }
+}
+
+
+Task 2:
+
+Using Lambda Expressions, create a query that extracts the total scores for first grade students, second grade, and so on.
+
+Solution
+
+private static void StudentsByGrade() {
+var categ =
+from student in students
+group student by student.grade into studentGroup
+select new { GradeLevel = studentGroup.Key, TotalScore = studentGroup.Sum(s => s.ExamScores.Sum()) }; foreach (var cat in categ)
+{
+Console.WriteLine (‘Key = {0} Sum = {1}’, cat.GradeLevel, cat.TotalScore); }
+}
+
+
+
+
+
+CHAPTER 11:
+
+
+NULLABLE TYPES
+
+C# provides a special null value data type with its own range. An int32 data type has a range of -2147483648 to 2147483647, while nullable int32 can store a null value of all numbers in the int data type range. A Nullable of a Boolean value is able to store a true, false, or a null value.
+
+In this chapter, we are going to look at: Contents
+● Structures of Nullable types ● Syntax of Nullable types
+● The HasValue and Has Property
+● The Null Coalescing operator Structures of Nullable types in C#
+The table below shows us Nullable type structures of primitive data types along with their range. As we have illustrated, Nullable types have an extra null value.
+
+
+Type Nullable Boolean
+Nullable byte
+
+Range True or False or Null
+0 to 255 or Null
+
+
+
+Nullable decimal Nullable double Nullable DateTime Nullable Int16 Nullable Int32 Nullable Int64 Nullable Single Nullable char
+Syntax for Nullable types in C#
+
+(-7.9 x 1028 to 7.9 x 1028) / 100 to 28 or Null (+/-)5.0 x 10-324 to (+/-)1.7 x 10308 or Null Represents an instant in Time or Null
+-32,768 to +32,767 or Null
+-2,147,483,648 to 2,147,483,647 or Null
+-9,223,372,036,854,775,808 to +9,223,372,036,854,775,807 0r Null Single value or Null
+U+0000 to U+FFFF or Null
+
+
+There are two main ways of declaring the Nullable type. The first one is as follows: System.Nullable<data_type> <variable_name>;
+It opens with a System.Nullable keyword (which is called the relevant object), followed by the specification of the data type — int, double — and the variable name.
+
+The other way of declaring a Nullable type looks like this: < data_type> ? <variable_name> = null;
+It opens with the data type specification, a question mark, and then variable name. Let’s look at some examples.
+Example 1:
+
+Namespace nullable {
+Class program {
+static void Main () {
+int? x= null; int? y=11; if(x==null)
+{System.Console.WriteLine(y.Value)}
+else {System.Console.WriteLine(‘Undefined’);}
+
+} }
+}
+
+In the example above, we declared nullable integers y and x. int? x has a null value and int? y has the value of 11. If the if-else statement says x is a null value, the program should print out the value of y. If not, it should print “undefined.”
+
+Output 1: 11
+In the next example, we illustrate Nullable types in Booleans and DateTime types. Example 2:
+
+Namespace nullable {
+Class program {
+static void Main () {
+int? a= null; int? b=7; Double? c=null; Double? d=4
+bool? Val= new bool?(); DateTime? Start= DateTime.today; DateTime? End= null;
+Console.Writeline(‘Showing values of Nullables: {0}, {1}, {2}, {3}’,a,b,c,d); Console.Writeline(‘A Nullable Boolean Variable: {0}’,Val); Console.Writeline(Start);
+Console.Writeline(‘We don’t know yet:’, End); }
+} }
+
+In the examples above, we have defined Nullables of int, double, Boolean, and DateTime. The program will display the following in the console. You can begin to see the use of Nullable.
+
+Output 2:
+
+Showing values of Nullables:, 7, , 4 A Nullable Boolean Variable: 12/25/2020 12:00:00 AM
+We don’t know yet:
+
+The HasValue and Value Property
+
+Nullables have properties that are public and read-only.
+
+● HasValue Property:
+The HasValue tests a condition and returns a Boolean value. If the type in question is a non-null value, the HasValue property will return true. If the type has no value or null, it will return false.
+
+● Has Property:
+The Has property only has value when the HasValue property is true. If the HasValue property is false, the Has property throws an Exception. Let’s look at an example to illustrate this:
+
+Example 3:
+
+using System; Namespace nullable {
+Class program {
+static void Main () {
+int? a= null;
+Console.WriteLine(a.HasValue); // HasValue property is false Console.WriteLine(a.Value);	// will cause an exception Console.readKey();
+} }
+
+A has a null value, so the HasValue property returns false. When we try to display a via the “Value,” we get an exception.
+
+Output 3: False Example 4:
+
+using System; namespace nullable {
+class program {
+static void Main () {
+int? a= null;
+Console.WriteLine(a.HasValue); // HasValue property is false
+
+a=6; //assigning value to variable
+Console.WriteLine(a.HasValue); // hasvalue Property is true because a has non-null value Console.WriteLine(a.Value);	// returns value of a
+Console.WriteLine(a); }
+}
+
+Output 4: False True
+6 6
+The Null Coalescing Operator
+
+C# gives us an operator that can check Null values. Upon finding Null value variables, it assigns a value to that variable. The operand is a double question. It can be used on both Nullable and reference types. Where implicit conversion can be performed, it changes the operant to reflect another value type operand. Let’s have a look at this:
+
+Example 5:
+
+using System; namespace nullable {
+class program {
+static void Main () {
+int? a= null; int? b=4;
+int c=a ?? 8;
+System.Console.WriteLine($"Value of c is: {c}"); c=b ?? 8;
+System.Console.WriteLine($"Value of c is: {c}");
+
+} }
+}
+
+
+Output 5: Value of c is: 8 Value of c is: 4
+
+
+
+
+
+CHAPTER 12:
+
+
+ANONYMOUS TYPES
+
+C# allows us to create new data types called anonymous data types. We can create them without defining them. They are created at instantiation, and they are both compiler generation and reference types. The compiler will define them based on their properties. Anonymous types are an important feature used in SQL, and are useful in LINQ queries. Anonymous types are read-only.
+
+In this chapter, we will study “Anonymous” types: Contents
+● The Var Statement
+● Creating and Using Anonymous Types ● Comparing Two Anonymous Instances
+Var Statement
+
+Vars were introduced in C# 3.0. As the name suggests, they are used to declare local variables implicitly, meaning you don’t have to specify the data type it will hold. Let’s have a look at the example below:
+
+var str=‘name’; var num=‘89’;
+var array=new[]{1,2,3};
+
+The compiler will compile all that code like this:
+
+
+var str=‘name’;
+
+var num=‘89’
+
+// string str=‘name’;
+
+// int num=‘5’;
+
+
+var array=new[]{1,2,3}; // int array=new[]{1,2,3}; Let’s have a look at the example below:
+Example 1:
+
+
+using System;
+using System.Collections.Generic; using System.Linq;
+using System.Text;
+using System.Threading.Tasks; namespace anonymous
+{
+class Program {
+static void Main(string[] args) {
+var name = "Jonathan Davis"; var number = 25;
+string s = "USA"; var s2 = s;
+s2 = null;
+string s3 = null; var s4 = s3;
+Console.WriteLine(name); Console.WriteLine(number); Console.WriteLine(s); Console.WriteLine(s2); Console.WriteLine(s3); Console.WriteLine(s4);
+
+} }
+}
+
+
+Output 1:
+
+Jonathan Davis 25
+USA
+
+The values of variables var s2, var s3, and var s4 are null, and that's why they create empty spaces. A value of the var variable cannot be null at compile time but can be at run time.
+
+Vars are not anonymous types. Other Invalid var statements:
+var a; // invalid because it needs to be initialized var num=null // cannot be Null at compile time var v=‘Lord of the Rings’
+v=15 // an integer cannot be assigned to a string variable declared implicitly Creating and Using Anonymous Types in C#
+Anonymous types are reference types that can be created using the var statement. If we needed to create an Anonymous type to represent a point, we would do this:
+
+var point = new {x=18,y=10};
+
+Var statements need us to initialize from the beginning, so values cannot be initialized to a null value. The following would be wrong:
+
+var point = new {x=18,y=null}; //wrong statement, cannot be null at compile time
+
+Example 2:
+
+using System; namespace anonymous {
+class Program {
+static void Main(string[] args) {
+var Name = new { FirstName = "Phillip", LastName = "Glass" }; Console.WriteLine(Name.FirstName); Console.WriteLine(Name.LastName);
+} }
+}
+
+Output 2: Phillip Glass
+Here’s how a compiler creates an anonymous type:
+
+using System; namespace anonymous {
+class Program {
+static void Main(string[] args) {
+var Employee = new { EmpName = "Cain", EmpAddress = "Florida" , Empsalary="28,000"};
+
+} }
+}
+
+
+The compiler then creates the type as follows::
+
+namespace anonymous {
+class Program {
+private string Name; private string Address;
+
+int salary;
+public string EmpName {get {return EmpName;} Set {EmpName=value;} }
+Public string EmpAddress {
+Get{return EmpAddress;} Set{EmpAddress=value;} }
+Public int Empsalary {
+Get{return Empsalary;} set{Empsalary=value;} } }
+}
+
+
+In all the examples, we are naming properties explicitly. We can also do that implicitly if they are set on the basis of property, field, or variable.
+
+Example 3:
+
+using System; namespace anonymous {
+class Program {
+static void Main(string[] args) {
+int variable = 88;
+var implicitProperties = new { variable, DateTime.Now };
+var explicitProperties = new { variable = variable, Now = DateTime.Now }; //same as above
+
+Console.WriteLine("Time is "+implicitProperties.Now+" and implicit Variable is " + implicitProperties.variable); Console.WriteLine( "Time is "+ explicitProperties.Now+" and explicit Variable is " +
+explicitProperties.variable);
+
+} }
+}
+
+Output 3:
+
+Time is 12/27/2020 2:30:24 PM and implicit Variable is 88 Time is 12/27/2020 2:30:24 PM and explicit Variable is 88 Comparing Two Anonymous Instances
+Based on underlying properties, Anonymous types can create overrides of “Equals()” to compare two Anonymous variables. We can retrieve their Hash Codes using “GetHashCode().” Here's an example of how we would do that.
+
+Anonymous types create overrides of “Equals()” based on the underlying properties, so we can compare two anonymous variables. We can also get their Hash Codes using “GetHashCode().” For example, if we had the following 3 points:
+
+Example 4:
+
+namespace anonymous {
+
+class Program {
+
+static void Main(string[] args) {
+var point1 = new { A = 1, B = 2 }; var point2 = new { A = 1, B = 2 }; var point3 = new { b = 2, A = 1 };
+Console.WriteLine(point1.Equals(point2));
+// true, equal anonymous type instances always have same hash code Console.WriteLine(point1.GetHashCode() == point2.GetHashCode()); Console.WriteLine(point2.Equals(point3));
+// quite possibly false
+Console.WriteLine(point2.GetHashCode() == point3.GetHashCode()); }
+}
+
+}
+
+Output 4: True
+True
+
+False
+
+False
+
+
+
+
+
+CHAPTER 13:
+
+
+LINQ
+
+LINQ stands for “Language Integrated Query” (“LINQ Tutorials from Basics to Advanced”). If you have worked with databases, you will know what a query is. In a nutshell, it is how programmers interact with a database to manipulate data. Programmers use them to access the database — to insert, edit, retrieve, or delete data. LINQ gives C# developers a fresh way of accessing and working with multiple data types like XML field, databases, lists, and dynamic data.
+
+LINQ functions are composed of two fundamental units: sequences and elements. LINQ sequences are a set of items that implement the Ienumerable<T>. Interface where each item in the set is referred to as an element. A typical example of an Ienumerable<T> interface is an array, like below:
+
+string[] cities = {"Frankfurt", "New York", "Cardiff", "Sydney", "Toronto" };
+
+The string type array contains the names of cities. A collection like this is called a local sequence because all the items in it are in the local memory of the system.
+
+Query Operators
+
+Query operators take LINQ sequences as input, transform, and return the transformed sequence as output. The Enumerable class of the System.Linq namespace has about 40 query operators. Let's look at the most used LINQ operators.
+
+Where Operator
+
+The “where” operator filters a sequence based on a set of conditions. For instance, you want to get a list of cities in the array where the length of characters is equal to or greater than 8. Here is an example of that below.
+
+Example 1:
+
+using System;
+using System.Collections;
+using System.Collections.Generic; using System.Linq;
+namespace MyCSharpApplication {
+class Program {
+public static void Main() {
+string[] cities ={"Frankfurt", "New York", "Cardiff", "Sydney", "Toronto" }; ;
+List<string> citiesendingwiths = (from c in cities
+where c.Length >=8 select c).ToList();
+foreach(string c in citiesendingwiths) {
+Console.WriteLine(c); }
+Console.Read(); }
+} }
+
+
+Output: Frankfurt New York
+The LINQ query sequence is similar to an SQL query. We have illustrated this above by fetching cities from the lists that are eight characters long or longer. “New York'' makes the cut because spaces count as characters.
+
+This LINQ syntax is often referred to as the query syntax because of its similarity to an SQL query syntax. There is another way of executing LINQ queries using Lambda Expressions. It is called fluent syntax. The example below illustrates it:
+
+Example 2:
+
+using System;
+using System.Collections;
+using System.Collections.Generic; using System.Linq;
+namespace MyCSharpApplication {
+class Program {
+public static void Main() {
+string[] cities = {"Frankfurt", "New York", "Cardiff", "Sydney", "Toronto" }; List<string> citiesendingwiths = cities.Where(c => c.Length >= 8).ToList(); foreach(string c in citiesendingwiths)
+{
+Console.WriteLine(c); }
+Console.Read(); }
+} }
+
+
+Just like in SQL, you can use logical operators with comparison operators in LINQ. For instance, you might want to get a list of cities that have more than six characters and have the letter “o” in their names. The AND operators will help you achieve this, as shown below.
+
+Example 3:
+
+using System;
+using System.Collections;
+using System.Collections.Generic; using System.Linq;
+namespace MyCSharpApplication {
+class Program {
+public static void Main() {
+string[] cities = {"Frankfurt", "New York", "Cardiff", "Sydney", "Toronto" };
+List<string> citiesendingwiths = cities.Where(c => c.Length >= 6 && c.Contains("o")).ToList(); foreach(string c in citiesendingwiths)
+{
+Console.WriteLine(c); }
+Console.Read(); }
+} }
+
+
+We are only going to get Toronto and New York printed in the console because they are the only cities that meet both conditions of being more than six characters long and containing the letter o.
+
+Select
+
+The select query is often used with objects that have multiple members. It is used to extract a specific member of an object collection; it can also be used by any object. The example below illustrates the Select query.
+
+Example 4:
+
+using System;
+using System.Collections;
+using System.Collections.Generic; using System.Linq;
+namespace MyCSharpApplication {
+public class Person {
+public int age; public string name;
+public Person(int age, string name) {
+this.age = age; this.name = name;
+}
+
+}
+class Program {
+public static void Main() {
+Person p1 = new Person(9, "James"); Person p2 = new Person(8, "Carrie"); Person p3 = new Person(13, "Mark"); Person p4 = new Person(15, "Evelyn"); Person p5 = new Person(6, "Max"); List<Person> plist = new List<Person>(); plist.Add(p1);
+plist.Add(p2); plist.Add(p3); plist.Add(p4); plist.Add(p5);
+List<string> personnames = plist.Where(p => p.age <= 12).Select(per => per.name).ToList(); foreach(string pname in personnames)
+{
+Console.WriteLine(pname); }
+Console.Read(); }
+} }
+
+
+We made a Person class that has two member variables: age and name. They are initialized through the constructor. Then we created 5 Person Objects and stored them in a Person list collection we named plist. We then used a LINQ query with the Where and Select operator to extract persons whose age is younger than 12. Without the select operator, the whole object would be extracted, but that is not what we want. We want the names of people who meet those conditions. This is why we used a Select operator and passed a Lambda Expression that got the name.
+
+LINQs are vast topics that can fill an entire book. We will end the discussion of the operators here. Working with Other Data Types
+What makes LINQ an attractive technology to work with is its compatibility with many data types. You can use the same syntax to handle data coming from an external source, while other query languages will require a different syntax for each source. For instance, SQL queries for interacting with SQL server and Xquery for XML data types.
+
+In this section, we will look at the relationship between: Contents
+● LINQ and SQL
+● LINQ and Lambda Expressions LINQ and SQL
+LINQ is the smarter alternative to working with SQL data. You will hear the term “LINQ to SQL,” which demands accessing an SQL database with LINQ. The way to do that is to map the target SQL database to LINQ.
+
+Mapping LINQ to SQL
+
+Mapping LINQ to SQL is when .NET recognizes a database as Objects(Classes). It is easy to do. You open Visual Studio, target project in solution explorer. Click Add, then select New Item. Select “Data” from listed “Categories” options, and select “LINQ to SQL Classes” from the Templates on the left. You end up with a “.dbml” file that produces a Graphic User Interface. The GUI has a part that allows you to drag and drop tables and another where you can drop stored procedures. Select, drag, and drop all essential tables and procedures.
+
+Selecting Data:
+
+As soon as we have our “.dbml” file and its “DataContext,” LINQ queries can use objects to communicate with the databases. Here’s an example below.
+
+Example 1:
+
+public bool checkValidUser(string Name, string passcode) {
+DBToysDataContext sampleDB = new DBToysDataContext(); var getter = from u in sampleDB.Users
+where u.Username == Name && u.Password == passcode select u;
+
+return Enumerable.Count(getter) > 0; }
+
+
+When we mapped the “DBToys.dml” file, a “DBToywDataCOnectc” class file was created by the .NET framework. We then passed the strings “Name” and “Passcode” through the “checkValidUser” function, which validates the user’s entered name and password against the table “User” in the Toys database.
+
+In the first line of the function, we instantiate the “sampleDB” object to access our Toys database using the “DBToysDataContext”  class file. The “u” from the “from u in sampleDB.Users is read as an object of the “Users” class, which refers to our “Users” table in the Toys database. Then we passed the incoming column/field values as an object of the “var” type. The various data types denoted dynamic data. Whatever data we get from a LINQ query can be stored in a “getter” variable. In this example, we are extracting and storing a username and password from the “Users” table. The “Enumerable.Count” function returns the number of data rows returned by the LINQ query.
+
+There’s a way to access the data without using a syntax similar to SQL in LINQ. Example 2:
+
+public bool checkValidUser(string Name, string passcode) {
+DBToysDataContext sampleDB = new DBToysDataContext();
+List<Users> getter = sampleDB.Users.Where(u => u.Username == Name && u.Password==passcode); if(users.Count>0)
+{
+return true; }
+return false; }
+
+As you can see, we had used the “where” method to directly access data from the “Users” table of the Toys database instead of using traditional SQL syntax. Everything works the same as before, except we used the “List” data type to store values returned by the LINQ query.
+
+Example 3:
+
+public User bringUser(string name) {
+DBToysDataContext sampleDB = new DBToysDataContext(); User use = sampleDB.Users.Single(u, u.UserName=>name); return use;
+}
+
+LINQ expressions also allow us to extract or send a single row. The “bringUser” function takes a name as input and matches it against objects in the Users table. The “Single” method in “SampleDB.Users.Single()” looks for a match and returns a single row.
+
+LINQ and Lambda Expressions
+
+While we have already discussed Lambda Expressions earlier, LINQ queries mostly imply Lambda Expressions in dealing with collections or lists of data to filter list items based on some specific criteria. Let’s see how:
+
+Example 4:
+
+IEnumerable <SelectListItem> toys = database.Toys .Where(toy => toy.Tag == curTag.ID)
+.Select(toy => new SelectListItem { Value = toy.Name, Text = toy.ID }); ViewBag.toySelector = toys;
+
+
+In the code above, we have declared the variable “toys” and are casting it to type “SelectListItem” to save the resultant row from our LINQ query. We have used two methods, “Where” and “Select,” to find the target toy that matches our query. The line ‘”toy => toy.Tag == curTag.ID” selects a toy based on a passed tag, whereas the line “toy => new SelectListItem {Value = toy.Name, Text = toy.ID” selects a particular toy based on a passed ID and name. The resultant toy that meets this criterion is saved in the “toys” variable.
+
+Working with XML
+
+Let’s look at how we can use LIN to work with XML data. XML stands for Extensible Markup Language. The data type is widely used on the World Wide Web because of its compatibility with different systems. It is often referred to as self-describing or self-defining data. XML is highly standardized, and its customizable tags are used in sharing, accessing, and manipulating data.
+
+We will see how we can use LINQ to: Contents
+● Retrieve and delete XML data
+● Insert and update XML data Retrieve and Delete XML Data
+XML data files have a root/parent tag or element that encapsulates, defines the type of child record and its attributes. The child records (elements) contain the data. Look at the XML code below. We will be using it to test our LINQ queries.
+
+Sample XML Data
+
+<? Xml version=‘1.0’ encoding=‘utf-8’?> <Toys>
+<Toy ID=‘1’> <Name>Batman</Name> <Price>$0.45</Price>
+</Toy>
+<Toy ID=‘2’> <Name>Snowhite</Name> <Price>$0.40</Price>
+</Toy>
+<Toy ID=‘3’> <Name>Hulk</Name> <Price>$0.55</Price>
+</Toy> </Toys>
+
+
+Toys is the root element with multiple Tot elements inside. Every child toy element has an ID attribute and “Price” and “Name” as inner elements.
+
+Now let’s extract data from the table using LINQ queries.
+
+Example 1:
+
+private string file = ‘SampleData.xml’; private void GetData()
+{
+try {
+XDocument doc = XDocument.Load(file);
+var comingToys = from toy in doc.Descendants(‘Toy’) select new
+{
+ID= Convert.ToInt32(toy.Attribute(‘ID’).Value), Name = toy.Element(‘Name’).Value ,
+Price = toy.Element(‘Price’).Value
+}; foreach (var x in toys) {
+Console.WriteLine(‘Toy ID’, x[ID]); Console.WriteLine(‘Toy Name’, x[Name]); Console.WriteLine(‘Toy Price’, x[Price]);	}
+}
+catch (Exception err) {
+MessageBox.Show(err.Message); }
+}
+
+
+The opening line points to our XML data file is called “SampleData.xml.” In the function, we load the xml file using the “Load(file)” function. After the file is loaded, extract child “toy” elements using the “Doc.descendant()” method. Then we go over each “toy,” and retrieve the ID attribute and its inner elements, and store them in the dynamic variable.
+
+Output 1:
+
+Toy ID 1 Toy Name Batman Toy Price $0.45 Toy ID 1 Toy Name Snowhite Toy Price $0.40
+
+Toy ID 1 Toy Name Hulk Toy Price $0.55
+
+If you want to remove a name from the data file you would do the following: Example 2:
+
+private string file = ‘SampleData.xml’; Private void DeleteData (int id)
+{
+try {
+XDocument sampleXML = XDocument.Load(file);
+XElement cToy = sampleXML.Descendants(‘Toy’).Where(c => c.Attribute(‘ID’).Value.Equals(id); cToy.Remove();
+sampleXML.Save(file); }
+catch (Exception e) {
+MessageBox.Show(e.Message); }
+}
+
+
+After the file is loaded, the code goes over the child elements looking for a match and, when it finds it, removes that child with the “Remove()” method, saving the resulting file.
+
+Insert and Update XML data
+
+There isn’t a big difference between inserting data and extracting data from an XML file. We will only need an “Xelement: object” that has the same signature as existing elements in the target XML file. Then we insert the “XElement'' object into the file using “XDocument” object.
+
+Example 3:
+
+private string file = ‘SampleData.xml’;
+private void InsertData(string name, string price) {
+try {
+XDocument doc = XDocument.Load(file);
+XElement newToy = new XElement(‘Toy’,  new XElement(‘Name’, name), new XElement(‘Price’, price)); Var lastToy = doc.Descendants(‘Toy’).Last();
+Int newID = Convert.ToInt32 (lastToy.Attribute (‘ID’).Value); newToy.SetAttributeValue(‘ID’,++newID);
+doc.Element (‘Toys’).Add (newToy); doc.Save (file);
+}
+catch (Exception err) {
+MessageBox.Show (err.Message); }
+}
+
+
+After creating “Xdocument'' object, we created an “Xelement” type with the same signature as the “Toy” element. We did this in this line: XElement newToy = new XElement(‘Toy’, new XElement(‘Name’, name), new XElement(‘Price’, price). We then select the last toy element with the var lastToyusing the “doc.Descendants(“Toy”).Last()” method. We accessed its “ID” value and then incremented it while we set that as an attribute for our new toy element. We did this at this line: “newToy.SetAttributeValue(‘ID’,++newID).” Lastly, we inserted the new “toy” object with the “Add()” method, then saved our changes.
+
+Output 3:
+
+The XML file will now contain a fourth child. If we had passed “Thor” as the name and “$0.65” as the price, we would get the following as the fourth element.
+
+<Toy ID=‘4’> <Name>Thor</Name> <Price>$0.65</Price>
+</Toy>
+
+
+To make changes to the XML file, we have to locate our target element first. The following line does that: “XElementcToy=doc.Descendants(‘Toy’).Where(c=>c.Attribute(‘ID’).Value.Equals(id)”;
+
+It looks for an element that matches an ID we provided, allowing the “XElement” object, “cToy”, to point at it. Once that is done, we can update its inner values using:
+
+“cToy.Element(‘Price’).Value = price”
+
+Then we save the changes we have made. All this is shown below. Example 4:
+
+private string file = ‘SampleData.xml’;
+private void UpdateData(string name, string price, int id) {
+try {
+XDocument doc = XDocument.Load(file);
+XElement cToy = doc.Descendants(‘Toy’).Where (c=>c.Attribute(‘ID’).Value.Equals(id); cToy.Element(‘Name’).Value = name;
+cToy.Element(‘Price’).Value = price; doc.Save(file);
+}
+catch (Exception err) {
+MessageBox.Show(err.Message); }
+}
+
+
+Output 4:
+
+If we had passed the following arguments: id= 1, name= “Black Widows,” price=”$0.90” we would have replaced Batman with the following toy:
+
+<Toy ID=‘1’>
+<Name>Black Widow</Name> <Price>$0.90</Price>
+</Toy>
+
+
+
+
+
+CHAPTER 14:
+
+
+THE FACTORY AND COMPOSITE PATTERN
+
+Factory Pattern
+
+Factory patterns allow you to create multiple objects with ease using a boilerplate object making pattern. How it essentially works:
+You start by creating a class interface that standardizes data object creation. You would use subclasses to create the data objects. The subclass allows for flexibility in what you are able to create. If the programming language you use does not have interfaces or abstract classes, you will need to create a factory interface class and have subclasses extending it.
+
+Imagine you were charged with creating a wide range of sports balls at any given time. We are talking basketballs, cricket balls, volleyballs, footballs, and more. You would always know how you should make each one when requested. What should your code look like for each? This is why you need to create an interface that outlines the construction of the ball objects.
+
+We  will  call  the  interface  the  “BallMaker.”  For  each  ball  type,  we  would  create  a  subclass  that  extends “BallMaker.” The subclasses will create the ball objects, each one doing so according to its own specifications. This means a FootballMaker would make footballs, and BasketballMaker would make basketballs.
+
+The implementation pseudocode is available in the Archive. It should help you create the pattern for the language of your choosing.
+
+The Factory Pattern, in C# ==== ==== ==== ==== ====
+This is how the factory pattern looks in C#:
+
+// Factory is implemented by any subclasses that need to use it interface Factory {
+// INPUT: your choice
+// OUTPUT: your choice (set to Void by default) // Constructor for Classes that implement this interface void createObject();
+}
+
+// SubFactory1:
+// creates distinct objects based on Factory Interface class SubFactory1 : Factory {
+
+// This implements the same function outlined in the interface void Factory .createObject() {
+// include ANY unique distinctions for this creator class // any other code here
+} }
+
+// SubFactory2:
+// creates distinct objects based on Factory Interface class SubFactory2 : Factory {
+
+// This implements the same function outlined in the interface void Factory.createObject() {
+// include ANY unique distinctions for this creator class // any other code here
+} }
+
+
+Implementing the Factory Pattern
+
+Use an IDE of your choice to implement the code. You can use online ones like codechef.com, rextester.com, ideone.com, or codepad.org.
+
+========================= ======
+
+Now let’s see the factory pattern first-hand with an example. There will also be a workshop that allows you to
+
+continue with the pattern. Sports Ball Creator
+Imagine you had a build-to-order web app for creating sports balls of different kinds.
+
+Below is how a general ball class would look:
+
+/*
+// A Sports Ball has:
+// - the Type of ball it is
+// - an array of materials used to manufacture it // - its size, as a radius (inches)
+// - any additional comments required // - the company brand that made it
+// - a product name */
+class SportsBall {
+public String type;
+public String[] materialsUsed; public float radius;
+public String comments; public String make; public String modelName;
+}
+
+
+As you can see, a lot of small details are involved in creating sports ball objects. For instance, if you had to create a football, the process would be different than creating a tennis ball. They use different materials, come in different sizes, and have different styles. In the real world, they are probably made by different companies that give them different features.
+
+If you wanted to create the ball easily, with much less code, you would use the factory pattern method.
+
+However, as you can see, there are far too many small details involved when creating data objects for sports balls. So if you had to create, let’s say, a certain basketball, the process would be far different compared to creating a soccer ball. They both would have different types, materials, and sizes. They also would probably be created by different brands and would have different features, too.
+
+Let's go through the steps involved in setting up a design pattern. You will then practice by extending the work.
+Step 1: The Factory Interface
+
+We start by creating the interface that all ball creating factory classes will implement. It has one method, creating and returning instances of sports balls.
+
+// the BallFactory interface:
+// - interface for how a ball will be created interface BallFactory {
+/*
+// INPUT: none
+// OUTPUT: a Sports Ball object // EFFECT: Creates a Sports Ball;
+// Classes that implement this will have their own distinctions in making one */
+SportsBall createBall(); }
+
+Step 2: The First Factory Class
+
+Now we create a factory class that implements the BallFactory interface. Right now, it only creates basketballs.
+
+// The Basketball Maker:
+// - creates basketball objects with distinct fields class BasketballMaker : BallFactory {
+
+// (method implements the Interface Version)
+// EFFECT: Creates a sports ball as a Basketball SportsBall BallFactory.createBall() {
+SportsBall b = new SportsBall(); b.type = "Basketball"; b.materialsUsed = new String[3]; b.materialsUsed[0] = "rubber";
+
+b.materialsUsed[1] = "fiber"; b.materialsUsed[2] = "synthetic composite"; b.radius = 4.8f;
+b.make = "Spalding";
+b.modelName = "Series Basketball"; return b;
+} }
+
+
+Step 3: Design any additional Factory Classes you need
+
+We can create as many different factory classes as we need. All of them implement the Ball Factory interface and create sports ball objects that have distinct features and qualities.
+
+Below is one that makes baseballs.
+
+// The Baseball Maker:
+// - creates baseball objects with distinct fields class BaseballMaker : BallFactory {
+
+// (method implements the Interface Version)
+// EFFECT: Creates a sports ball as a Basketball SportsBall BallFactory.createBall() {
+SportsBall b = new SportsBall(); b.type = "Baseball"; b.materialsUsed = new String[6]; b.materialsUsed[0] = "cork"; b.materialsUsed[1] = "wool"; b.materialsUsed[2] = "poly/cotton"; b.materialsUsed[3] = "cowhide"; b.materialsUsed[4] = "yarn";
+b.materialsUsed[5] = "composite rubber"; b.radius = 1.45f;
+b.make = "Rawlings";
+b.modelName = "MLB Official Baseball"; return b;
+} }
+
+
+Step 4: Run Some Code
+
+After they are created, you can run the code. Create a main function for each factory class you’ve designed. We are referring to the main class that has the public-static-void-main method. You are going to call these factories to make balls.
+
+In our example, we made two factories: basketball and baseball factories. We’ll be using them to make basketball and baseball objects.
+
+// Creating the Factories
+BallFactory f1 = new BasketballMaker(); BallFactory f2 = new BaseballMaker();
+
+// Creating a basketball object:
+// Use the Basketball Factory to make Basketballs SportsBall bb1 = f1.createBall();
+
+// Creating a baseball object:
+// Use the Baseball Factory to make Baseballs SportsBall bb2 = f2.createBall();
+
+// TESTING:
+// This line should print out "Basketball" Console.WriteLine(bb1.type);
+
+// This line should print out "Baseball" Console.WriteLine(bb2.type);
+
+
+Composite Pattern
+
+Imagine you had organized data in a hierarchical manner, and all this data looked like ‘files’ and ‘folders.’ As you know, files can go into folders, and folders can go into other folders and so on. You will want to have something similar without replicating unnecessary code. A composite pattern can help with that.
+
+How it essentially works:
+
+There are two classes: a File class and a Folder class. Think of them as an item and group, toys and box, or clothing
+
+and bag. It is a combination of two classes in which one is made of both types.
+
+Both might have similar traits, methods, and fields, so you might need to write twice the code you would normally: one for the items and the other for groupings. To solve this, you need them to extend a common superclass or abstract class. In other words, a component. There needs to be one important distinction: the Group should contain the collection of the superclass. Because they emanate from a common superclass, the Group class can house a collection of groups or items.
+
+So if you have two classes, Clothing and Bag, a Bag contains clothes, but it can also contain bags inside. They share similar qualities, like the name and description. It would be unwise to write separate code for each instance if they share so many similarities. You can apply a Composite Pattern where both clothing and bags extend a superclass. The bag class would be tweaked so it can accept either bags or clothes.
+
+The important thing is that item/container classes extend a common superclass or component. The container class will contain a list of components, which can either be items or containers.
+
+Depending on your language, the superclass can be an abstract class, interface, or other kinds of abstractions available to the language. The pseudocode of the composite pattern is included in the Archive, so if you need to use it in a different language, it will help you.
+
+Now, let’s look at the Composite Pattern below. The Composite Pattern, in C#
+==== ==== ==== ==== ====
+
+Here is how the Composite Pattern looks in C#:
+
+/*
+// Component is the superclass which File and Folder classes extend // You may define any fields and methods shared by both subclasses */
+abstract class Component {
+// insert any amount of fields and methods // where necessary
+String someField; void someMethod() {};
+}
+
+// General Item Class (as File):
+// contains all fields and methods defined at Component class File: Component {
+
+}
+
+// General Group Class (as Folder):
+// contains all fields and methods defined at Component // Also has:
+// - a List of Components, which can contain either Items or Groups class Folder : Component {
+List<Component> contents = new List<Component>(); }
+
+
+Implementing the Composite Pattern
+
+Use an IDE of your choice to implement the code. You can use online ones like codechef.com, rextester.com, ideone.com, or codepad.org.
+
+========================= ======
+
+We are going to consider a situation where having a Composite Pattern is a great solution and construct the Composite Pattern.
+
+File Manager
+
+Imagine you are a web developer for a popular social media site, and you are tasked with adding a feature that allows users to upload and organize their data in files. In other words, you have to make File and Folder classes. From the beginning, you realize these share many characteristics, like name, date created, date modified, icons, and thumbnails. You know you need to implement a Composite pattern, as it would be a simpler way to do this.
+
+Step 1: The Component Superclass
+
+The first thing we do is create the superclass that the File and Folders will emanate from. Since we are working with C#, we have the Abstract class available to us.
+
+So we will make a superclass that accepts the name, date created, and date last modified.
+
+
+/*
+// Component is the superclass which File and Folder classes extend // It has:
+// - Name, as a String // - the Date Created
+// - the Date Last Modified // It can:
+// - rename itself
+// - update the Last Modified date */
+abstract class Component { String name;
+DateTime dateCreated; DateTime dateLastModified;
+}
+
+
+Step 2: Customizing the Component Constructor
+
+Then we code a slightly different version of our component/superclass. So when a new component is made, a name will be set and dates will be set to the current date.
+
+All the files and Folders will use the same component as a constructor.
+
+abstract class Component { public String name;
+public DateTime dateCreated; public DateTime dateLastModified;
+/*
+// INPUT: a String
+// Custom Constructor for the Component Class,
+// Upon creation, the dates created and last modified
+// are set to the current date an object would be created */
+public Component(String n) { this.name = n;
+this.dateCreated = new DateTime(); this.dateLastModified = new DateTime();
+} }
+
+
+You can see how a setup like this can shrink the lines you write, preventing bugs and other undesirable outcomes. All important fields and methods will be available to both classes, so they don’t need to code the same thing twice because they share so many similarities. It would be receptive to do so, and also mundane. All objects that emanate from the superclass will be treated the same.
+
+Step 3: Creating the File Class
+
+The File class will share many similarities with the folder class, but it will include other fields that indicate the file’s type, like document, picture, video, PDF, epub, and others. So the File constructor has to be modified to reflect these attributes.
+
+/*
+// General Item Class (a.k.a. File):
+// contains all fields and methods defined at Component // Also has:
+// - a file type, as a string */
+
+class File : Component { public String fileType;
+
+/*
+// INPUT: a String
+// Custom Constructor for the File Class,
+// Follows the same procedure as the superclass, // Then sets the file type
+*/
+public File(String n, String f) : base(n) { this.fileType = f;
+} }
+
+Step 3: Creating the Folder Class
+
+When making the Folder class, the process will be the same, except you add a key field that can accept either Files
+
+or SubFolders.
+
+// General Group Class (a.k.a. Folder):
+
+// contains all fields and methods defined at Component
+
+// Also has:
+
+// - a List of Components, which can contain either Items or Groups
+
+class Folder : Component {
+
+public List<Component> contents = new List<Component>();
+
+public Folder(String n) : base(n){
+
+}
+
+}
+
+Step 4: Running and Testing the Code
+
+The next step is to test the code by creating files and folders and then sorting them. So run the code in the Main Class or the place where this code will run.
+
+Folder top = new Folder("Top Folder"); File a = new File("A", "Spreadsheet"); File b = new File("B", "Picture"); Folder mid = new Folder("Mid Folder"); top.contents.Add(a);
+
+top.contents.Add(b); top.contents.Add(mid);
+File c = new File("C", "Video");
+File d = new File("D", "Letter Document"); Folder bot = new Folder("Bottom Folder"); mid.contents.Add(c);
+mid.contents.Add(d); mid.contents.Add(bot);
+File e = new File("E", "PDF"); bot.contents.Add(e);
+
+
+Afterward, put the following code after the code above and run it.
+
+Console.WriteLine(top.name);
+foreach (var Component in top.contents) { Console.WriteLine("	" + Component.name);
+}
+foreach (var Component in mid.contents) { Console.WriteLine("	" + Component.name);
+}
+foreach (var Component in bot.contents) { Console.WriteLine("	" + Component.name);
+}
+
+
+After following these steps, the output should be like this: Top Folder
+A B
+Mid Folder C D
+Bottom Folder E
+If done correctly, we can create a hierarchical system of files, folders, and subfolders.
+
+
+
+
+
+CHAPTER 15:
+
+
+THE OBSERVER PATTERN
+
+In some cases, you will need to create two classes that have an observer and observed prelations. In other words, one object needs to observe or watch another object for its functions. For example, you can have a class that collects data about the environment around you: time, weather, locations, and more. You might also have another object that needs that data to alert a user of their friends nearby, of the weather, and remind them of events and plans. To be able to do this, you need an Observer Pattern because an object needs to observe other objects for its main functions.
+
+How it essentially works:
+
+Observe patterns are popular among developers because many of the applications we use function in the described way. There is the Subject and the Observer. Observing and being the object are descriptions of behavior, so we implement Observe and Subject interfaces. This will allow classes to apply Observer and Subject behaviors. All these classes have to apply their interfaces.
+
+All classes implementing the Observer interface will have a slit of subjects to watch. They will need an update method, which updates their data based on the relevant changes in the subject objects.
+
+All the classes that implement the Subject interface will have a list of observer objects to notify users of changes in data.
+
+When there is a data change in the subject object, it calls the notify() method, which notifies a list of its observers. Once the observers are notified, they call the update() method, which updates their own data based on the subject’s recent update.
+
+When implementing the observer pattern, you only need to think about two things: the number of observers and number of subjects. We are going to be working with multi-observe and multi-subject scenarios to show dynamics.
+
+The Observer Pattern, in C# ==== ==== ==== ==== ====
+Below is how the observer pattern looks in C#. You will see two sets of class/interface pairs. We will start with the Observing pair.
+
+/*
+// All Observing Classes implement an Observer abstraction // It can:
+// - update object data based on subjects
+// Observing Classes may need a List of Subjects to access // (added on Observer Class)
+*/
+interface Observer { void update();
+// enter any other methods here }
+
+/*
+// Observing Classes have:
+// - working version of the update() method
+// - any number of additional fields & methods */
+class ObservingClass : Observer { // enter any key fields here;
+// INPUT: (optional) // OUTPUT: none
+// EFFECT: updates data in response to subject void Observer.update() {
+// make any changes to observer's key fields here }
+}
+
+
+Below is the subject class/interface pair.
+
+/*
+
+// All Subject Classes implement a Subject abstraction // It can:
+// - notify observers
+// - add/remove observers in its update list
+// Subject Classes also need a List of Observers to Update // (added on Subject Class)
+*/
+interface Subject {
+public void notifyObservers(); public void addObs(Observer o); public void deleteObs(Observer o); // enter any other methods here
+}
+
+/*
+// Subject Classes have:
+// - a List of Observers to notify
+// - a working version of notifyObservers()
+// - any number of additional fields & methods
+// Subject Classes also need a List of Observers to Update // (added on Subject Class)
+*/
+class SubjectClass : Subject {
+// enter any key fields here;
+private List<Observer> obs = new List<Observer>();
+
+// INPUT: (optional) // OUTPUT: none
+// EFFECT: updates all observers in list of any changes
+
+public void notifyObservers(){ foreach (var o in obs) {
+o.update(); }
+}
+
+// Add/Delete Methods: // INPUT: - an Observer // OUTPUT: none
+// EFFECT: updates data in response to subject public void addObs(Observer o) {
+obs.Add(o); }
+public void deleteObs(Observer o) { obs.Remove(o);
+} }
+
+
+Now, we go through implementing an observer pattern in detail. Implementing the Observer Pattern
+Use an IDE of your choice to implement the code. You can use online ones like codechef.com, rextester.com, ideone.com, or codepad.org.
+
+========================= ======
+
+We will use an example you might encounter in the real world. For this example, you will be a hacking specialist. Manhunt
+Imagine you are recruited by the FBI to catch a terrorist group. You can easily track the terrorist group, but dozens of agents in the field need the information in real-time. This means you will have to change the software on their devices.
+
+You will need to create a prototype that alerts the agents when terrorists are near. Step 1: Identify the Observers & Subjects
+In this context, who are your observers and who are your subjects?
+
+The terrorists are the subjects. You will need to keep track of their location. That is the information your code will have. It will be a few lines:
+
+// A single terrorist has:
+
+// - a Location, as a String
+
+// - a List of Observer Objects
+
+class Terrorist{
+
+public String location; }
+The FB devices are the Observers. We will need to modify the device Module, so it sends push notifications on critical developments. The device module looks like this:
+
+// A Device module has:
+// - an alert status (a Boolean)
+// - notification updates (as string) // - a Location, as a String
+// It can:
+// - push alerts
+// - update alerts & notifications class Module{
+public String location; public boolean alert; public String notifications;
+
+//  EFFECT: if alerts is true, print an alert notice void sendAlerts(){
+if (alert) { Console.WriteLine("ALERT: "
++ notifications + "Agents in " + this.location);
+} }
+}
+
+
+Step 2: Set up the Observer and Subject Abstractions In C#, our abstraction for both will be interfaces.
+They will look like this:
+
+/*
+// All Observing Classes implement an Observer abstraction // It can:
+// - update object data based on subjects
+// Observing Classes may need a List of Subjects to access // (added on Observer Class)
+*/
+interface Observer { void update();
+}
+
+/*
+// All Subject Classes implement a Subject abstraction // It can:
+// - notify observers
+// - add/remove observers in its update list
+// Subject Classes also need a List of Observers to Update // (added on Subject Class)
+*/
+interface Subject {
+void notifyObservers(); void addObs(Observer o);
+void deleteObs(Observer o); }
+
+
+Step 3: Modify our Subject Class to Act as One
+
+The data object which tells us where the terrorists are is the subject class. So, it will implement the Subject interface. This means you need to add and include methods specified in the Subject interface. This will also need to include a list of observer objects that need to be notified. This field should be kept private for protection against hackers.
+
+// A single terrorist has:
+// - a Location, as a String
+// - a List of Observer Objects
+// Also implements the Subject Interface; // (will need to implement its methods) class Terrorist : Subject{
+
+public String location;
+private List<Observer> obs = new List<Observer>(); // NEW: from Subject Interface
+public void notifyObservers() {}; public void addObs(Observer o) {}; public void deleteObs(Observer o) {}; }
+
+For the notifyObservers method we will need to iterate through our list of Observers and update them. So the method should be modified like this:
+
+// NEW: from Subject Interface public void notifyObservers() { foreach (var o in obs) { o.update();
+} }
+We will not need to implement addObs() and deleteObs() methods which will add and remove Observers as required.
+
+public void addObs(Observer o) { obs.Add(o);
+};
+
+public void deleteObs(Observer o) { obs.Remove(o);
+};
+
+After all the changes, your Terrorist class should look like this:
+
+class Terrorist implements Subject{ String location;
+private List<Observer> obs = new ArrayList<Observer>(); // NEW: from Subject Interface
+public void notifyObservers() { for (Observer o: obs) { o.update();
+} };
+public void addObs(Observer o) { obs.add(o);
+};
+public void deleteObs(Observer o) { obs.remove(o);
+}; }
+
+Step 4: Modify our Observer Class to Act as One
+
+Our Module data class will act as an Observer, so it will include the observer method and all its methods.
+
+// A Device module has:
+// - an alert status (a Boolean)
+// - notification updates (as string) // - a Location, as a String
+// It can:
+// - push alerts
+// - update alerts & notifications
+// Also implements the Observer Interface; // (will need to implement its methods) class Module : Observer{
+public String location; public boolean alert; public String notifications;
+
+public void update() {};
+
+//  EFFECT: if alerts is true, print an alert notice void sendAlerts(){
+
+if (alert) { Console.WriteLine("ALERT: "
++ notifications + "Agents in " + this.location);
+} }
+}
+
+
+It’s worth thinking about how the module is going to work before we add the update() method. Step 5: Modify the Observing Class to update based on Subject Classes
+The Module class has to send updates & alerts whenever Terrorists are nearby. The Terrorists' local field is a Sting, same with the Module.
+Whenever a Module’s location matches Terrorists, an alert will be sent, but before it receives the data from the Terrorist class, the update method needs to have an input from the Terrorist objects.
+
+// INPUT: a Terrorist Object // OUTPUT: none
+// EFFECT: if Terrorist and this module's locations are the same, // set Alert to true and update the notification.
+// Afterwards, send the alerts public void update(Terrorist t) { };
+You will need corresponding updates for any other code with this method. The observer interface will need to be modified to include the input like this:
+
+interface Observer { …
+public void update(Terrorist t); …
+The terrorist class’s notifying method will also need to be modified with the input type. It needs to be able to notify observers in its Class. So the class itself will be the input.
+
+class Terrorist : Subject{ …
+public void notifyObservers() { foreach (var o in obs) { o.update(this);
+} }; …
+Step 5: Implementing update()
+
+The next step is to get the update() method to work. We will put the code in the update() method in the Module class.
+
+// INPUT: a Terrorist Object // OUTPUT: none
+// EFFECT: if Terrorist and this module's locations are the same, // set Alert to true and update the notification.
+// Afterwards, send the alerts public void update(Terrorist t) {
+if (this.location == t.location) { this.alert = true;
+this.notifications = "Terrorist Nearby "; }
+else {
+this.alert = false; this.notifications = "";
+
+}
+
+sendAlerts(); };
+
+Running the Code
+
+We will run the code in two scenarios. In both, the observing class will signal an alert based on the information it gets from the subject class.
+
+In this scenario, there are more observers than subjects. (Copy and paste the code below inside your Main() method) // - - - - - - - - - -- - - - -- - - - -- - - - -
+
+// Part 1: Create all Data Objects
+Terrorist t = new Terrorist(); Module m1 = new Module(); Module m2 = new Module(); Module m3 = new Module(); Module m4 = new Module();
+
+// Part 2: Add all Observers to Subject's List t.addObs(m1);
+t.addObs(m2); t.addObs(m3); t.addObs(m4);
+
+// Create all locations
+String[] locs = new String[10]; locs[0] = "Los Angeles"; locs[1] = "Chicago";
+locs[2] = "New York"; locs[3] = "Seattle"; locs[4] = "Cleveland"; locs[5] = "Boston"; locs[6] = "San Francisco"; locs[7] = "Miami";
+locs[8] = "St. Louis"; locs[9] = "Dallas";
+
+// Part 3: Set Observers to their locations m1.location = locs[1];
+m2.location = locs[4]; m3.location = locs[5]; m4.location = locs[9];
+
+// As the Terrorist relocates all over the US,
+// it will notify all Device Modules of its location. // Modules will trigger when a Terrorist is nearby. for(int i = 0; i < 10; i++) {
+t.location = locs[i]; t.notifyObservers();
+}
+
+
+// - - - - - - - - - -- - - - -- - - - -- - - - -
+
+This is what you will get in the console when the code runs: ALERT: Terrorist Nearby Agents in Chicago
+ALERT: Terrorist Nearby Agents in Cleveland ALERT: Terrorist Nearby Agents in Boston ALERT: Terrorist Nearby Agents in Dallas
+In these scenarios, there are more subjects than observers. (Copy and paste the code below inside your Main() method) // - - - - - - - - - -- - - - -- - - - -- - - - -
+
+// Part 1: Create all Data Objects
+Terrorist t1 = new Terrorist(); Terrorist t2 = new Terrorist(); Terrorist t3 = new Terrorist(); Terrorist t4 = new Terrorist(); Terrorist t5 = new Terrorist();
+
+Module m = new Module();
+
+// Part 2: Add all Observers to Subject's List t1.addObs(m);
+t2.addObs(m); t3.addObs(m); t4.addObs(m); t5.addObs(m);
+
+// Create all locations
+String[] locs = new String[10]; locs[0] = "Los Angeles"; locs[1] = "Chicago";
+locs[2] = "New York"; locs[3] = "Seattle"; locs[4] = "Cleveland"; locs[5] = "Boston"; locs[6] = "San Francisco"; locs[7] = "Miami";
+locs[8] = "St. Louis"; locs[9] = "Dallas";
+
+// Part 3: Set Observers to their locations t1.location = locs[1];
+t2.location = locs[4]; t3.location = locs[2]; t4.location = locs[7]; t5.location = locs[5];
+
+// The single agent with the Device Module will travel all over the US, // All Terrorists will then notify the observing module.
+// The module will trigger when a Terrorist is nearby. for(int i = 0; i < 10; i++) {
+m.location = locs[i]; t1.notifyObservers(); t2.notifyObservers(); t3.notifyObservers(); t4.notifyObservers(); t5.notifyObservers();	}
+
+// - - - - - - - - - -- - - - -- - - - -- - - - -
+
+You will get the following in the console: ALERT: Terrorist Nearby Agents in Chicago ALERT: Terrorist Nearby Agents in New York ALERT: Terrorist Nearby Agents in Cleveland ALERT: Terrorist Nearby Agents in Boston ALERT: Terrorist Nearby Agents in Miami
+
+
+
+
+
+CHAPTER 16:
+
+
+THE FACADE PATTERN
+
+Driving a car is easy. To start a car, you twist the keys in the ignition or press a button. To accelerate, you step on the gas pedal. To slow down or stop, you step on the brake pedal, and the steering wheel allows you to control the direction of the car.
+
+However, a car is very complex. Starting a car requires a lot of energy. It requires gasoline. Your engine needs enough oil for the engine pistons and all the other parts. The spark plugs need to ignite the engine cylinders and create enough energy for the car to move. Functions like steering, acceleration, and braking require a system of different, complex components to work together.
+
+From the driver's seat, we don’t have access to all of this complexity. We can only see the simple tools in front of us. In a nutshell, a Facade.
+
+How the Facade Pattern Works
+
+A Facade Pattern Works the same way. It provides a top-level component that oversees the functionality of a complex system. This makes operating a complex system far simpler because all you have to control in the Facade is the simple system in front of you. Our car anomaly serves to show us this. The driver doesn’t need to work every component himself, go inside the engine, or perform a billion operations to make the car move. He just needs to understand how to operate the gear stick, pedal, wheel, and know basic things—simplifying something that is complex. Each action the driver takes is setting off a complex chain of events.
+
+Creating the Facade Pattern
+
+When you want to implement a Facade Pattern, you need to first understand the core Procedures and/or Behaviors we would benefit from simplifying.
+
+Using an interface, we would follow the steps below:
+
+1) Create a Facade interface that includes the core procedures 2) Create a general client class that enacts the Facade interface
+3) The general client should apply ALL the major procedures and contain as many component instances as necessary.
+
+4) If necessary, create multiple Facade interfaces and client classes. When you do, repeat steps 1 to 3.
+
+5) Create subclasses for general client classes when necessary; code that accesses the system does so as a client subclass.
+
+Follow these steps if you're using an encompassing class:
+
+1) Create the general “Facade” class. This class implements ALL the Major Procedures mentioned earlier. It should contain as many instances as needed.
+
+2) Create a general client class. It should contain an instance of the Facade class. 3) If appropriate, create multiple Facade classes and repeat steps 1 & 2.
+4) Create subclasses for the general client class if needed. Any code that accesses the system does it through the Facade class in the client subclasses.
+
+The steps you take will depend on your situation. So decide if using one encompassing Facade wrapper class is appropriate.
+
+The Facade Pattern, in C# ==== ==== ==== ==== ====
+To have a full understanding of the Facade Pattern, we need to look at its environment. Pay attention to the collection of components that make the complex system.
+
+Below is an example of a component class with multiple sub-components whose method may depend on its sub-components.
+
+/*
+// Component Class, with Sub-Components // Methods:
+// - one method which accesses the subcomponents */
+class ComponentOne {
+SubcompOneOne sc11 = new SubcompOneOne(); SubcompOneTwo sc12 = new SubcompOneTwo(); // IN & OUT: (your choice)
+// EFFECT: (your choice)
+public void distinctMethodOne() { sc11.distinctMethodOneOne(); sc12.distinctMethodOneTwo();
+} }
+class SubcompOneOne {
+// IN & OUT: (your choice) // EFFECT: (your choice)
+public void distinctMethodOneOne() { }
+}
+
+class SubcompOneTwo {
+// IN & OUT: (your choice) // EFFECT: (your choice)
+public void distinctMethodOneTwo() {
+
+} }
+
+This is an example of two other components in the environment:
+
+class ComponentTwo {
+// IN & OUT: (your choice) // EFFECT: (your choice)
+public void distinctMethodTwo() { // (add implementation here)
+} }
+class ComponentN {
+// IN & OUT: (your choice) // EFFECT: (your choice)
+public void distinctMethodN() { // (add implementation here)
+} }
+
+
+All components need to be coordinated.
+
+Below is how we would implement a Facade Pattern in C#. It would look like this:
+
+/*
+// Facade as an Interface
+// (include all major procedures that utilize // components within the environment)
+*/
+interface Facade{
+
+// MAJOR PROCEDURES: // IN & OUT: (your choice) // EFFECT: (your choice)
+//- calls methods from all system components void activateA();
+void activateB(); }
+
+/*
+// Client Classes
+// (Implement all procedures defined within // the Facade interface)
+*/
+
+class Client : Facade {
+ComponentOne c1 = new ComponentOne(); ComponentTwo c2 = new ComponentTwo(); ComponentN cN = new ComponentN();
+
+// Methods from Facade Interface: void Facade.activateA() {
+
+c1.distinctMethodOne(); }
+void Facade.activateB() { c2.distinctMethodTwo(); cN.distinctMethodN();
+} }
+
+
+The interface would be implemented by the Client class:
+
+// Client Subclasses:
+// (add whenever necessary) class ClientA : Client {
+}
+class ClientB : Client { }
+
+
+If the Facade is implemented as a large superclass instead, it will look like this:
+
+/*
+// Facade as a major Class
+// - include instances for each component // in the environment
+// - include all major procedures that utilize // components within the environment
+*/
+class Facade{
+ComponentOne c1 = new ComponentOne(); ComponentTwo c2 = new ComponentTwo();
+…
+ComponentN cN = new ComponentN();
+
+// MAJOR PROCEDURES: // IN & OUT: (your choice) // EFFECT: (your choice) public void activateA() {
+c1.distinctMethodOne(); }
+public void activateB() { c2.distinctMethodTwo(); cN.distinctMethodN();
+} }
+
+
+
+Client classes have instances of the Facade class:
+
+// Client Class:
+// (rest of software accesses) class Client {
+Facade f = new Facade(); }
+
+// Client Subclasses:
+// (add whenever necessary) class ClientA extends Client{} class ClientB extends Client{}
+
+Applying the Facade Pattern
+
+Use an IDE of your choice to implement the code. You can use online ones like codechef.com, rextester.com, ideone.com, or codepad.org.
+
+========================= ======
+
+Below is an example that requires a Facade Pattern. Galactic Starship with Warp Drive
+Here is a part of the code from the Galactic Starship system. Each part of the code manages the matching hardware component of the ship.
+
+/*
+// GALACTIC STARSHIP GSX2013-A4 // Components listed:
+// - Positron Engine
+
+// - Ignition Crystal
+// - Dark Matter Drive // - Energy Pre-Igniter
+// - Matter Fusion Reactor // - Warp Drive
+// - Galactic Navigation // - Co-ordinates
+// - Warp Igniter */
+
+class PositronEngine {
+IgnitionCrystal igc = new IgnitionCrystal(); DarkMatterDrive dmd = new DarkMatterDrive();
+
+public void startEngine() { igc.lightUp(); dmd.activate();
+} }
+
+class IgnitionCrystal { public void lightUp() {
+// (some hardware implementation here) }
+}
+
+class DarkMatterDrive {
+EnergyPreIgniter epi = new EnergyPreIgniter(); MatterFusionReactor mfr = new MatterFusionReactor();
+
+public void activate() { epi.ignite(); mfr.fuse();
+} }
+
+class EnergyPreIgniter { public void ignite(){
+// (some hardware implementation here) }
+}
+
+class MatterFusionReactor { public void fuse() {
+// (some hardware implementation here) }
+}
+class WarpDrive {
+WarpIgniter wi = new WarpIgniter(); MatterFusionReactor mfr = new MatterFusionReactor();
+
+public void warpTo(Coordinates c) { wi.activate();
+mfr.fuse();
+// (warp Starship to given location) }
+}
+// NOTE:: make sure the line ‘using System.Collections;’ // is near the top of your code
+class GalacticNavigation {
+ArrayList points = new ArrayList(); }
+
+class Coordinates { int x, y, z;
+public Coordinates(int x, int y, int z) { this.x = x;
+this.y = y; this.z = z;
+} }
+class WarpIgniter {
+public void activate() {
+// (some hardware implementation here) }
+}
+
+
+Although we only have a few lines, we can see that this is a complex system. Let’s say we were told to coordinate the components for a task like starting the main engine and activating the warp drive. We would see that these tasks need to be handled under a common handler. That is why we apply the Facade pattern.
+
+Identify the Major Procedures
+
+Our major procedures are the following: - starting the main engine
+- activating the warp drive
+
+We need to implement a Facade pattern for them. The approach we choose is using one encompassing Facade wrapper class.
+
+1) Create the general “Facade” class…
+
+We would begin by making the wrapper Facade class like so: class Facade {
+}
+
+This class should implement ALL the Major Procedures mentioned earlier.
+
+class Facade {
+// NEW LINES:
+// MAJOR PROCEDURES: public void startEngine(){
+pe.startEngine();
+// (rest of implementation) }
+public void activateWarpDrive(){ wd.warpTo(new Coordinates(0, 0, 0)); // (rest of implementation)
+} }
+}
+
+It will include as many components as needed.
+
+We need to include instances from the classes that contribute to the major procedure.
+
+Looking closely at the code, we will notice that other components rely on others to function. If we mapped it, it would look like this:
+
+PositronEngine relies on: -> IgnitionCrystal
+-> DarkMatterDrive (relies on:) - -> EnergyPreIgniter
+- -> MatterFusionReactor WarpDrive relies on:
+-> WarpIgniter
+-> MatterFusionReactor
+
+We can see that the PositronEngine and WarpDrive classes have relevant classes they rely on in some way.
+
+This means we are going to need instances of both classes, and the rest would be linked to them in whatever way necessary.
+
+class Facade {
+// NEW LINES:
+PositronEngine pe = new PositronEngine(); WarpDrive wd = new WarpDrive();
+
+// MAJOR PROCEDURES: public void startEngine(){
+pe.startEngine();
+// (rest of implementation) }
+public void activateWarpDrive(){ wd.warpTo(new Coordinates(0, 0, 0)); // (rest of implementation)
+} }
+
+2) Create a general client class that contains an instance of the Facade class. Generalizations for the client class is class with a Facade instance in it:
+
+// Client Class:
+
+// (rest of software accesses this) class Client {
+Facade f = new Facade(); }
+
+We would need to access the client class and its facade to access the system's functionality:
+
+Client c = new Client(); // Starting Engine: c.f.startEngine();
+// Activating Warp Drive: c.f.activateWarpDrive();
+
+
+4) Create subclasses for the general client class as required.
+
+One option for further developing your client classes is by creating a specialized subclass and more.
+
+// Client Subclasses:
+// (add whenever necessary) class ClientA: Client {
+}
+class ClientB: Client { }
+
+You client subclass will access Facade procedures just like the general client:
+
+Client ca = new ClientA(); Client cb = new ClientB(); // Starting Engine: ca.f.startEngine(); cb.f.startEngine();
+// Activating Warp Drive: ca.f.activateWarpDrive();
+cb.f.activateWarpDrive();
+
+
+We can see how the Facade Pattern creates a simple crux or functionality. So when faced with a problem like this one, consider using the pattern.
+
+IF MULTIPLE FACADES:
+
+If the procedure needs you to create multiple facades, let’s see how that would work. Let's use our example to show this:
+
+class EngineFacade {
+PositronEngine pe = new PositronEngine();
+
+// MAJOR PROCEDURES: public void startEngine(){
+pe.startEngine();
+// (rest of implementation) }
+}
+
+class WarpDriveFacade {
+WarpDrive wd = new WarpDrive();
+
+// MAJOR PROCEDURES: public void activateWarpDrive(){
+wd.warpTo(new Coordinates(0, 0, 0)); // (rest of implementation)
+} }
+
+Even the general Client class will reflect these changes:
+
+// Client Class:
+// (rest of software accesses this) class Client {
+EngineFacade ef = new EngineFacade(); WarpDriveFacade wdf = new WarpDriveFacade();
+}
+
+
+
+
+
+CHAPTER 17:
+
+
+ASYNCHRONOUS PROGRAMMING
+
+C# allows you to write asynchronous code. Suppose you were working on a Windows program that downloads images. Clicking the button and downloading the image would take more than 30 seconds, and your program would be unresponsive if you tried downloading the image synchronously. A better way would be asynchronous.
+
+We are going to explore what this means and how we can use it in our applications. Contents
+● Asynchronous   Programming   using   async   and await
+We can use asynchronous programming by using two keywords: async and await. Let’s look at both.
+
+Async
+
+If we put the keyword before a function when we declare it, that function will become asynchronous. This keyword activates resources of the .NET framework that allow us to create an asynchronous framework. The function will be called asynchronous. Below is the syntax:
+
+public async void MyProcess() { }
+The function above will be called asynchronously. Await
+The function that has “async” before it must also have an “await” keyword inside. Its syntax is as follows: public async void MyProcess()
+{
+
+// do the asynchronous work await Task.delay(5);
+}
+
+The function above will activate after waiting for 5 seconds.
+
+The code below downloads images asynchronously from the web. Example 1:
+
+private void button_Click(object sender, EventArgs e) {
+WebClient image = new WebClient();
+byte[] imageData = image.DownloadData(‘http://urlOfTheImage’); this.imageView.Image = Image.FromStream(new MemoryStream(imageData));
+}
+
+
+Your application will become unresponsive while the code executes, and that is not desirable. We can fix this using async and await like this:
+
+Example 2:
+
+private async void button_Click(object sender, EventArgs e) {
+WebClient image = new WebClient();
+byte[] imageData = await image.DownloadDataTaskAsync(‘http://urlOfTheImage’); this.imageView.Image = Image.FromStream(new MemoryStream(imageData));
+}
+
+
+If you look at both blocks of code, you will find three differences:
+
+● Adding the async keyword before the function.
+● The await keyword precedes the image download method.
+● DownloadDataAsync	has	replaced	the	DownloadData method.
+The “DownloadData” method downloads data synchronously. When it's finished, it returns control to the caller which makes the program unresponsive. “DownloadDataAsync” returns the control and downloads asynchronously. The await method releases the UI thread unless the download is complete. When the await keyword is encountered, the function returns when a specified process completes, and the function continues executing from where it stopped.
+
+NOTE: Asynchronous methods can return three types of values.
+
+● Void: return nothing.
+● Task: It will perform one operation.
+● Task<T>:   Will   return   a   task   with   a   T   type parameter.
+Task: A Task will return no value (given it is void), while Task<int> will return an int type element. We can call this a generic type.
+
+Note: An async method will run synchronously if the await keyword is missing. Example 3:
+
+using System; using System.IO;
+using System.Threading.Tasks; class Program
+{
+static void Main() {
+
+Task task = new Task(ProcesstheDataAsync); task.Start();
+task.Wait(); Console.ReadLine();
+}
+static async void ProcesstheDataAsync() {
+
+Task<int> task = HandleFileAsync(‘C:\\enable1.txt’);
+
+Console.WriteLine(‘Wait ‘ +
+‘while I carry out something vital.’);
+
+int x = await task; Console.WriteLine(‘Count: ‘ + x);
+}
+static async Task<int> HandleFileAsync(string file) {
+Console.WriteLine(‘HandleFile enter’); int count = 0;
+
+using (StreamReader reader = new StreamReader(file)) {
+string v = await reader.ReadToEndAsync();
+
+count += v.Length;
+
+for (int i = 0; i < 10000; i++) {
+int x = v.GetHashCode(); if (x == 0)
+{
+count--; }
+} }
+Console.WriteLine(‘HandleFile exit’); return count;
+} }
+
+
+Output initial 3: HandleFile enter
+
+Please wait patiently while I do something important. Output final 3:
+HandleFile enter
+
+Wait while I carry out something vital. HandleFile exit
+Count: 1916146
+
+After the main method, we created an instance of the ProcesstheDataAsync task method as an argument. In the next line, we initiated the task with the “task.Start(),” and then we waited for it to finish with the “task.Wait().” The “async”  signature  in  the  ProcesstheDataAsync  tells  us  the  method  is  asynchronous,  which  makes  “await” mandatory.
+
+The first line inside the method calls the “HandleFileAsync” method. This means control will be returned before the “HandleFileAsync” method returns. As the method performs the task, we display the following messages on the screen:
+
+HandleFile enter
+
+Please wait patiently while I do something important.
+
+The  first  line  is  from  HandleFileAsync.  It  gets  printed  to  the  screen,  and  then  control  returns  back  to  the “ProcessDataAsync '' method. Then the second line is printed on the screen. The total computed result is then assigned to the variable “x,” which prints on the screen.
+
+Let’s turn our attention to the second HandleFileAsync method. After the first line prints, a dummy integer is initialized in the “count” variable, setting it to “0” when we pass the location of the file in the argument. To read the data from the file, “C:\\enable1.txt”, we initialize the “StreamReader” reader type and pass it the file location. An asynchronous built-in method, “reader.ReadToEndAsync();”, reads the file, and we tell it to wait until it finishes with the “await” keyword. Afterward, we assign the result to a string type variable “v.” We then add the total length of the string to the “count” dummy variable. We then use dummy code to count the value. Remember, dummy code is for your understanding. In the end, the method prints the line “HandleFile exit” and the dummy value.
+
+
+
+
+CHAPTER 18:
+
+
+GAME DEVELOPMENT
+
+We are going to learn how we can use our C# skills in game development. We will explore the basic aspects of game development and how we can work with them in C# to develop video games.
+
+Many people believe writing video games is one of the best ways to learn programming. Games will teach you many things that are related to programming as a whole. You get to encounter programming concepts you would not have any other way and it expands your thinking and logical reasoning.
+
+In 2004, Microsoft announced a game development engine called XNA. Popular titles like Terraria were developed using this engine. XNA is now outdated. It has been integrated into another gaming engine called MonoGame, which is more popular and allows programmers to develop across platforms. XNA only allowed you to develop games for Microsoft. MonoGame has built games for Microsoft (Xbox), Sony (Playstation), Apple (iPhone), and Google (Android).
+
+MonoGame is free and open-source. You can download it and make changes to the code, giving you greater autonomy over the software. You can find MonoGame easily online. There are many tutorials on MonoGame online. In this chapter, we are going to explain the core concepts in-depth, so you have an easier time following any tutorials.
+
+Content Pipeline
+
+All games need content. The content pipeline is the method you can use to feed your game content. The MonoGame content pipeline runs parallel with Visual Studio, providing you with a simple way of creating and importing content. For example, if you need to create a font, you will need to create a new SpriteFont in your content pipeline. If you need to import character art, you will also use the content pipeline to do it.
+
+The Structure of a MonoGame Program
+
+The MonoGame project has few methods in the automatically created main class. You will find Update, Initialize, LoadContent, and UnloadContent classes among them. It’s important that you know how these work.
+
+All these classes are protected methods. This means you can override them with the new classes you create from the Game class. You can call Load Content and UnloadContent from your newly created Game classes. It makes sense because it might be useful to get rid of specific game assets to do something more appropriate for your project. For instance, if an enemy dies and it is the last time they will be seen in the game, you would use an overridden UnloadContent to unload the asset from the game, improving performance.
+
+The default classes are the most important to understand, so we will explore them below.
+
+Draw() is used to draw a frame on the screen. This is used to determine drawing logic. In some cases, you’ll need to draw an independent draw function derived from the protected method and defined within the specifications of a relevant class. However, it’s important to understand how it functions in the context of the game.
+
+Initialize() initializes your content. It is called after the Game and the GraphicsDevice objects are created and before the LoadContent method is called. You use it to initialize game objects and more. It can also be called from a derived class if you want to initialize something after the game has begun.
+
+LoadContet() loads all the game's graphics resources. These are your SpriteFonts, game sprites, and more. We will discuss it more later.
+
+UnloadContent() unloads all the game’s graphics resources. It can be used at any time, for example if you don't need a specific spirit anymore, as we talked about earlier. The method can be called within the Game class or in a derivative class. It is especially important to know this when working with bigger games.
+
+Update() updates your game. This method runs constantly and contains your game’s logic. This includes things like artificial intelligence, unit collision, and more. It contains anything in your game that is happening regularly. It is a very important part.
+
+All these are the five primary methods that are created when starting a new instance of a Game class. There are more protected Game class methods. These are the ones you need to know at this point.
+
+Textures
+
+Textures refer to sprite images that are used by the game to represent data. They can be constantly updated. Nothing
+
+is final about them. Textures allow you to make character animations and graph representations of items in your game.
+
+Textures can be imported through the content pipeline. They can then be imported into the LoadContent with appropriate methods. This is done after they are initialized with the Initialize method.
+
+A 2D sprite is initialized below: private Texture2D myTexture;
+A SpriteBatch object has to be created in order to draw all your textures, so this should be made earlier. Usually, the standard template had already created a SpriteBatch when you started creating your game project.
+
+You write the following code in the LoadContent method: myTexture = Content.Load<Texture2D>(“textureName”); When finished, you draw the sprite in the Draw() method. You begin with the drawing process like this: spriteBatch.Begin();
+Then you draw the sprite:
+
+spriteBatch.Draw(myTexture, new Vector2(0, 0), Color.White);
+
+New Vector2 gives you the x and y coordinates to draw the sprite at. Drawing starts at the top left of the sprite. Numbers moving to the right and downwards are bigger; those to the left and up are lower.
+
+Color. White gives your texture a basic tint. Your sprite is also loaded with the default coloration, as you have specified. Without it, your sprite would have a different coloration.
+
+The spriteBatch process is ended like this: spriteBatch.End();
+You can run the game to see if your sprite has loaded correctly. It should load on top of your default Cornflower Blue background. If that was successful, congrats! You now understand how to load images into the game. It is an extremely useful skill to have.
+
+Taking in Information from Keyboard and Mouse
+
+We are going to look at how the keyboard and mouse input work. MonoGame has support for all kinds of input like gamepads and touchscreens, but for our purpose, it would be much simpler if we used the tools you already have access to. It is one of the better places to start.
+
+XNA and MonoGame have simplified working with input. Input is based on the state of given peripherals: keyboards, mouse, and gamepads. The logic for this is in the update function after initialization. Assume all in this section occurs in the Update function.
+
+To work with the keyboard, you need to create a keyboard state and get the information from the keyboard. Because the Update method runs continuously, the information will always be collected.
+
+You will need to create a KeyboardState object. You can call it what you want, but to get the current state, you will need to use the Get.State method of the Keyboard class.
+
+KeyboardState state = Keyboard.GetState();
+
+Here’s how you check if a certain key is pressed. Let’s say every sprite has an X and Y coordinate stored as integrated inside a 2d vector, like this:
+
+Vector2 spritePosition = Vector2.Zero;
+
+The sprite position would be drawn using Draw(). Its position would be updated by the update() method. If we wanted to move the sprite to the corresponding position when a key is pressed, we would write isKeyDown checks. When the Key is down, the position gets changed. Keys are stored with an enumeration in the Keys namespace, so there isn't mapping to worry about.
+
+We would put the following logic in the Update method: if (state.IsKeyDown(Keys.W))
+spritePosition.Y -= 5;
+
+if (state.IsKeyDown(Keys.A))
+
+spritePosition.Y += 5;
+
+if (state.IsKeyDown(Keys.S)) spritePosition.X -= 5;
+if (state.IsKeyDown(Keys.D)) spritePosition.X += 5;
+In this example A moves sprite left, W moves it up, S moves it down, and D moves it to the right. Because the Update() method is always running, these conditions will be checked constantly, meaning the game will respond immediately when a key is pressed. We could implement an Escape check which closes the game when pressed.
+
+if (state.IsKeyDown(Keys.Escape)) Exit();
+Debug it and test it yourself. Run it and see if all the keys and texture you have imported move the way they should.
+
+Let’s look at handling input from the mouse. It has similarities with keyboard input, as everything is based on the current state of the mouse. Remove the keyboard logic and replace it with the following code.
+
+MouseState state = Mouse.GetState();
+
+Draw the position of your sprite, so it moves with your mouse by having it drawn to the vector SpritePostion. Move it using the vector returned by the mouse’s state:
+
+spritePosition.X = state.X; spritePosition.Y = state.Y;
+They will now correspond to one another. When you move your mouse, the sprite should also move. Test and debug the program yourself.
+
+This is more than enough to get you started with inputs. Now you see how they work on a basic level. This knowledge can easily be extended to other input devices like gamepads.
+
+Basic Unit Collision
+
+Unit collision is one of the most important features of game programming. Everything in a game is presented as a texture. Even the game menu is a texture. If you want to check things like mouse hover events, you have to use unit collision.
+
+Unit collisions come in many forms. The simplified form is called a bounding box collision. This is the one we are going to focus on. Bounding box is based on the idea that all sprites can be reduced to rectangles with width and height. So if the lines of one rectangle intersect with another we can conclude they are colliding.
+
+Remember, this is the least resource-intensive unit collision; it’s not always the best. For instance, if you have something fine in your game to check for collisions, like bullets, you will need a collision unit that is more refined. For our purposes, here is the best way to teach the basics of unit collision and detection.
+
+Rectangles in XNA have an in-built collision detection property, which means you don't have to worry about writing it. If you prefer, you can try your hand at writing one. We are going to cover the catered XAN rectangle collision diction.
+
+The first thing we do is define rectangles of the two entities: Rectangle(X_position, Y_position, Width, Height);
+You could create two:
+
+Rectangle playerRect = new Rectangle(playerPosition.X, playerPosition.Y, playerTexture.Width, playerTexture.Height);
+
+and do the same for the opponent:
+
+Rectangle enemyRect = new Rectangle(enemyPosition.X, enemyPosition.Y, enemyTexture.Width, enemyTexture.Height);
+
+Then write an if statement for the collision: if (playerRect.collides(enemyRect)) {
+// collision detection logic goes within }
+
+The logic behind this is simple. You will not have any problem with it. You need to get your hands dirty to see what I mean. As you improve, it will get a little harder, but the more you work at it the better you will be.
+
+Artificial Intelligence
+
+Artificial intelligence in video games is impressive. We will discuss that a bit before we work with it.
+
+Let’s say you are making an artificial intelligence system that should cause an entity in the game to follow the player. There are many ways to do it. It comes down to pathfinding, which refers to finding the shortest path between two points. It is important for gaming and many other applications.
+
+There are different forms of pathfinding. The A* method and the MaxDxDy are the most popular. The A* method is less accurate than the MaxDxDy algorithm. The MaxDxDys are popular for their high accuracy with a huge chunk of system resources. Games already demand a lot from our systems, so we are going to focus on the simpler, more frugal A* method. Other reasons for preserving the A* method are that it’s simple and beginner-friendly, and it is also the most common pathfinding algorithm.
+
+The A* method operates on system nodes, meaning we don’t have to worry about rigid algorithmic structures. For instance, some pathfinding algorithms will only be appropriate for elements of a specific size. A* method is focused on how things relate to one another in the game and proximity, regardless of the setup. A* pathfinding is also the most efficient and fast. It predicts how much distance remains between two points and looks for the best path forward and favors those that it determines will work well.
+
+The A* is a complete algorithm, meaning it can always find a solution to a problem if the problem is appropriate to its application.
+
+Pathfinding algorithms work the assumption that maps are full of nodes. So it is best to practice them on a top-down tiled  game  because  it  will  be  easier  to  see  the  way  the  algorithm  works  before  trying  it  on  more  complex applications.
+
+A* algorithms search for the path that costs less; cost is defined by the distance and time to the goal and other factors.
+
+The goals is to minimize this: f(n) = g(n) + h(n)
+N can be defined as a node on the path - the last to be chosen - while g(n) is the total expenditure so far from the first node of the program towards the given n, and the h(n) is a heuristic method that gives solid guesses about the expenditure of the current node to the goal.
+
+The algorithm loops to minimize expenditure based on the previous and the current node to determine the next best node. The f(n) of the nodes is compared and the next with the last f(n) is taken. Things that are not nodes, obstacles, and difficult terrain, are not considered viable.
+
+You can implement the algorithm by creating a tiled map, where your sprite must reach another destination on the map. You can even test different pathfinding algorithms by plotting the destination file at another.
+
+There are two ways to apply the heuristic method: the Euclidean or the Manhattan method.
+
+The simplest is the Manhattan method, but it doesn’t give the best estimation. It is also the least mathematically complex, so it takes few resources.
+
+The Manhattan distance can be applied this way:
+
+| destination.X - node.X | + |destination.Y - node.Y | The Euclidean distance can be applied this way:
+sqrt( (destination.X - node.X)2 + (destination.Y - node.Y)2 )
+
+They both will give h(n) for any given node n. This is the simplest form of artificial intelligence you can implement in games. There are more algorithms out there that can do more; we chose this one because it was easier to understand
+
+These are the bare essentials. You have a strong understanding now to move on and to other foundational concepts of game development. Then you can begin building your own games. Game development will quickly improve your programming skills and reasoning. There is no reason why you shouldn’t give it a shot. There is nothing that is wasted time in programming; every lesson will count for something. Also, you can make the game you have always wanted to make.
+
+
+
+
+
+CONCLUSION
+
+Your next step is to use all you have learned. To improve, challenge yourself. Programming challenges are a good way to improve your skills. If there is something you want to build, find out if there are other people who have done the same thing, and learn how they did it. Learn as much as you can about programming all the time and don’t be afraid to experiment or ask questions.
+
+I won’t lie to you; programming is not easy. There is a long difficult journey ahead for you. If you choose to be a programmer, you just have to accept that you will never know all of it, and you have to be open to constantly learning.  This  is  why  I  have  decided  to  teach  you  the  underlying  concepts  and  methods.  This  is  merely foundational, a bag of tools, that you will sharpen, grow, and learn to wield better. You are ready.
+
+There will be times when you feel like banging your head on your desk and quitting. The imposter syndrome is real in tech; everyone feels like a fraud, but that is because programming is a vast field with so much to know. The only thing that matters is to be competent enough to fix problems when they occur and build things that are required of you. You will find most of the time that you have to devise plans or research. Very rarely are you just going to know what to do.
+
+You can also try looking in opensource projects, or keep reading to improve. What you go away with here is a good foundation that you can extend into other C-style programming languages.
+
+
+
+
+
+REFERENCES
+
+C# Indexers. (n.d.). www.tutorialspoint.com. Retrieved 28 May 2019, from https://www.tutorialspoint.com/csharp/csharp_indexers.htm
+
+C# Interface. (n.d.). Tutorialsteacher.com. Retrieved 28 May 2019, from https://www.tutorialsteacher.com/csharp/csharp-interface
+
+C# Introduction - Tutlane. (n.d.). Tutlane.com. Retrieved 28 May 2019, from https://www.tutlane.com/tutorial/csharp/csharp-introduction
+
+C# Logical Operators. (n.d.). www.tutorialspoint.com. Retrieved 28 May 2019, from https://www.tutorialspoint.com/csharp/csharp_logical_operators.htm
+
+C# Namespaces. (n.d.). www.tutorialspoint.com. Retrieved 28 May 2019, from https://www.tutorialspoint.com/csharp/csharp_namespaces.htm
+
+C# Reflection. (n.d.). www.tutorialspoint.com. Retrieved 28 May 2019, from https://www.tutorialspoint.com/csharp/csharp_reflection.htm
+
+Chauhan, S. (2014). Understanding Expression and Expression Trees. Dotnettricks.com. Retrieved 28 May 2019, from https://www.dotnettricks.com/learn/linq/understanding-expression-and-expression-trees
+
+Chiarelli, C. (n.d.). Introduction to Game Development Using C# and Monogame Part 1 ... The Basics | Charlie Chiarelli | Skillshare. Skillshare. Retrieved 28 May 2019, from https://www.skillshare.com/classes/Introduction-to-Game-Development-Using-C-and-Monogame-Part-1-...-The-Basics/1049146739
+
+Collection in C#. (n.d.). Tutorialsteacher.com. Retrieved 28 May 2019, from https://www.tutorialsteacher.com/csharp/csharp-collection
+
+Design patterns with real time example. (2015) Stack Overflow. Retrieved 28 May 2019, from https://stackoverflow.com/questions/11553804/design-patterns-with-real-time-example
+
+Generics in C#. (n.d.). Tutorialsteacher.com. Retrieved 28 May 2019, from https://www.tutorialsteacher.com/csharp/csharp-generics
+
+LINQ Tutorials from Basics to Advanced. (n.d.). Tutorialsteacher.com. Retrieved 28 May 2019, from https://www.tutorialsteacher.com/linq/linq-tutorials
+
+Schults, C. (2019). C# Garbage Collection Tutorial. Stackify. Retrieved 28 May 2019, from https://stackify.com/c-garbage-collection/

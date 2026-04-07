@@ -1,0 +1,4 @@
+[ZoneTransfer]
+ZoneId=3
+HostUrl=https://us-east.storage.cloudconvert.com/tasks/8a9b1ea7-732b-4b38-96d9-00c18dda13e3/Programming%20Ruby%203.3%20The%20Pr_%20%28Z-Library%29.txt?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=cloudconvert-production%2F20260330%2Fva%2Fs3%2Faws4_request&X-Amz-Date=20260330T010717Z&X-Amz-Expires=86400&X-Amz-Signature=0beb2ab79f32d35593078e76a4234ec6aaa3cb5b1bf9258f4360b26d0388f2e4&X-Amz-SignedHeaders=host&response-content-disposition=attachment%3B%20filename%3D%22Programming%20Ruby%203.3%20The%20Pr_%20%28Z-Library%29.txt%22&response-content-type=text%2Fplain&x-id=GetObject
+ReferrerUrl=https://cloudconvert.com/
