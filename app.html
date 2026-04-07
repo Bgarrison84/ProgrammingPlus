@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Programming Plus — Code Your Future</title>
+
+  <link rel="manifest" href="./manifest.json">
+  <meta name="theme-color" content="#569cd6">
+
+  <!-- Tailwind CSS -->
+  <script src="./css/tailwind.js"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { mono: ['JetBrains Mono', 'Fira Code', 'Consolas', 'monospace'] },
+          colors: {
+            editor: { dark: '#1e1e1e', bg: '#0d0d0d', blue: '#569cd6', green: '#4ec9b0', yellow: '#dcdcaa', orange: '#ce9178', purple: '#c586c0' },
+          },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    /* ── Base Editor Aesthetic ─────────────────────────────── */
+    :root {
+      --bg-primary:     #1e1e1e;
+      --bg-surface:     #252526;
+      --bg-elevated:    #2d2d30;
+      --accent-blue:    #569cd6;
+      --accent-green:   #4ec9b0;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      background-color: var(--bg-primary);
+      color: #d4d4d4;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+    }
+
+    .font-mono {
+      font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+    }
+
+    /* ── Scrollbar ────────────────────────────────────────────── */
+    ::-webkit-scrollbar         { width: 8px; }
+    ::-webkit-scrollbar-track   { background: #1e1e1e; }
+    ::-webkit-scrollbar-thumb   { background: #424242; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #4f4f4f; }
+
+    /* ── Navigation ──────────────────────────────────────────── */
+    .nav-btn {
+      display: flex; align-items: center; gap: 8px;
+      width: 100%; padding: 8px 16px;
+      border-left: 2px solid transparent;
+      color: #cccccc;
+      font-size: 0.85rem;
+      transition: all 0.15s;
+      background: transparent;
+      cursor: pointer;
+    }
+    .nav-btn:hover {
+      color: #ffffff;
+      background: rgba(255,255,255,0.05);
+    }
+    .nav-active {
+      color: #ffffff !important;
+      border-left-color: var(--accent-blue) !important;
+      background: rgba(86,156,214,0.1) !important;
+    }
+
+    /* ── XP Bar ──────────────────────────────────────────────── */
+    #hud-xp-bar-track {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+    #hud-xp-bar {
+      background: linear-gradient(90deg, #007acc, #569cd6);
+      transition: width 0.5s ease;
+    }
+
+    /* ── App layout fills viewport ───────────────────────────── */
+    html, body { height: 100%; overflow: hidden; }
+    #app-root   {
+      display: flex;
+      height: 100vh;
+      height: 100dvh;
+      overflow: hidden;
+    }
+    #app-view   { flex: 1; overflow-y: auto; }
+
+    /* ── Mobile layout ───────────────────────────────────────── */
+    @media (max-width: 767px) {
+      #app-sidebar { display: none; }
+      #app-view    { padding-bottom: calc(56px + env(safe-area-inset-bottom)); }
+      #bottom-nav  { display: flex; }
+      #mobile-menu-btn { display: flex !important; }
+      .nav-btn { min-height: 44px; }
+    }
+
+    #bottom-nav {
+      display: none;
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      height: calc(56px + env(safe-area-inset-bottom));
+      padding-bottom: env(safe-area-inset-bottom);
+      background: #252526;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      z-index: 100;
+      align-items: stretch;
+    }
+    .bottom-nav-btn {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2px;
+      background: transparent;
+      border: none;
+      color: #cccccc;
+      font-size: 10px;
+      cursor: pointer;
+      padding: 4px 2px;
+    }
+    .bottom-nav-btn:hover   { color: #ffffff; background: rgba(255,255,255,0.05); }
+    .bottom-nav-btn.nav-active { color: var(--accent-blue) !important; background: rgba(86,156,214,0.1) !important; }
+    .bottom-nav-btn span.icon { font-size: 18px; line-height: 1; }
+
+    /* Floating +XP label */
+    @keyframes floatXP {
+      0%   { opacity: 1; transform: translateY(0) scale(1); }
+      60%  { opacity: 1; transform: translateY(-30px) scale(1.15); }
+      100% { opacity: 0; transform: translateY(-54px) scale(0.9); }
+    }
+    .float-xp {
+      position: fixed;
+      pointer-events: none;
+      font-family: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: #569cd6;
+      z-index: 9997;
+      animation: floatXP 1.1s ease-out forwards;
+    }
+
+    #toast-container {
+      position: fixed;
+      bottom: 24px; right: 24px;
+      display: flex; flex-direction: column; gap: 8px;
+      z-index: 9998;
+      pointer-events: none;
+    }
+    #toast-container > div {
+      pointer-events: auto;
+      min-width: 200px;
+      max-width: 320px;
+    }
+  </style>
+</head>
+
+<body class="bg-[#1e1e1e] text-[#d4d4d4]">
+
+<div id="app-root">
+
+  <!-- ── Sidebar ────────────────────────────────────────────────────────────── -->
+  <aside id="app-sidebar" class="w-64 shrink-0 flex flex-col bg-[#252526] border-r border-[#3e3e42]">
+    <!-- Logo -->
+    <div class="px-4 py-4 border-b border-[#3e3e42]">
+      <div class="text-[#569cd6] font-bold text-base tracking-wide">Programming Plus</div>
+      <div class="text-gray-400 text-xs">PIXEL FORGE STUDIO</div>
+    </div>
+
+    <!-- Track Selector -->
+    <div class="px-4 py-2 border-b border-[#3e3e42] bg-[#1e1e1e]">
+      <label class="text-[10px] text-gray-500 uppercase font-semibold mb-1 block">Active Track</label>
+      <select id="track-selector" class="w-full bg-[#3c3c3c] text-white text-xs border-none rounded p-1 outline-none focus:ring-1 focus:ring-[#569cd6]">
+        <option value="git">Git & GitHub (Track 0)</option>
+        <option value="python">Python</option>
+        <option value="javascript">JavaScript</option>
+        <option value="lua">Lua</option>
+        <option value="csharp">C#</option>
+        <option value="cpp">C++</option>
+        <option value="go">Go</option>
+        <option value="rust">Rust</option>
+      </select>
+    </div>
+
+    <!-- Player HUD -->
+    <div class="px-4 py-3 border-b border-[#3e3e42] space-y-2">
+      <div class="flex items-center justify-between">
+        <span id="hud-player-name" class="text-gray-300 text-xs font-semibold truncate">Junior Dev</span>
+        <span id="hud-level" class="text-[#4ec9b0] text-xs font-bold border border-[#4ec9b0] rounded px-1 py-0.5">LVL 1</span>
+      </div>
+      <!-- XP Bar -->
+      <div id="hud-xp-bar-track" class="w-full rounded h-1.5 overflow-hidden">
+        <div id="hud-xp-bar" class="h-full rounded" style="width:0%" aria-valuenow="0" role="progressbar"></div>
+      </div>
+      <div class="flex justify-between">
+        <span id="hud-xp-text" class="text-[10px] text-gray-400">0 XP</span>
+        <span id="hud-track-xp-text" class="text-[10px] text-[#569cd6]">0 Track XP</span>
+      </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="flex-1 py-2 overflow-y-auto">
+      <div class="px-4 py-1 text-[10px] font-semibold text-gray-500 uppercase tracking-widest mt-1 mb-1">Learning</div>
+      <button data-nav="story" class="nav-btn nav-active" title="Story Mode — Narrative campaign">
+        <span>📖</span> Story Mode
+      </button>
+      <button data-nav="git" class="nav-btn" title="Git Terminal — Practice version control">
+        <span>💻</span> Git Simulator
+      </button>
+      <button data-nav="editor" class="nav-btn" title="Code Editor — Hands-on programming labs">
+        <span>⌨️</span> Code Editor
+      </button>
+
+      <div class="px-4 py-1 text-[10px] font-semibold text-gray-500 uppercase tracking-widest mt-3 mb-1">Practice</div>
+      <button data-nav="grind" class="nav-btn" title="The Grind — Quiz questions with spaced repetition">
+        <span>🧠</span> The Grind
+      </button>
+      <button data-nav="debug" class="nav-btn" title="Debug It — Rapid-fire bug spotting drill">
+        <span>🐞</span> Debug It
+      </button>
+      <button data-nav="projects" class="nav-btn" title="Portfolio Projects — Build GitHub-ready apps">
+        <span>🚀</span> Portfolio Projects
+      </button>
+
+      <div class="px-4 py-1 text-[10px] font-semibold text-gray-500 uppercase tracking-widest mt-3 mb-1">Dashboard</div>
+      <button data-nav="stats" class="nav-btn" title="Stats — Readiness score and history">
+        <span>📊</span> Stats
+      </button>
+      <button data-nav="notebook" class="nav-btn" title="Notebook — Saved code and mistakes">
+        <span>📓</span> Notebook
+      </button>
+      <button data-nav="inventory" class="nav-btn" title="Inventory — Earned badges and items">
+        <span>🏆</span> Inventory
+      </button>
+    </nav>
+  </aside>
+
+  <!-- ── Main Content ────────────────────────────────────────────────────────── -->
+  <main class="flex flex-col flex-1 overflow-hidden bg-[#1e1e1e]">
+    <!-- Top bar -->
+    <header class="shrink-0 flex items-center justify-between px-4 py-2 border-b border-[#3e3e42] bg-[#252526]">
+      <div class="flex items-center gap-2 text-xs text-gray-400">
+        <button id="mobile-menu-btn" title="Open navigation menu" style="display:none" class="mr-1">☰</button>
+        <span id="current-view-label" class="font-semibold text-gray-200">Story Mode</span>
+      </div>
+      <div class="flex items-center gap-3 text-xs text-gray-500">
+        <span id="clock" class="font-mono"></span>
+      </div>
+    </header>
+
+    <!-- Dynamic view area -->
+    <div id="app-view" class="flex-1 overflow-y-auto"></div>
+  </main>
+</div>
+
+<!-- ── Bottom Navigation (mobile only) ───────────────────────────────────────── -->
+<nav id="bottom-nav">
+  <button class="bottom-nav-btn" data-nav="story"><span>📖</span><span>Story</span></button>
+  <button class="bottom-nav-btn" data-nav="git"><span>💻</span><span>Git</span></button>
+  <button class="bottom-nav-btn" data-nav="editor"><span>⌨️</span><span>Editor</span></button>
+  <button class="bottom-nav-btn" data-nav="projects"><span>🚀</span><span>Projects</span></button>
+  <button class="bottom-nav-btn" id="bottom-nav-more-btn"><span>⋯</span><span>More</span></button>
+</nav>
+
+<div id="toast-container"></div>
+
+<script>
+  function updateClock() {
+    const el = document.getElementById('clock');
+    if (el) el.textContent = new Date().toLocaleTimeString('en-US', { hour12: false });
+  }
+  updateClock();
+  setInterval(updateClock, 1000);
+
+  const VIEW_LABELS = {
+    story: 'Story Mode', git: 'Git Simulator', editor: 'Code Editor',
+    grind: 'The Grind', debug: 'Debug It', projects: 'Portfolio Projects',
+    stats: 'Stats Dashboard', notebook: 'Mistake Notebook', inventory: 'Inventory & Badges'
+  };
+
+  document.addEventListener('click', e => {
+    const btn = e.target.closest('[data-nav]');
+    if (btn) {
+      const viewId = btn.dataset.nav;
+      const lbl = document.getElementById('current-view-label');
+      if (lbl) lbl.textContent = VIEW_LABELS[viewId] || viewId;
+
+      if (btn.classList.contains('nav-btn') || btn.classList.contains('bottom-nav-btn')) {
+        if (window.switchView) {
+          window.switchView(viewId);
+        }
+      }
+    }
+  });
+
+  document.getElementById('track-selector')?.addEventListener('change', e => {
+    if (window.switchTrack) {
+      window.switchTrack(e.target.value);
+    }
+  });
+</script>
+
+<script type="module" src="./js/main.js"></script>
+
+</body>
+</html>

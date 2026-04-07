@@ -3,7 +3,7 @@
     "app": "Programming Plus",
     "version": "0.1.0",
     "created": "2026-03-28",
-    "tracks": ["python", "javascript", "lua", "csharp", "cpp", "go", "rust"],
+    "tracks": ["git", "python", "javascript", "lua", "csharp", "cpp", "go", "rust"],
     "units_per_track": 6,
     "unit_labels": {
       "1": "Foundations",
@@ -16,6 +16,115 @@
   },
 
   "story": [
+    {
+      "id": "beat_git_u1_welcome",
+      "track": "git",
+      "week": 1,
+      "title": "Welcome to Pixel Forge: Git Basics",
+      "narrative": "Before you write a single line of game code, you need to understand how we save our work. At Pixel Forge, we don't use 'save as v2'. We use Git. It's our time machine. It lets us experiment, fail, and roll back to when things actually worked. Your first task is to set up your local workspace.",
+      "xpReward": 50,
+      "npc": { "name": "Sarah", "title": "Lead Dev", "avatar": "👩‍💻" },
+      "concept_visual": {
+        "title": "The Three Trees of Git",
+        "diagramId": "git_workflow",
+        "explanation": "1. Working Directory: Where you edit files. 2. Staging Area: The prep zone for your next commit. 3. Repository: The permanent history of your project."
+      },
+      "quiz": [
+        {
+          "id": "beat_git_u1_q1",
+          "type": "multiple_choice",
+          "question": "Which command initializes a new Git repository?",
+          "options": ["git start", "git init", "git new", "git create"],
+          "correct_answer": 1,
+          "explanation": "git init creates the hidden .git directory that tracks your repository history."
+        },
+        {
+          "id": "beat_git_u1_q2",
+          "type": "multiple_choice",
+          "question": "What is the purpose of the staging area in Git?",
+          "options": [
+            "It's a cloud backup of your files.",
+            "It holds files that are ready to be grouped into the next commit.",
+            "It deletes files permanently.",
+            "It's where you write your code."
+          ],
+          "correct_answer": 1,
+          "explanation": "The staging area (or index) lets you selectively choose which changes will be part of your next commit."
+        }
+      ]
+    },
+    {
+      "id": "beat_git_u2_branching",
+      "track": "git",
+      "week": 2,
+      "title": "Parallel Dimensions: Branching",
+      "narrative": "Sarah stops by your desk. 'We're starting work on the new inventory system, but I don't want you breaking the main game engine while you experiment. Use a branch.' Branches are like parallel universes for your code.",
+      "xpReward": 50,
+      "npc": { "name": "Sarah", "title": "Lead Dev", "avatar": "👩‍💻" },
+      "concept_visual": {
+        "title": "Branching & Merging",
+        "diagramId": "git_branching",
+        "explanation": "A branch is a pointer to a commit. Merging brings changes from one branch (e.g., 'feature') back into another (e.g., 'main')."
+      },
+      "quiz": [
+        {
+          "id": "beat_git_u2_q1",
+          "type": "multiple_choice",
+          "question": "Which command creates a new branch called 'feature-physics' and switches to it immediately?",
+          "options": ["git branch feature-physics", "git checkout feature-physics", "git checkout -b feature-physics", "git new-branch feature-physics"],
+          "correct_answer": 2,
+          "explanation": "The -b flag with git checkout creates the branch AND switches your HEAD to it in one step."
+        }
+      ]
+    },
+    {
+      "id": "beat_git_u3_remotes",
+      "track": "git",
+      "week": 3,
+      "title": "The Cloud: Remotes & GitHub",
+      "narrative": "'Great work on that branch,' Sarah says. 'Now, you need to share it with the team. We host our code on GitHub.' To do this, you need to link your local repository to a remote server.",
+      "xpReward": 50,
+      "npc": { "name": "Sarah", "title": "Lead Dev", "avatar": "👩‍💻" },
+      "concept_visual": {
+        "title": "Local vs Remote",
+        "diagramId": "git_remote",
+        "explanation": "Your local repo is on your machine. The remote (origin) is on GitHub. 'Push' sends your commits up; 'Pull' brings the team's commits down."
+      },
+      "quiz": [
+        {
+          "id": "beat_git_u3_q1",
+          "type": "multiple_choice",
+          "question": "Which command sends your local commits to the server?",
+          "options": ["git upload", "git send", "git push", "git commit --remote"],
+          "correct_answer": 2,
+          "explanation": "git push transmits your local branch commits to the associated remote branch."
+        }
+      ]
+    },
+    {
+      "id": "beat_git_u4_actions",
+      "track": "git",
+      "week": 4,
+      "title": "Auto-Pilot: GitHub Actions",
+      "narrative": "Pixel Forge Studio is scaling up. We now use GitHub Actions to automatically test our code every time someone pushes. 'It's like a robot that checks your homework,' Sarah explains. You've passed the Git onboarding!",
+      "xpReward": 100,
+      "npc": { "name": "Sarah", "title": "Lead Dev", "avatar": "👩‍💻" },
+      "concept_visual": {
+        "title": "CI/CD Pipeline",
+        "diagramId": "github_actions",
+        "explanation": "Push Code -> Action Triggers -> Run Tests -> If Pass, Deploy. This ensures the 'main' branch never breaks."
+      },
+      "quiz": [
+        {
+          "id": "beat_git_u4_q1",
+          "type": "multiple_choice",
+          "question": "Where are GitHub Actions workflows stored in a repository?",
+          "options": [".git/actions/", "workflows/", ".github/workflows/", "actions.yaml"],
+          "correct_answer": 2,
+          "explanation": "Actions workflows are YAML files stored in the .github/workflows directory of your project."
+        }
+      ]
+    },
     {
       "id": "beat_py_u1_welcome",
       "track": "python",
