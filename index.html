@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Programming Plus — The Next Generation Developer Studio</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&family=Plus+Jakarta+Sans:wght@400;600;800&display=swap');
+    
+    :root {
+      --bg: #0d0d0d;
+      --surface: #161616;
+      --accent: #569cd6;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: #e0e0e0;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    .font-mono { font-family: 'JetBrains Mono', monospace; }
+
+    .glow-bg {
+      background: radial-gradient(circle at 50% 50%, rgba(86, 156, 214, 0.15) 0%, rgba(13, 13, 13, 0) 70%);
+    }
+
+    .card-grad {
+      background: linear-gradient(145deg, #1a1a1a 0%, #111111 100%);
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .hero-text {
+      background: linear-gradient(to bottom right, #ffffff 30%, #569cd6 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .btn-primary {
+      background: #569cd6;
+      box-shadow: 0 4px 20px rgba(86, 156, 214, 0.3);
+      transition: all 0.2s;
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 25px rgba(86, 156, 214, 0.4);
+    }
+  </style>
+</head>
+<body class="overflow-x-hidden">
+
+  <!-- Navbar -->
+  <nav class="flex items-center justify-between px-8 py-6 max-w-7xl mx-auto border-b border-white/5">
+    <div class="flex items-center gap-2">
+      <div class="w-8 h-8 bg-[#569cd6] rounded flex items-center justify-center font-black text-black text-lg">P+</div>
+      <span class="font-bold tracking-tight text-xl">Programming<span class="text-[#569cd6]">Plus</span></span>
+    </div>
+    <div class="hidden md:flex items-center gap-8 text-sm font-semibold text-gray-400">
+      <a href="#features" class="hover:text-white transition-colors">Features</a>
+      <a href="#languages" class="hover:text-white transition-colors">Curriculum</a>
+      <a href="https://github.com/Bgarrison84/ProgrammingPlus" class="hover:text-white transition-colors">GitHub</a>
+    </div>
+    <a href="app.html" class="px-5 py-2 border border-[#569cd6]/30 text-[#569cd6] rounded-full text-sm font-bold hover:bg-[#569cd6]/10 transition-all">Launch Web Edition</a>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="relative pt-20 pb-32 px-8 overflow-hidden">
+    <div class="glow-bg absolute top-[-20%] left-1/2 -translate-x-1/2 w-[1000px] h-[800px] pointer-events-none"></div>
+    
+    <div class="max-w-5xl mx-auto text-center relative z-10">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[10px] font-bold tracking-widest text-[#569cd6] uppercase mb-6">
+        <span>🚀 Version 1.0 Live</span>
+        <span class="w-1 h-1 rounded-full bg-[#569cd6]"></span>
+        <span>Desktop Ready</span>
+      </div>
+      
+      <h1 class="text-5xl md:text-7xl font-extrabold hero-text leading-tight mb-8">
+        Build Your Future<br>One Commit at a Time.
+      </h1>
+      
+      <p class="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed mb-12">
+        The ultimate offline-first Developer Studio for mastering 7 languages through project-driven gamification. From Beginner scripts to Mythic kernels.
+      </p>
+
+      <div class="flex flex-col md:flex-row items-center justify-center gap-4">
+        <a href="Run ProgrammingPlus.bat" class="btn-primary w-full md:w-auto px-8 py-4 rounded-xl text-black font-extrabold text-lg flex items-center justify-center gap-2">
+          <span>🖥️</span> Download for Windows
+        </a>
+        <a href="app.html" class="w-full md:w-auto px-8 py-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors font-bold text-lg">
+          Open in Browser
+        </a>
+      </div>
+
+      <div class="mt-20 relative">
+        <div class="absolute -inset-1 bg-gradient-to-r from-[#569cd6] to-purple-600 rounded-2xl blur opacity-20 group-hover:opacity-100 transition duration-1000 group-hover:duration-200"></div>
+        <div class="relative bg-[#1e1e1e] rounded-2xl border border-white/10 shadow-2xl overflow-hidden aspect-[16/10] max-w-4xl mx-auto">
+          <!-- Mockup of the editor -->
+          <div class="h-8 bg-[#252526] border-b border-white/5 flex items-center px-4 gap-1.5">
+            <div class="w-2.5 h-2.5 rounded-full bg-red-500/50"></div>
+            <div class="w-2.5 h-2.5 rounded-full bg-yellow-500/50"></div>
+            <div class="w-2.5 h-2.5 rounded-full bg-green-500/50"></div>
+            <div class="ml-4 text-[10px] text-gray-500 font-mono">ProgrammingPlus — index.py</div>
+          </div>
+          <div class="p-6 text-left font-mono text-xs text-[#d4d4d4] space-y-1 leading-relaxed">
+            <div class="text-[#569cd6]">import <span class="text-white">math</span></div>
+            <div>&nbsp;</div>
+            <div class="text-[#4ec9b0]">class <span class="text-white">NeuralNetwork:</span></div>
+            <div class="pl-4 text-gray-500">def __init__(self):</div>
+            <div class="pl-8 text-white">self.brain = Brain()</div>
+            <div class="pl-8 text-white">self.xp = 0</div>
+            <div>&nbsp;</div>
+            <div class="text-[#ce9178] animate-pulse">█</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Grid -->
+  <section id="features" class="py-32 px-8 bg-black/50">
+    <div class="max-w-7xl mx-auto">
+      <div class="mb-20 text-center">
+        <h2 class="text-3xl font-extrabold mb-4">Professional Studio Features</h2>
+        <p class="text-gray-500 max-w-lg mx-auto">The power of a real IDE with the rewards of an RPG.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="card-grad p-8 rounded-2xl group hover:border-[#569cd6]/30 transition-all">
+          <div class="w-12 h-12 bg-[#569cd6]/10 rounded-lg flex items-center justify-center text-2xl mb-6">🩺</div>
+          <h3 class="text-xl font-bold mb-3 group-hover:text-[#569cd6] transition-colors">Compiler Doctor</h3>
+          <p class="text-gray-500 text-sm leading-relaxed">Automatic diagnostic tool that detects and helps you install local compilers for Python, Rust, Go, and more.</p>
+        </div>
+        <div class="card-grad p-8 rounded-2xl group hover:border-[#569cd6]/30 transition-all">
+          <div class="w-12 h-12 bg-[#569cd6]/10 rounded-lg flex items-center justify-center text-2xl mb-6">🧹</div>
+          <h3 class="text-xl font-bold mb-3 group-hover:text-[#569cd6] transition-colors">Clean Code Auditor</h3>
+          <p class="text-gray-500 text-sm leading-relaxed">Real-time linting and grading. Our engine audits your code quality and helps you achieve professional standards.</p>
+        </div>
+        <div class="card-grad p-8 rounded-2xl group hover:border-[#569cd6]/30 transition-all">
+          <div class="w-12 h-12 bg-[#569cd6]/10 rounded-lg flex items-center justify-center text-2xl mb-6">✨</div>
+          <h3 class="text-xl font-bold mb-3 group-hover:text-[#569cd6] transition-colors">Sarah AI Tutor</h3>
+          <p class="text-gray-500 text-sm leading-relaxed">Built-in AI assistance powered by Ollama. Get localized, context-aware hints without revealing full solutions.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Languages Section -->
+  <section id="languages" class="py-32 px-8">
+    <div class="max-w-7xl mx-auto">
+      <div class="flex flex-col md:flex-row items-end justify-between mb-16 gap-6">
+        <div>
+          <h2 class="text-4xl font-extrabold mb-4">Master the Stack</h2>
+          <p class="text-gray-500 max-w-md leading-relaxed">Choose your track and progress through 7 tiers of increasingly complex projects.</p>
+        </div>
+        <div class="flex gap-2 font-mono text-[10px] font-bold uppercase tracking-widest text-gray-600">
+          <span>Beginner</span>
+          <span>•</span>
+          <span>Mythic</span>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4">
+        <!-- Python -->
+        <div class="card-grad p-6 rounded-xl border-b-4 border-b-yellow-500/50">
+          <div class="text-3xl mb-4">🐍</div>
+          <div class="font-bold">Python</div>
+          <div class="text-[10px] text-gray-500 mt-1 uppercase">Machine Learning</div>
+        </div>
+        <!-- JS -->
+        <div class="card-grad p-6 rounded-xl border-b-4 border-b-[#569cd6]/50">
+          <div class="text-3xl mb-4">🌐</div>
+          <div class="font-bold">JavaScript</div>
+          <div class="text-[10px] text-gray-500 mt-1 uppercase">Game Engines</div>
+        </div>
+        <!-- Rust -->
+        <div class="card-grad p-6 rounded-xl border-b-4 border-b-orange-600/50">
+          <div class="text-3xl mb-4">🦀</div>
+          <div class="font-bold">Rust</div>
+          <div class="text-[10px] text-gray-500 mt-1 uppercase">System Kernels</div>
+        </div>
+        <!-- Go -->
+        <div class="card-grad p-6 rounded-xl border-b-4 border-b-cyan-400/50">
+          <div class="text-3xl mb-4">📡</div>
+          <div class="font-bold">Go</div>
+          <div class="text-[10px] text-gray-500 mt-1 uppercase">Concurrency</div>
+        </div>
+        <!-- C# -->
+        <div class="card-grad p-6 rounded-xl border-b-4 border-b-purple-500/50">
+          <div class="text-3xl mb-4">🛡️</div>
+          <div class="font-bold">C#</div>
+          <div class="text-[10px] text-gray-500 mt-1 uppercase">Unity 3D</div>
+        </div>
+        <!-- C++ -->
+        <div class="card-grad p-6 rounded-xl border-b-4 border-b-blue-600/50">
+          <div class="text-3xl mb-4">⚙️</div>
+          <div class="font-bold">C++</div>
+          <div class="text-[10px] text-gray-500 mt-1 uppercase">High Performance</div>
+        </div>
+        <!-- Lua -->
+        <div class="card-grad p-6 rounded-xl border-b-4 border-b-blue-400/50">
+          <div class="text-3xl mb-4">🚀</div>
+          <div class="font-bold">Lua</div>
+          <div class="text-[10px] text-gray-500 mt-1 uppercase">Embedded Logic</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-20 px-8 border-t border-white/5 bg-[#080808]">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-10">
+      <div>
+        <div class="flex items-center gap-2 mb-4">
+          <div class="w-6 h-6 bg-gray-200 rounded flex items-center justify-center font-black text-black text-xs">P+</div>
+          <span class="font-bold tracking-tight text-lg">Programming Plus</span>
+        </div>
+        <p class="text-gray-600 text-sm max-w-xs">Built for the next generation of engineers at Pixel Forge Studio.</p>
+      </div>
+      <div class="flex flex-wrap items-center justify-center gap-10 text-sm font-semibold text-gray-500">
+        <a href="https://github.com/Bgarrison84/ProgrammingPlus" class="hover:text-white transition-colors">GitHub Repository</a>
+        <a href="#" class="hover:text-white transition-colors">Documentation</a>
+        <a href="#" class="hover:text-white transition-colors">Contact</a>
+      </div>
+      <div class="text-gray-700 text-xs font-mono">
+        © 2026 PIXEL FORGE STUDIO
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
