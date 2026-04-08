@@ -10,6 +10,7 @@ import { StatsView } from './StatsView.js';
 import { NotebookView } from './NotebookView.js';
 import { InventoryView } from './InventoryView.js';
 import { ProjectsView } from './ProjectsView.js';
+import { AchievementsView } from './AchievementsView.js';
 
 export class Router {
   constructor(content, store, appViewEl) {
@@ -25,15 +26,15 @@ export class Router {
   _init() {
     // Registry of view classes
     this.viewRegistry = {
-      story:     StoryMode,
-      git:       GitView,
-      editor:    CodeEditorView,
-      grind:     GrindView,
-      stats:     StatsView,
-      notebook:  NotebookView,
-      inventory: InventoryView,
-      projects:  ProjectsView,
-      // debug:    DebugView, // To be implemented
+      story:        StoryMode,
+      git:          GitView,
+      editor:       CodeEditorView,
+      grind:        GrindView,
+      stats:        StatsView,
+      notebook:     NotebookView,
+      inventory:    InventoryView,
+      projects:     ProjectsView,
+      achievements: AchievementsView,
     };
 
     bus.on('nav:switch', e => this.switchView(e.view, e));

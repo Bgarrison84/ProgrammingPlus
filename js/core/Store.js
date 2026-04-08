@@ -489,7 +489,9 @@ export class Store {
     this._state.languageXP[track] = (this._state.languageXP[track] || 0) + amount;
 
     this._recalcLevel(true);
+    this._checkAchievements(); // Check for new unlocks
     this._persist();
+    
     bus.emit('xp:gained', {
       amount,
       total: this._state.xp,
@@ -499,6 +501,43 @@ export class Store {
       source
     });
     bus.emit('state:changed', this.state);
+  }
+
+  /** Spend XP (for hints, power-ups). Returns false if insufficient. */
+  deductXP(amount) {
+    this._state.xp = Math.max(0, this._state.xp - amount);
+    this._recalcLevel(false);
+    this._persist();
+    bus.emit('xp:deducted', { amount, total: this._state.xp });
+    bus.emit('state:changed', this.state);
+  }
+
+  _checkAchievements() {
+    const s = this._state;
+    if (!s.achievements) s.achievements = [];
+
+    const unlock = (id) => {
+      // achievements state is now an array of strings (IDs) for simplicity in checks
+      // but the state definition says [{id, name, unlockedAt}]
+      // I will adapt to use the object structure to match the existing schema
+      if (!s.achievements.find(a => a.id === id)) {
+        s.achievements.push({ id, unlockedAt: Date.now() });
+        bus.emit('achievement:unlocked', { id });
+        bus.emit('toast', { message: `🏆 Achievement Unlocked! Check the Hall of Fame.`, type: 'success' });
+      }
+    };
+
+    // First Steps: Complete any lab (simulated by having > 0 XP)
+    if (s.xp > 0) unlock('ach_first_steps');
+
+    // Polyglot: Gain XP in 3 different languages
+    if (s.languageXP) {
+      const activeTracks = Object.values(s.languageXP).filter(v => v > 0).length;
+      if (activeTracks >= 3) unlock('ach_polyglot');
+    }
+
+    // Git Master: Finish Git track (simulated XP requirement)
+    if (s.languageXP && s.languageXP['git'] >= 500) unlock('ach_git_master');
   }
 
   /** Switch active language track. */
