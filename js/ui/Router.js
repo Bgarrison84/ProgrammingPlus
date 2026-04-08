@@ -11,6 +11,7 @@ import { NotebookView } from './NotebookView.js';
 import { InventoryView } from './InventoryView.js';
 import { ProjectsView } from './ProjectsView.js';
 import { AchievementsView } from './AchievementsView.js';
+import { TerminalView } from './TerminalView.js';
 
 export class Router {
   constructor(content, store, appViewEl) {
@@ -28,6 +29,7 @@ export class Router {
     this.viewRegistry = {
       story:        StoryMode,
       git:          GitView,
+      terminal:     TerminalView,
       editor:       CodeEditorView,
       grind:        GrindView,
       stats:        StatsView,

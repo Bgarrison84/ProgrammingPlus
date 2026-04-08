@@ -9,6 +9,11 @@ contextBridge.exposeInMainWorld('electron', {
   initGit: (dir) => ipcRenderer.invoke('git-init-native', dir),
   askAI: (prompt) => ipcRenderer.invoke('ollama-chat-native', prompt),
   lintCode: (command, args, input) => ipcRenderer.invoke('lint-code-native', command, args, input),
+  terminal: {
+    send: (data) => ipcRenderer.send('terminal-input', data),
+    resize: (cols, rows) => ipcRenderer.send('terminal-resize', { cols, rows }),
+    onData: (cb) => ipcRenderer.on('terminal-data', (event, data) => cb(data))
+  },
   platform: process.platform,
   isElectron: true
 });
