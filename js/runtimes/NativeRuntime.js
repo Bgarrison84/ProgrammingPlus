@@ -12,12 +12,24 @@ export class NativeRuntime {
     
     // Command mappings for native binaries
     this.commands = {
-      python: { cmd: 'python', args: [], testCmd: 'pytest' },
-      rust:   { cmd: 'rustc',  args: ['--out-dir', 'temp_bin'], testCmd: 'cargo test' },
-      go:     { cmd: 'go',     args: ['run'], testCmd: 'go test' },
+      python: { cmd: 'python', args: [], testCmd: 'pytest', lint: { cmd: 'ruff', args: ['check'] } },
+      rust:   { cmd: 'rustc',  args: ['--out-dir', 'temp_bin'], testCmd: 'cargo test', lint: { cmd: 'cargo', args: ['clippy'] } },
+      go:     { cmd: 'go',     args: ['run'], testCmd: 'go test', lint: { cmd: 'go', args: ['vet'] } },
+      javascript: { cmd: 'node', args: [], testCmd: 'npm test', lint: { cmd: 'eslint', args: [] } },
       csharp: { cmd: 'dotnet', args: ['run'], testCmd: 'dotnet test' },
       cpp:    { cmd: 'g++',    args: ['-o', 'temp_bin/app'], testCmd: 'make test' }
     };
+  }
+
+  /**
+   * Lint the code using system binaries.
+   */
+  async lint(code) {
+    if (!window.electron) throw new Error('Native linting requires Desktop Edition.');
+    const config = this.commands[this.language]?.lint;
+    if (!config) throw new Error(`Linter not configured for ${this.language}`);
+    
+    return window.electron.lintCode(config.cmd, config.args, code);
   }
 
   /**

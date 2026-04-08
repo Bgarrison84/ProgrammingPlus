@@ -93,6 +93,26 @@ ipcMain.handle('ollama-chat-native', async (event, prompt) => {
   }
 });
 
+// Lint code using system binaries
+ipcMain.handle('lint-code-native', async (event, command, args, input) => {
+  return new Promise((resolve) => {
+    const tempFile = path.join(app.getPath('temp'), `lint_temp_${Date.now()}`);
+    fs.writeFileSync(tempFile, input);
+
+    const fullCommand = `${command} ${args.join(' ')} "${tempFile}"`;
+    
+    exec(fullCommand, (error, stdout, stderr) => {
+      if (fs.existsSync(tempFile)) fs.unlinkSync(tempFile);
+      // Linters often exit with non-zero on findings, so we return stdout anyway
+      resolve({
+        success: true, // we handled the execution
+        findings: stdout + stderr,
+        exitCode: error ? error.code : 0
+      });
+    });
+  });
+});
+
 // Execute native command (e.g., python, rustc, go)
 ipcMain.handle('run-native', async (event, command, args, input) => {
   return new Promise((resolve) => {

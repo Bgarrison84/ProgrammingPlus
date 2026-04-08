@@ -205,7 +205,10 @@ export class CodeEditor {
             <span class="text-[#858585] text-xs">${lang} · <span class="${difficultyColour}">${difficulty}</span> · ${xp} XP</span>
           </div>
           <div class="flex gap-2">
-            ${window.electron ? `<button data-action="ai" class="px-2 py-1 text-xs bg-purple-900/30 text-purple-400 border border-purple-800 rounded hover:bg-purple-900/50 transition-colors">✨ Ask Sarah AI</button>` : ''}
+            ${window.electron ? `
+              <button data-action="audit" class="px-2 py-1 text-xs bg-blue-900/30 text-blue-400 border border-blue-800 rounded hover:bg-blue-900/50 transition-colors">🧹 Audit Code</button>
+              <button data-action="ai" class="px-2 py-1 text-xs bg-purple-900/30 text-purple-400 border border-purple-800 rounded hover:bg-purple-900/50 transition-colors">✨ Ask Sarah AI</button>
+            ` : ''}
             <button data-action="hint"     class="px-2 py-1 text-xs bg-[#2d2d30] text-yellow-400 border border-[#3e3e42] rounded hover:bg-[#3e3e42]">💡 Hint</button>
             <button data-action="reset"    class="px-2 py-1 text-xs bg-[#2d2d30] text-gray-400  border border-[#3e3e42] rounded hover:bg-[#3e3e42]">↺ Reset</button>
             <button data-action="solution" class="px-2 py-1 text-xs bg-[#2d2d30] text-red-400   border border-[#3e3e42] rounded hover:bg-[#3e3e42]">🔓 Solution</button>
@@ -291,6 +294,7 @@ export class CodeEditor {
       if (!action) return;
 switch (action) {
   case 'ai':       this._askAI();         break;
+  case 'audit':    this._auditCode();     break;
   case 'run':      this.run();            break;
   case 'test':     this.runTests();       break;
   case 'hint':     this.showHint();       break;
@@ -301,6 +305,39 @@ switch (action) {
 
 }
 
+async _auditCode() {
+this._clearConsole();
+this._appendToConsole('🧹 Auditing code quality...', 'text-blue-400');
+
+const { NativeRuntime } = await import('../runtimes/NativeRuntime.js');
+const runtime = new NativeRuntime(this.lab.runtime);
+
+try {
+const result = await runtime.lint(JSON.stringify(this.files));
+const findings = result.findings.trim();
+
+// Calculate a grade (simulated based on number of findings)
+const lines = findings ? findings.split('\n').filter(l => l.trim()) : [];
+let grade = 'A';
+let color = 'text-green-400';
+
+if (lines.length > 10) { grade = 'F'; color = 'text-red-500'; }
+else if (lines.length > 5) { grade = 'D'; color = 'text-red-400'; }
+else if (lines.length > 2) { grade = 'C'; color = 'text-yellow-500'; }
+else if (lines.length > 0) { grade = 'B'; color = 'text-yellow-400'; }
+
+this._appendToConsole(`🏆 Code Quality Grade: ${grade}`, `${color} font-bold text-lg`);
+
+if (findings) {
+  this._appendToConsole('--- Findings ---', 'text-gray-500');
+  this._appendToConsole(findings, 'text-gray-400');
+} else {
+  this._appendToConsole('✨ No issues found! Your code is professional-grade.', 'text-green-400');
+}
+} catch (err) {
+this._showError(err.message);
+}
+}
 async runTests() {
 if (this.state === STATE.RUNNING) return;
 this._setState(STATE.RUNNING);

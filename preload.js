@@ -8,6 +8,7 @@ contextBridge.exposeInMainWorld('electron', {
   checkCompiler: (command) => ipcRenderer.invoke('check-compiler-native', command),
   initGit: (dir) => ipcRenderer.invoke('git-init-native', dir),
   askAI: (prompt) => ipcRenderer.invoke('ollama-chat-native', prompt),
+  lintCode: (command, args, input) => ipcRenderer.invoke('lint-code-native', command, args, input),
   platform: process.platform,
   isElectron: true
 });
