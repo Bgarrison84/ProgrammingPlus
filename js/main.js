@@ -1,15 +1,20 @@
 /**
  * main.js — Application Entry Point & Orchestrator
- * Bootstraps the Store, HUD, and Router.
+ * Bootstraps the Store, HUD, Router, and Game Juice (Audio/FX).
  */
 
-import { Store }       from './core/Store.js';
-import { HUD }         from './ui/HUD.js';
-import { Router }      from './ui/Router.js';
+import { Store }        from './core/Store.js';
+import { HUD }          from './ui/HUD.js';
+import { Router }       from './ui/Router.js';
+import { bus }          from './core/EventBus.js';
+import { AudioManager } from './core/AudioManager.js';
+import { FXManager }    from './ui/FXManager.js';
 
 const store   = new Store();
 let router    = null;
 let content   = null;
+let audio     = null;
+let fx        = null;
 
 // Award XP from custom events
 document.addEventListener('prog-xp', e => {
@@ -21,6 +26,10 @@ document.addEventListener('prog-xp', e => {
 async function init() {
   try {
     await store.ready;
+
+    // Initialize Game Juice
+    audio = new AudioManager(store);
+    fx    = new FXManager();
 
     // Load content
     const metaRes = await fetch('./data/content.json');
@@ -58,10 +67,16 @@ async function init() {
         updateContentForTrack('git');
       }
       router.switchView('story');
-      alert("Welcome! You must complete the Git & GitHub track (Track 0) before writing any code.");
     } else {
       router.switchView('story');
     }
+
+    // Global event: play click sound on nav buttons and general buttons
+    document.addEventListener('click', e => {
+      if (e.target.closest('[data-nav]') || e.target.closest('button')) {
+        bus.emit('ui:click');
+      }
+    });
 
   } catch (err) {
     console.error('[init] Critical failure:', err);

@@ -68,7 +68,13 @@ export class CodeEditor {
     this._setState(STATE.RUNNING);
 
     const code    = this._getCode();
-    const runtime = this.runtimes[this.lab.runtime];
+    let runtime = this.runtimes[this.lab.runtime];
+
+    // Desktop Edition: Check if we should use native binaries instead of WASM
+    if (this.store?.state.settings.useNative && window.electron) {
+      const { NativeRuntime } = await import('../runtimes/NativeRuntime.js');
+      runtime = new NativeRuntime(this.lab.runtime);
+    }
 
     if (!runtime) {
       this._showError(`No runtime available for language: ${this.lab.runtime}`);

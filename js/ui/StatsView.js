@@ -71,9 +71,62 @@ export class StatsView {
             <p class="text-[10px] text-gray-600 mt-4 italic">* Squares represent daily study minutes over the last 30 days.</p>
           </div>
         </div>
+
+        <!-- Desktop Configuration (Electron Only) -->
+        ${window.electron ? `
+          <div class="bg-[#252526] border border-blue-900/20 p-5 rounded-lg">
+            <h3 class="text-sm font-bold text-blue-400 uppercase tracking-widest border-b border-blue-900/30 pb-2 flex items-center gap-2">
+              <span>🖥️</span> Desktop Configuration
+            </h3>
+            <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div class="flex items-center justify-between p-3 bg-[#1e1e1e] rounded border border-[#3e3e42]">
+                <div>
+                  <div class="text-sm font-bold text-gray-200">Native Execution</div>
+                  <div class="text-[10px] text-gray-500">Use real compilers (rustc, go, python) installed on your OS instead of WASM.</div>
+                </div>
+                <label class="relative inline-flex items-center cursor-pointer">
+                  <input type="checkbox" id="native-toggle" class="sr-only peer" ${state.settings.useNative ? 'checked' : ''}>
+                  <div class="w-11 h-6 bg-gray-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                </label>
+              </div>
+              <div class="flex items-center justify-between p-3 bg-[#1e1e1e] rounded border border-[#3e3e42]">
+                <div>
+                  <div class="text-sm font-bold text-gray-200">Projects Workspace</div>
+                  <div class="text-[10px] text-gray-500">Open your exported projects folder to commit to GitHub.</div>
+                </div>
+                <button id="open-workspace" class="text-xs px-4 py-1.5 bg-blue-900/30 text-blue-400 border border-blue-800 rounded hover:bg-blue-900/50 transition-colors">Open Folder</button>
+              </div>
+            </div>
+          </div>
+        ` : ''}
       </div>`;
 
     this._renderHeatmap();
+    this._wireDesktopEvents();
+  }
+
+  _wireDesktopEvents() {
+    if (!window.electron) return;
+    
+    const toggle = this.containerEl.querySelector('#native-toggle');
+    if (toggle) {
+      toggle.addEventListener('change', e => {
+        this.store.setUseNative(e.target.checked);
+        bus.emit('toast', { message: `Native execution ${e.target.checked ? 'ENABLED' : 'DISABLED'}`, type: 'info' });
+      });
+    }
+
+    const openBtn = this.containerEl.querySelector('#open-workspace');
+    if (openBtn) {
+      openBtn.addEventListener('click', async () => {
+        const lastPath = localStorage.getItem('last_project_export_path');
+        if (lastPath) {
+          await window.electron.openPath(lastPath);
+        } else {
+          alert('No projects exported yet! Complete a project and use "Save to Folder" first.');
+        }
+      });
+    }
   }
 
   _calculateStats() {

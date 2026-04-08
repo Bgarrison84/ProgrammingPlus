@@ -44,6 +44,7 @@ const DEFAULT_STATE = {
   settings: {
     sfxEnabled: true,
     theme: 'editor-dark',    // 'editor-dark' | 'high-contrast'
+    useNative: false,        // Desktop Edition: use real compilers/interpreters
   },
   quizHistory: [],           // [{ date, total, correct, score, mode, domainStats }]
   streak: { current: 0, lastLogin: null, longest: 0 }, // daily login streak
@@ -720,6 +721,13 @@ export class Store {
     if (!this._state.settings) this._state.settings = {};
     this._state.settings.theme = theme;
     this._persist();
+  }
+
+  setUseNative(enabled) {
+    if (!this._state.settings) this._state.settings = {};
+    this._state.settings.useNative = enabled;
+    this._persist();
+    bus.emit('settings:changed', { useNative: enabled });
   }
 
   completeOnboarding() {

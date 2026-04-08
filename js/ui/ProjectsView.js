@@ -6,49 +6,12 @@ import { GitSimulator } from '../engine/GitSimulator.js';
 import { CodeEditor } from '../engine/CodeEditor.js';
 import { JSRuntime } from '../runtimes/JSRuntime.js';
 
-const PROJECTS = [
-  {
-    id: 'proj_first_website',
-    title: 'Your First Landing Page',
-    icon: '🌐',
-    difficulty: 'easy',
-    xp: 500,
-    minLevel: 1,
-    description: 'Build and host a simple landing page for Pixel Forge Studio using HTML and Git.',
-    briefing: 'Sarah wants you to create a simple landing page for the studio. You need to structure the HTML, style it, and then use Git to track your changes.',
-    phases: [
-      {
-        id: 'p0', type: 'quiz', title: 'Web Fundamentals', xp: 100,
-        questions: [
-          { q: 'Which tag is used to define the main heading of a page?', opts: ['<p>', '<h1>', '<header>', '<div>'], ans: 1, exp: '<h1> is the standard tag for the most important heading on a page.' },
-          { q: 'What does CSS stand for?', opts: ['Computer Style Sheets', 'Creative Style System', 'Cascading Style Sheets', 'Colorful Style Sheets'], ans: 2, exp: 'CSS stands for Cascading Style Sheets, used for styling web content.' }
-        ]
-      },
-      {
-        id: 'p1', type: 'terminal', title: 'Initialize the Project', xp: 200,
-        objectives: ['Initialize a new Git repository', 'Create index.html', 'Stage and commit your changes'],
-        hints: ['git init', 'touch index.html', 'git add .', 'git commit -m "initial commit"'],
-        targetCommand: 'git commit'
-      },
-      {
-        id: 'p2', type: 'code', title: 'Structure the Page', xp: 200,
-        runtime: 'javascript', // Using JS runtime as a proxy for HTML/CSS validation if needed
-        starter_code: '<!-- Write your HTML here -->\n<h1>Welcome to Pixel Forge</h1>',
-        solution: '<h1>Welcome to Pixel Forge</h1>\n<p>Creating amazing indie games.</p>',
-        objectives: ['Add an <h1> tag', 'Add a <p> tag with studio description'],
-        test_cases: [
-          { expected_output: '<h1>Welcome to Pixel Forge</h1>\n<p>Creating amazing indie games.</p>' }
-        ]
-      }
-    ]
-  }
-];
-
 export class ProjectsView {
   constructor(content, store, containerEl) {
     this.content     = content;
     this.store       = store;
     this.containerEl = containerEl;
+    this.projects    = content.projects || [];
   }
 
   render() {
@@ -61,18 +24,28 @@ export class ProjectsView {
             <p class="text-gray-500 text-xs mt-1">Multi-phase projects to build your developer portfolio.</p>
           </div>
           <div class="text-right text-xs text-gray-600 font-mono">
-            ${PROJECTS.filter(p => this.store.isProjectComplete ? this.store.isProjectComplete(p.id) : false).length} / ${PROJECTS.length} COMPLETE
+            ${this.projects.filter(p => this.store.isProjectComplete ? this.store.isProjectComplete(p.id) : false).length} / ${this.projects.length} COMPLETE
           </div>
         </div>
 
         <div class="grid grid-cols-1 gap-4">
-          ${PROJECTS.map(p => {
+          ${this.projects.map(p => {
             const prog     = this.store.getProjectProgress ? this.store.getProjectProgress(p.id) : null;
             const done     = prog?.completedPhases?.length ?? 0;
             const total    = p.phases.length;
             const complete = done >= total;
             const locked   = state.level < (p.minLevel || 1);
-            const diffColor = { easy: 'text-green-400', medium: 'text-yellow-400', hard: 'text-red-400' }[p.difficulty] || 'text-gray-400';
+            
+            const diffMap = {
+              beginner:  'text-blue-400',
+              easy:      'text-green-400',
+              medium:    'text-yellow-400',
+              hard:      'text-orange-400',
+              epic:      'text-purple-400',
+              legendary: 'text-rose-400',
+              mythic:    'text-cyan-400 font-black tracking-tighter'
+            };
+            const diffColor = diffMap[p.difficulty] || 'text-gray-400';
             const borderCls = complete ? 'border-green-900 bg-green-950/10' : locked ? 'border-gray-800 opacity-50' : 'border-[#3e3e42] hover:border-[#569cd6] cursor-pointer';
 
             return `
@@ -87,6 +60,14 @@ export class ProjectsView {
                       ${complete ? '<span class="text-green-400 text-xs font-bold ml-auto">✓ COMPLETED</span>' : ''}
                     </div>
                     <p class="text-gray-400 text-sm mt-2">${p.description}</p>
+
+                    <!-- Native Export Options (Desktop Edition) -->
+                    ${complete && window.electron ? `
+                      <div class="mt-4 flex gap-2">
+                        <button data-export-folder="${p.id}" class="text-[10px] px-2 py-1 bg-blue-900/30 text-blue-400 border border-blue-800 rounded hover:bg-blue-900/50 transition-colors">📁 Save to Folder</button>
+                        <button data-export-zip="${p.id}" class="text-[10px] px-2 py-1 bg-purple-900/30 text-purple-400 border border-purple-800 rounded hover:bg-purple-900/50 transition-colors">📦 Download .zip</button>
+                      </div>
+                    ` : ''}
 
                     <!-- Progress bar -->
                     <div class="mt-4 flex items-center gap-3">
@@ -106,11 +87,105 @@ export class ProjectsView {
       </div>`;
 
     this.containerEl.querySelectorAll('.proj-card:not(.opacity-50)').forEach(el => {
-      el.addEventListener('click', () => {
-        const proj = PROJECTS.find(p => p.id === el.dataset.proj);
+      el.addEventListener('click', e => {
+        if (e.target.closest('[data-export-folder]')) {
+          this._exportProject(el.dataset.proj, 'folder');
+          return;
+        }
+        if (e.target.closest('[data-export-zip]')) {
+          this._exportProject(el.dataset.proj, 'zip');
+          return;
+        }
+        
+        const proj = this.projects.find(p => p.id === el.dataset.proj);
         if (proj) this._renderProjectDetail(proj);
       });
     });
+  }
+
+  async _exportProject(projectId, mode) {
+    const project = this.projects.find(p => p.id === projectId);
+    if (!project || !window.electron) return;
+
+    // Gather all code from this project's phases
+    const files = [];
+    project.phases.forEach((ph, i) => {
+      if (ph.type === 'code' || ph.type === 'terminal') {
+        const userCode = this.store.getCodeSnippet ? this.store.getCodeSnippet(`proj_${projectId}_p${i}`) : null;
+        files.push({
+          name: ph.filename || (ph.type === 'code' ? 'main.js' : 'commands.txt'),
+          content: userCode || ph.solution || ph.starter_code || ''
+        });
+      }
+    });
+
+    // Add professional README.md
+    files.push({
+      name: 'README.md',
+      content: this._generateReadme(project)
+    });
+
+    // Add .gitignore based on track
+    files.push({
+      name: '.gitignore',
+      content: this._getGitignore(project.track || 'javascript')
+    });
+
+    if (files.length === 0) {
+      alert('No code files found to export for this project.');
+      return;
+    }
+
+    const projectData = { title: project.title, files };
+    let result;
+
+    if (mode === 'folder') {
+      result = await window.electron.saveProject(projectData);
+      if (result.success) {
+        localStorage.setItem('last_project_export_path', result.path);
+      }
+    } else {
+      result = await window.electron.zipProject(projectData);
+    }
+
+    if (result.success) {
+      alert(`Project successfully exported to: ${result.path}`);
+    } else if (result.error !== 'Cancelled') {
+      alert(`Export failed: ${result.error}`);
+    }
+  }
+
+  _generateReadme(project) {
+    return `# ${project.title}
+
+${project.description}
+
+## Project Briefing
+${project.briefing}
+
+## Career Focus
+This project demonstrates skills relevant to **${project.track} development**.
+
+## Built With
+- Programming Plus Developer Studio
+- Language: ${project.track}
+
+## Author
+Completed by a Junior Developer at Pixel Forge Studio.
+`;
+  }
+
+  _getGitignore(track) {
+    const templates = {
+      python: "__pycache__/\n*.py[cod]\n*$py.class\n.env\nvenv/\n",
+      javascript: "node_modules/\n.DS_Store\n.env\ndist/\n",
+      lua: "*.out\n*.exe\n*.dll\n",
+      csharp: "[Bb]in/\n[Oo]bj/\n*.user\n*.suo\n",
+      cpp: "*.o\n*.exe\n*.out\nbuild/\n",
+      go: "bin/\npkg/\n",
+      rust: "target/\nCargo.lock\n"
+    };
+    return templates[track] || "# Default gitignore\n.DS_Store\n.env\n";
   }
 
   _renderProjectDetail(project) {

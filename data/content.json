@@ -3,7 +3,16 @@
     "app": "Programming Plus",
     "version": "0.1.0",
     "created": "2026-03-28",
-    "tracks": ["git", "python", "javascript", "lua", "csharp", "cpp", "go", "rust"],
+    "tracks": [
+      "git",
+      "python",
+      "javascript",
+      "lua",
+      "csharp",
+      "cpp",
+      "go",
+      "rust"
+    ],
     "units_per_track": 6,
     "unit_labels": {
       "1": "Foundations",
@@ -14,114 +23,30 @@
       "6": "Projects & Capstone"
     }
   },
-
   "story": [
     {
       "id": "beat_git_u1_welcome",
       "track": "git",
       "week": 1,
       "title": "Welcome to Pixel Forge: Git Basics",
-      "narrative": "Before you write a single line of game code, you need to understand how we save our work. At Pixel Forge, we don't use 'save as v2'. We use Git. It's our time machine. It lets us experiment, fail, and roll back to when things actually worked. Your first task is to set up your local workspace.",
+      "narrative": "Before you write a single line of game code, you need to understand how we save our work. At Pixel Forge, we don't use 'save as v2'. We use Git. It's our time machine.",
       "xpReward": 50,
-      "npc": { "name": "Sarah", "title": "Lead Dev", "avatar": "👩‍💻" },
-      "concept_visual": {
-        "title": "The Three Trees of Git",
-        "diagramId": "git_workflow",
-        "explanation": "1. Working Directory: Where you edit files. 2. Staging Area: The prep zone for your next commit. 3. Repository: The permanent history of your project."
+      "npc": {
+        "name": "Sarah",
+        "title": "Lead Dev",
+        "avatar": "👩‍💻"
       },
       "quiz": [
         {
-          "id": "beat_git_u1_q1",
+          "id": "b_g_q1",
           "type": "multiple_choice",
-          "question": "Which command initializes a new Git repository?",
-          "options": ["git start", "git init", "git new", "git create"],
-          "correct_answer": 1,
-          "explanation": "git init creates the hidden .git directory that tracks your repository history."
-        },
-        {
-          "id": "beat_git_u1_q2",
-          "type": "multiple_choice",
-          "question": "What is the purpose of the staging area in Git?",
+          "question": "Command to init repo?",
           "options": [
-            "It's a cloud backup of your files.",
-            "It holds files that are ready to be grouped into the next commit.",
-            "It deletes files permanently.",
-            "It's where you write your code."
+            "git start",
+            "git init",
+            "git new"
           ],
-          "correct_answer": 1,
-          "explanation": "The staging area (or index) lets you selectively choose which changes will be part of your next commit."
-        }
-      ]
-    },
-    {
-      "id": "beat_git_u2_branching",
-      "track": "git",
-      "week": 2,
-      "title": "Parallel Dimensions: Branching",
-      "narrative": "Sarah stops by your desk. 'We're starting work on the new inventory system, but I don't want you breaking the main game engine while you experiment. Use a branch.' Branches are like parallel universes for your code.",
-      "xpReward": 50,
-      "npc": { "name": "Sarah", "title": "Lead Dev", "avatar": "👩‍💻" },
-      "concept_visual": {
-        "title": "Branching & Merging",
-        "diagramId": "git_branching",
-        "explanation": "A branch is a pointer to a commit. Merging brings changes from one branch (e.g., 'feature') back into another (e.g., 'main')."
-      },
-      "quiz": [
-        {
-          "id": "beat_git_u2_q1",
-          "type": "multiple_choice",
-          "question": "Which command creates a new branch called 'feature-physics' and switches to it immediately?",
-          "options": ["git branch feature-physics", "git checkout feature-physics", "git checkout -b feature-physics", "git new-branch feature-physics"],
-          "correct_answer": 2,
-          "explanation": "The -b flag with git checkout creates the branch AND switches your HEAD to it in one step."
-        }
-      ]
-    },
-    {
-      "id": "beat_git_u3_remotes",
-      "track": "git",
-      "week": 3,
-      "title": "The Cloud: Remotes & GitHub",
-      "narrative": "'Great work on that branch,' Sarah says. 'Now, you need to share it with the team. We host our code on GitHub.' To do this, you need to link your local repository to a remote server.",
-      "xpReward": 50,
-      "npc": { "name": "Sarah", "title": "Lead Dev", "avatar": "👩‍💻" },
-      "concept_visual": {
-        "title": "Local vs Remote",
-        "diagramId": "git_remote",
-        "explanation": "Your local repo is on your machine. The remote (origin) is on GitHub. 'Push' sends your commits up; 'Pull' brings the team's commits down."
-      },
-      "quiz": [
-        {
-          "id": "beat_git_u3_q1",
-          "type": "multiple_choice",
-          "question": "Which command sends your local commits to the server?",
-          "options": ["git upload", "git send", "git push", "git commit --remote"],
-          "correct_answer": 2,
-          "explanation": "git push transmits your local branch commits to the associated remote branch."
-        }
-      ]
-    },
-    {
-      "id": "beat_git_u4_actions",
-      "track": "git",
-      "week": 4,
-      "title": "Auto-Pilot: GitHub Actions",
-      "narrative": "Pixel Forge Studio is scaling up. We now use GitHub Actions to automatically test our code every time someone pushes. 'It's like a robot that checks your homework,' Sarah explains. You've passed the Git onboarding!",
-      "xpReward": 100,
-      "npc": { "name": "Sarah", "title": "Lead Dev", "avatar": "👩‍💻" },
-      "concept_visual": {
-        "title": "CI/CD Pipeline",
-        "diagramId": "github_actions",
-        "explanation": "Push Code -> Action Triggers -> Run Tests -> If Pass, Deploy. This ensures the 'main' branch never breaks."
-      },
-      "quiz": [
-        {
-          "id": "beat_git_u4_q1",
-          "type": "multiple_choice",
-          "question": "Where are GitHub Actions workflows stored in a repository?",
-          "options": [".git/actions/", "workflows/", ".github/workflows/", "actions.yaml"],
-          "correct_answer": 2,
-          "explanation": "Actions workflows are YAML files stored in the .github/workflows directory of your project."
+          "correct_answer": 1
         }
       ]
     },
@@ -129,826 +54,2161 @@
       "id": "beat_py_u1_welcome",
       "track": "python",
       "week": 1,
-      "title": "Day One at Pixel Forge Studio",
-      "narrative": "You've just landed your first gig as a junior developer at Pixel Forge Studio — a small indie game company. Your onboarding task is deceptively simple: write a script that prints the studio's splash screen. 'Python is our glue language,' your lead says. 'Master it and you'll touch every part of the codebase.' You open your editor. The cursor blinks.",
+      "title": "Python: Day One",
+      "narrative": "You've joined Pixel Forge Studio. Sarah, the Lead Dev, hands you your first task: a splash screen script. 'Python is our glue,' she says.",
       "xpReward": 25,
-      "concept_visual": {
-        "title": "How Python Executes Code",
-        "diagramId": "python_execution",
-        "explanation": "Python reads your source file line by line, compiles it to bytecode (.pyc), then the Python interpreter executes that bytecode. No separate compile step needed — just run python script.py."
+      "npc": {
+        "name": "Sarah",
+        "title": "Lead Dev",
+        "avatar": "👩‍💻"
       },
       "quiz": [
         {
-          "id": "beat_py_u1_q1",
+          "id": "b_py_u1_q1",
           "type": "multiple_choice",
-          "question": "Which command runs a Python script called 'main.py' from the terminal?",
-          "options": ["python main.py", "run main.py", "execute main.py", "node main.py"],
-          "correct_answer": 0,
-          "explanation": "python main.py invokes the Python interpreter on your file. 'node' is for JavaScript; 'run' and 'execute' are not standard commands."
-        },
-        {
-          "id": "beat_py_u1_q2",
-          "type": "true_false",
-          "question": "Python requires you to declare variable types before using them.",
-          "correct_answer": "false",
-          "explanation": "Python is dynamically typed — you just write x = 5 and Python infers the type at runtime. No 'int x' declarations needed."
-        },
-        {
-          "id": "beat_py_u1_q3",
-          "type": "multiple_choice",
-          "question": "What does print('Hello, World!') do in Python?",
+          "question": "Run main.py?",
           "options": [
-            "Defines a variable called Hello",
-            "Outputs the text Hello, World! to the console",
-            "Creates a file named Hello, World!",
-            "Imports a module called Hello"
+            "python main.py",
+            "node main.py"
           ],
-          "correct_answer": 1,
-          "explanation": "print() is Python's built-in output function. It writes whatever is inside the parentheses to standard output (the console)."
+          "correct_answer": 0
         }
       ]
     },
     {
-      "id": "beat_js_u1_welcome",
+      "id": "beat_py_u2_flow",
+      "track": "python",
+      "week": 2,
+      "title": "Decision Trees",
+      "narrative": "Sarah stops by. 'Our NPCs are just standing there. We need logic. If player is close, attack. If health is low, retreat.' You're learning if/else and loops.",
+      "xpReward": 50,
+      "npc": {
+        "name": "Sarah",
+        "title": "Lead Dev",
+        "avatar": "👩‍💻"
+      },
+      "quiz": [
+        {
+          "id": "b_py_u2_q1",
+          "type": "multiple_choice",
+          "question": "Keyword for branching?",
+          "options": [
+            "switch",
+            "if",
+            "when"
+          ],
+          "correct_answer": 1
+        }
+      ]
+    },
+    {
+      "id": "beat_py_u3_functions",
+      "track": "python",
+      "week": 3,
+      "title": "Reusable Logic",
+      "narrative": "'Stop repeating yourself!' Sarah laughs. 'Write a function for that damage calculation and call it wherever you need.'",
+      "xpReward": 50,
+      "npc": {
+        "name": "Sarah",
+        "title": "Lead Dev",
+        "avatar": "👩‍💻"
+      },
+      "quiz": [
+        {
+          "id": "b_py_u3_q1",
+          "type": "multiple_choice",
+          "question": "Define a function?",
+          "options": [
+            "function",
+            "def",
+            "func"
+          ],
+          "correct_answer": 1
+        }
+      ]
+    },
+    {
+      "id": "beat_py_u4_data",
+      "track": "python",
+      "week": 4,
+      "title": "The Inventory System",
+      "narrative": "Marcus needs help. 'We have too many items. We need Lists and Dictionaries to organize this loot.'",
+      "xpReward": 50,
+      "npc": {
+        "name": "Marcus",
+        "title": "Backend Senior",
+        "avatar": "👨‍🎨"
+      },
+      "quiz": [
+        {
+          "id": "b_py_u4_q1",
+          "type": "multiple_choice",
+          "question": "Symbol for a List?",
+          "options": [
+            "{}",
+            "[]",
+            "()"
+          ],
+          "correct_answer": 1
+        }
+      ]
+    },
+    {
+      "id": "beat_py_u5_oop",
+      "track": "python",
+      "week": 5,
+      "title": "Blueprint for Heroes",
+      "narrative": "'This codebase is getting huge,' Sarah says. 'Let's use Classes to organize our game entities.'",
+      "xpReward": 75,
+      "npc": {
+        "name": "Sarah",
+        "title": "Lead Dev",
+        "avatar": "👩‍💻"
+      },
+      "quiz": [
+        {
+          "id": "b_py_u5_q1",
+          "type": "multiple_choice",
+          "question": "Class constructor name?",
+          "options": [
+            "__main__",
+            "__init__",
+            "new"
+          ],
+          "correct_answer": 1
+        }
+      ]
+    },
+    {
+      "id": "beat_py_u6_capstone",
+      "track": "python",
+      "week": 6,
+      "title": "The Big Release",
+      "narrative": "It's launch day. You've mastered Python foundations. Now, prove it by shipping your final capstone project.",
+      "xpReward": 150,
+      "npc": {
+        "name": "Sarah",
+        "title": "Lead Dev",
+        "avatar": "👩‍💻"
+      },
+      "quiz": [
+        {
+          "id": "b_py_u6_q1",
+          "type": "true_false",
+          "question": "You are ready to be a Python Dev.",
+          "correct_answer": "true"
+        }
+      ]
+    },
+    {
+      "id": "b_lua_u1",
+      "track": "lua",
+      "week": 1,
+      "title": "Lua: The Embedded Engine",
+      "narrative": "Elena slides you a new tablet. 'Python is great for tools, but inside our game engine, we embed Lua. It's ridiculously fast and lightweight. Your first task: print a debug message.'",
+      "xpReward": 25,
+      "npc": {
+        "name": "Elena",
+        "title": "Game Designer",
+        "avatar": "🕹️"
+      },
+      "quiz": [
+        {
+          "id": "q_lua_u1",
+          "type": "multiple_choice",
+          "question": "Which index does a Lua table array start at?",
+          "options": [
+            "0",
+            "1",
+            "-1"
+          ],
+          "correct_answer": 1
+        }
+      ]
+    },
+    {
+      "id": "b_lua_u2",
+      "track": "lua",
+      "week": 2,
+      "title": "Scripted Events",
+      "narrative": "'We need to trigger a trap if the player steps on a specific tile,' Elena explains. 'You'll use if statements to check the player's coordinates.'",
+      "xpReward": 50,
+      "npc": {
+        "name": "Elena",
+        "title": "Game Designer",
+        "avatar": "🕹️"
+      },
+      "quiz": [
+        {
+          "id": "q_lua_u2",
+          "type": "multiple_choice",
+          "question": "Not equal operator in Lua?",
+          "options": [
+            "!=",
+            "!==",
+            "~="
+          ],
+          "correct_answer": 2
+        }
+      ]
+    },
+    {
+      "id": "b_lua_u3",
+      "track": "lua",
+      "week": 3,
+      "title": "Game Callbacks",
+      "narrative": "'Stop hardcoding events,' Elena says. 'Define functions for OnPlayerEnter and OnPlayerExit. The C++ engine will call your Lua functions when needed.'",
+      "xpReward": 50,
+      "npc": {
+        "name": "Elena",
+        "title": "Game Designer",
+        "avatar": "🕹️"
+      },
+      "quiz": [
+        {
+          "id": "q_lua_u3",
+          "type": "multiple_choice",
+          "question": "Define a function in Lua?",
+          "options": [
+            "def myFunc()",
+            "function myFunc()",
+            "func myFunc()"
+          ],
+          "correct_answer": 1
+        }
+      ]
+    },
+    {
+      "id": "b_lua_u4",
+      "track": "lua",
+      "week": 4,
+      "title": "The Almighty Table",
+      "narrative": "Elena points to the screen. 'In Lua, there are no arrays, lists, or dictionaries. There are only Tables. They do everything.'",
+      "xpReward": 50,
+      "npc": {
+        "name": "Elena",
+        "title": "Game Designer",
+        "avatar": "🕹️"
+      },
+      "quiz": [
+        {
+          "id": "q_lua_u4",
+          "type": "multiple_choice",
+          "question": "How to create an empty table?",
+          "options": [
+            "{}",
+            "[]",
+            "Table()"
+          ],
+          "correct_answer": 0
+        }
+      ]
+    },
+    {
+      "id": "b_lua_u5",
+      "track": "lua",
+      "week": 5,
+      "title": "Metatables & OOP",
+      "narrative": "'Lua doesn't have classes by default,' Elena smiles. 'But we can fake it using Metatables. It's powerful, but you have to wire the plumbing yourself.'",
+      "xpReward": 75,
+      "npc": {
+        "name": "Elena",
+        "title": "Game Designer",
+        "avatar": "🕹️"
+      },
+      "quiz": [
+        {
+          "id": "q_lua_u5",
+          "type": "multiple_choice",
+          "question": "What is self represented by in Lua methods?",
+          "options": [
+            "self",
+            "this",
+            "me"
+          ],
+          "correct_answer": 0
+        }
+      ]
+    },
+    {
+      "id": "b_lua_u6",
+      "track": "lua",
+      "week": 6,
+      "title": "Engine Scripter",
+      "narrative": "You're now an official Engine Scripter. Your Lua scripts are running in production, controlling everything from UI to Boss AI.",
+      "xpReward": 150,
+      "npc": {
+        "name": "Elena",
+        "title": "Game Designer",
+        "avatar": "🕹️"
+      },
+      "quiz": [
+        {
+          "id": "q_lua_u6",
+          "type": "true_false",
+          "question": "Lua is primarily an embedded language.",
+          "correct_answer": "true"
+        }
+      ]
+    },
+    {
+      "id": "b_js_u1",
       "track": "javascript",
       "week": 1,
       "title": "The Console Blinks Back",
-      "narrative": "Your first frontend ticket: add a live word count to the studio's internal wiki editor. 'Just JavaScript,' the senior dev says, as if that narrows it down. You open DevTools, type into the console, and something happens immediately. No compiler, no build step — the browser is your playground. This is JavaScript.",
+      "narrative": "Your first frontend ticket: add a live word count. 'Just JavaScript,' the senior dev says.",
       "xpReward": 25,
-      "concept_visual": {
-        "title": "JavaScript in the Browser",
-        "diagramId": "js_runtime",
-        "explanation": "JavaScript runs inside your browser's JS engine (V8 in Chrome, SpiderMonkey in Firefox). The engine JIT-compiles your code to machine code at runtime. No install needed — every browser already has a JS runtime."
+      "npc": {
+        "name": "Marcus",
+        "title": "Frontend Senior",
+        "avatar": "👨‍🎨"
       },
       "quiz": [
         {
-          "id": "beat_js_u1_q1",
+          "id": "q_js_u1",
           "type": "multiple_choice",
-          "question": "Which of the following correctly declares a variable in modern JavaScript?",
-          "options": ["var x = 5", "let x = 5", "const x = 5", "All of the above are valid"],
-          "correct_answer": 3,
-          "explanation": "All three work, but they have different scoping rules. 'const' can't be reassigned, 'let' is block-scoped, 'var' is function-scoped. Prefer 'const' then 'let' in modern JS."
-        },
-        {
-          "id": "beat_js_u1_q2",
-          "type": "true_false",
-          "question": "console.log() in JavaScript works the same as print() in Python — it outputs to the console.",
-          "correct_answer": "true",
-          "explanation": "Both output to standard output / the developer console. console.log() is JavaScript's equivalent of Python's print()."
+          "question": "Variable that cannot be reassigned?",
+          "options": [
+            "var",
+            "let",
+            "const"
+          ],
+          "correct_answer": 2
         }
       ]
     },
     {
-      "id": "beat_lua_u1_welcome",
-      "track": "lua",
-      "week": 1,
-      "title": "Scripting the Game World",
-      "narrative": "The game designer slides you a Roblox Studio window. 'All the game logic is in Lua,' they explain. 'NPCs, loot tables, ability systems — all scripts.' Lua is small, fast, and embedded everywhere. Learn it and you hold the keys to the game world.",
-      "xpReward": 25,
-      "concept_visual": {
-        "title": "Lua as an Embedded Language",
-        "diagramId": "lua_embedding",
-        "explanation": "Lua is a lightweight scripting language designed to be embedded inside larger applications. Games like Roblox, World of Warcraft, and LÖVE2D use Lua as their scripting layer. The host app (C/C++) provides the API; Lua scripts drive the logic."
+      "id": "b_js_u2",
+      "track": "javascript",
+      "week": 2,
+      "title": "Event Listeners",
+      "narrative": "We need the UI to react to clicks. Use event listeners and if statements to branch logic.",
+      "xpReward": 50,
+      "npc": {
+        "name": "Marcus",
+        "title": "Frontend Senior",
+        "avatar": "👨‍🎨"
       },
       "quiz": [
         {
-          "id": "beat_lua_u1_q1",
+          "id": "q_js_u2",
           "type": "multiple_choice",
-          "question": "What does print('Hello') do in Lua?",
+          "question": "Strict equality?",
           "options": [
-            "Outputs Hello to the console",
-            "Creates a variable called Hello",
-            "Imports the Hello module",
-            "Declares a function called Hello"
+            "==",
+            "===",
+            "="
           ],
-          "correct_answer": 0,
-          "explanation": "print() is a global function in Lua that writes its argument to stdout. Identical behaviour to Python's print() and JavaScript's console.log()."
-        },
+          "correct_answer": 1
+        }
+      ]
+    },
+    {
+      "id": "b_js_u3",
+      "track": "javascript",
+      "week": 3,
+      "title": "Arrow Functions",
+      "narrative": "Modern JS uses arrow functions. Let's refactor these clunky callbacks.",
+      "xpReward": 50,
+      "npc": {
+        "name": "Marcus",
+        "title": "Frontend Senior",
+        "avatar": "👨‍🎨"
+      },
+      "quiz": [
         {
-          "id": "beat_lua_u1_q2",
+          "id": "q_js_u3",
+          "type": "multiple_choice",
+          "question": "Arrow function syntax?",
+          "options": [
+            "() => {}",
+            "function() {}",
+            "() -> {}"
+          ],
+          "correct_answer": 0
+        }
+      ]
+    },
+    {
+      "id": "b_js_u4",
+      "track": "javascript",
+      "week": 4,
+      "title": "Arrays & Objects",
+      "narrative": "JSON is everywhere. You need to master Object manipulation and Array mapping.",
+      "xpReward": 50,
+      "npc": {
+        "name": "Marcus",
+        "title": "Frontend Senior",
+        "avatar": "👨‍🎨"
+      },
+      "quiz": [
+        {
+          "id": "q_js_u4",
+          "type": "multiple_choice",
+          "question": "Method to transform an array?",
+          "options": [
+            ".map()",
+            ".forEach()",
+            ".transform()"
+          ],
+          "correct_answer": 0
+        }
+      ]
+    },
+    {
+      "id": "b_js_u5",
+      "track": "javascript",
+      "week": 5,
+      "title": "Classes & Prototypes",
+      "narrative": "Time to build reusable UI components using ES6 Classes.",
+      "xpReward": 75,
+      "npc": {
+        "name": "Marcus",
+        "title": "Frontend Senior",
+        "avatar": "👨‍🎨"
+      },
+      "quiz": [
+        {
+          "id": "q_js_u5",
+          "type": "multiple_choice",
+          "question": "Keyword to inherit a class?",
+          "options": [
+            "extends",
+            "inherits",
+            "implements"
+          ],
+          "correct_answer": 0
+        }
+      ]
+    },
+    {
+      "id": "b_js_u6",
+      "track": "javascript",
+      "week": 6,
+      "title": "Frontend Architect",
+      "narrative": "You are now managing complex state in the browser.",
+      "xpReward": 150,
+      "npc": {
+        "name": "Marcus",
+        "title": "Frontend Senior",
+        "avatar": "👨‍🎨"
+      },
+      "quiz": [
+        {
+          "id": "q_js_u6",
           "type": "true_false",
-          "question": "In Lua, arrays are 1-indexed (the first element is at index 1, not 0).",
-          "correct_answer": "true",
-          "explanation": "Unlike most languages, Lua tables used as arrays start at index 1 by convention. t[1] is the first element. This trips up developers coming from Python, JS, or C++."
+          "question": "JS is single-threaded.",
+          "correct_answer": "true"
+        }
+      ]
+    },
+    {
+      "id": "b_go_u1",
+      "track": "go",
+      "week": 1,
+      "title": "Go: Scaling the Backend",
+      "narrative": "'Our matchmaking server needs to handle 50,000 players,' Marcus explains. 'We use Go for that.'",
+      "xpReward": 25,
+      "npc": {
+        "name": "Marcus",
+        "title": "Backend Senior",
+        "avatar": "👨‍🎨"
+      },
+      "quiz": [
+        {
+          "id": "q_go_u1",
+          "type": "multiple_choice",
+          "question": "Short variable declaration?",
+          "options": [
+            ":=",
+            "==",
+            "="
+          ],
+          "correct_answer": 0
+        }
+      ]
+    },
+    {
+      "id": "b_go_u2",
+      "track": "go",
+      "week": 2,
+      "title": "For Only",
+      "narrative": "Go has no 'while' loop. It only uses 'for'. It's simple and consistent.",
+      "xpReward": 50,
+      "npc": {
+        "name": "Marcus",
+        "title": "Backend Senior",
+        "avatar": "👨‍🎨"
+      },
+      "quiz": [
+        {
+          "id": "q_go_u2",
+          "type": "true_false",
+          "question": "Go only has 'for' loops.",
+          "correct_answer": "true"
+        }
+      ]
+    },
+    {
+      "id": "b_go_u3",
+      "track": "go",
+      "week": 3,
+      "title": "Multiple Returns",
+      "narrative": "Go functions can return multiple values, commonly used for (result, error) patterns.",
+      "xpReward": 50,
+      "npc": {
+        "name": "Marcus",
+        "title": "Backend Senior",
+        "avatar": "👨‍🎨"
+      },
+      "quiz": [
+        {
+          "id": "q_go_u3",
+          "type": "multiple_choice",
+          "question": "Can Go return multiple values?",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "correct_answer": 0
+        }
+      ]
+    },
+    {
+      "id": "b_go_u4",
+      "track": "go",
+      "week": 4,
+      "title": "Slices & Maps",
+      "narrative": "Arrays are rigid. Slices are flexible. We use them for everything.",
+      "xpReward": 50,
+      "npc": {
+        "name": "Marcus",
+        "title": "Backend Senior",
+        "avatar": "👨‍🎨"
+      },
+      "quiz": [
+        {
+          "id": "q_go_u4",
+          "type": "multiple_choice",
+          "question": "A dynamic array in Go?",
+          "options": [
+            "Slice",
+            "Vector",
+            "List"
+          ],
+          "correct_answer": 0
+        }
+      ]
+    },
+    {
+      "id": "b_go_u5",
+      "track": "go",
+      "week": 5,
+      "title": "Structs & Interfaces",
+      "narrative": "Go isn't strictly OOP. We use Structs for data and Interfaces for behavior.",
+      "xpReward": 75,
+      "npc": {
+        "name": "Marcus",
+        "title": "Backend Senior",
+        "avatar": "👨‍🎨"
+      },
+      "quiz": [
+        {
+          "id": "q_go_u5",
+          "type": "multiple_choice",
+          "question": "Keyword for defining structure?",
+          "options": [
+            "class",
+            "struct",
+            "object"
+          ],
+          "correct_answer": 1
+        }
+      ]
+    },
+    {
+      "id": "b_go_u6",
+      "track": "go",
+      "week": 6,
+      "title": "Concurrency Master",
+      "narrative": "Goroutines and Channels are why we use Go. You've tamed the Hydra.",
+      "xpReward": 150,
+      "npc": {
+        "name": "Marcus",
+        "title": "Backend Senior",
+        "avatar": "👨‍🎨"
+      },
+      "quiz": [
+        {
+          "id": "q_go_u6",
+          "type": "true_false",
+          "question": "Goroutines are lightweight threads.",
+          "correct_answer": "true"
+        }
+      ]
+    },
+    {
+      "id": "b_cs_u1",
+      "track": "csharp",
+      "week": 1,
+      "title": "C# and the Unity Engine",
+      "narrative": "Sarah leads you to the Unity team. 'C# is our primary engine language.'",
+      "xpReward": 25,
+      "npc": {
+        "name": "Liam",
+        "title": "Unity Specialist",
+        "avatar": "🧱"
+      },
+      "quiz": [
+        {
+          "id": "q_cs_u1",
+          "type": "multiple_choice",
+          "question": "Output text?",
+          "options": [
+            "Console.WriteLine",
+            "print"
+          ],
+          "correct_answer": 0
+        }
+      ]
+    },
+    {
+      "id": "b_cs_u2",
+      "track": "csharp",
+      "week": 2,
+      "title": "Types & Flow",
+      "narrative": "C# is strictly typed. You must explicitly declare variable types and logic bounds.",
+      "xpReward": 50,
+      "npc": {
+        "name": "Liam",
+        "title": "Unity Specialist",
+        "avatar": "🧱"
+      },
+      "quiz": [
+        {
+          "id": "q_cs_u2",
+          "type": "multiple_choice",
+          "question": "Exit loop early?",
+          "options": [
+            "exit",
+            "break",
+            "stop"
+          ],
+          "correct_answer": 1
+        }
+      ]
+    },
+    {
+      "id": "b_cs_u3",
+      "track": "csharp",
+      "week": 3,
+      "title": "Methods",
+      "narrative": "In C#, functions are called Methods and usually live inside a Class.",
+      "xpReward": 50,
+      "npc": {
+        "name": "Liam",
+        "title": "Unity Specialist",
+        "avatar": "🧱"
+      },
+      "quiz": [
+        {
+          "id": "q_cs_u3",
+          "type": "multiple_choice",
+          "question": "Method returning nothing?",
+          "options": [
+            "void",
+            "null",
+            "empty"
+          ],
+          "correct_answer": 0
+        }
+      ]
+    },
+    {
+      "id": "b_cs_u4",
+      "track": "csharp",
+      "week": 4,
+      "title": "Lists & LINQ",
+      "narrative": "We use generic Lists and LINQ to filter thousands of entities quickly.",
+      "xpReward": 50,
+      "npc": {
+        "name": "Liam",
+        "title": "Unity Specialist",
+        "avatar": "🧱"
+      },
+      "quiz": [
+        {
+          "id": "q_cs_u4",
+          "type": "multiple_choice",
+          "question": "Array size property?",
+          "options": [
+            "Length",
+            "Size",
+            "Count"
+          ],
+          "correct_answer": 0
+        }
+      ]
+    },
+    {
+      "id": "b_cs_u5",
+      "track": "csharp",
+      "week": 5,
+      "title": "OOP Master",
+      "narrative": "Interfaces, Inheritance, and Polymorphism are the pillars of Unity dev.",
+      "xpReward": 75,
+      "npc": {
+        "name": "Liam",
+        "title": "Unity Specialist",
+        "avatar": "🧱"
+      },
+      "quiz": [
+        {
+          "id": "q_cs_u5",
+          "type": "multiple_choice",
+          "question": "Keyword to inherit?",
+          "options": [
+            ":",
+            "extends",
+            "inherits"
+          ],
+          "correct_answer": 0
+        }
+      ]
+    },
+    {
+      "id": "b_cs_u6",
+      "track": "csharp",
+      "week": 6,
+      "title": "Engine Architect",
+      "narrative": "Your C# systems now power the core combat loops.",
+      "xpReward": 150,
+      "npc": {
+        "name": "Liam",
+        "title": "Unity Specialist",
+        "avatar": "🧱"
+      },
+      "quiz": [
+        {
+          "id": "q_cs_u6",
+          "type": "true_false",
+          "question": "C# runs on the .NET CLR.",
+          "correct_answer": "true"
+        }
+      ]
+    },
+    {
+      "id": "b_cpp_u1",
+      "track": "cpp",
+      "week": 1,
+      "title": "C++: The Performance King",
+      "narrative": "'If you want to move 10,000 entities at 120 FPS, you need C++,' the lead physicist says.",
+      "xpReward": 25,
+      "npc": {
+        "name": "Viktor",
+        "title": "Systems Architect",
+        "avatar": "⚙️"
+      },
+      "quiz": [
+        {
+          "id": "q_cpp_u1",
+          "type": "multiple_choice",
+          "question": "I/O Header?",
+          "options": [
+            "<stdio.h>",
+            "<iostream>"
+          ],
+          "correct_answer": 1
+        }
+      ]
+    },
+    {
+      "id": "b_cpp_u2",
+      "track": "cpp",
+      "week": 2,
+      "title": "Tight Loops",
+      "narrative": "We don't waste cycles. Optimize your loops and conditionals.",
+      "xpReward": 50,
+      "npc": {
+        "name": "Viktor",
+        "title": "Systems Architect",
+        "avatar": "⚙️"
+      },
+      "quiz": [
+        {
+          "id": "q_cpp_u2",
+          "type": "multiple_choice",
+          "question": "Multiple specific constant checks?",
+          "options": [
+            "if/else",
+            "switch"
+          ],
+          "correct_answer": 1
+        }
+      ]
+    },
+    {
+      "id": "b_cpp_u3",
+      "track": "cpp",
+      "week": 3,
+      "title": "Pointers & References",
+      "narrative": "Welcome to memory management. You must master passing by reference vs value.",
+      "xpReward": 50,
+      "npc": {
+        "name": "Viktor",
+        "title": "Systems Architect",
+        "avatar": "⚙️"
+      },
+      "quiz": [
+        {
+          "id": "q_cpp_u3",
+          "type": "multiple_choice",
+          "question": "Address-of operator?",
+          "options": [
+            "&",
+            "*",
+            "->"
+          ],
+          "correct_answer": 0
+        }
+      ]
+    },
+    {
+      "id": "b_cpp_u4",
+      "track": "cpp",
+      "week": 4,
+      "title": "The STL",
+      "narrative": "The Standard Template Library gives you std::vector and std::map.",
+      "xpReward": 50,
+      "npc": {
+        "name": "Viktor",
+        "title": "Systems Architect",
+        "avatar": "⚙️"
+      },
+      "quiz": [
+        {
+          "id": "q_cpp_u4",
+          "type": "multiple_choice",
+          "question": "Dynamic array in STL?",
+          "options": [
+            "std::list",
+            "std::vector"
+          ],
+          "correct_answer": 1
+        }
+      ]
+    },
+    {
+      "id": "b_cpp_u5",
+      "track": "cpp",
+      "week": 5,
+      "title": "RAII & Smart Pointers",
+      "narrative": "No more memory leaks. Use std::unique_ptr to manage object lifetimes.",
+      "xpReward": 75,
+      "npc": {
+        "name": "Viktor",
+        "title": "Systems Architect",
+        "avatar": "⚙️"
+      },
+      "quiz": [
+        {
+          "id": "q_cpp_u5",
+          "type": "multiple_choice",
+          "question": "Which pointer automatically deletes its object?",
+          "options": [
+            "raw pointer",
+            "std::unique_ptr"
+          ],
+          "correct_answer": 1
+        }
+      ]
+    },
+    {
+      "id": "b_cpp_u6",
+      "track": "cpp",
+      "week": 6,
+      "title": "Metal Worker",
+      "narrative": "You are writing the core engine code that makes our games blazing fast.",
+      "xpReward": 150,
+      "npc": {
+        "name": "Viktor",
+        "title": "Systems Architect",
+        "avatar": "⚙️"
+      },
+      "quiz": [
+        {
+          "id": "q_cpp_u6",
+          "type": "true_false",
+          "question": "C++ compiles to machine code.",
+          "correct_answer": "true"
+        }
+      ]
+    },
+    {
+      "id": "b_rs_u1",
+      "track": "rust",
+      "week": 1,
+      "title": "Rust: Memory Safety",
+      "narrative": "'We're rewriting our netcode in Rust,' Sarah says. 'It's strict, but safe.'",
+      "xpReward": 25,
+      "npc": {
+        "name": "Sarah",
+        "title": "Lead Dev",
+        "avatar": "👩‍💻"
+      },
+      "quiz": [
+        {
+          "id": "q_rs_u1",
+          "type": "multiple_choice",
+          "question": "Variables default to?",
+          "options": [
+            "Mutable",
+            "Immutable"
+          ],
+          "correct_answer": 1
+        }
+      ]
+    },
+    {
+      "id": "b_rs_u2",
+      "track": "rust",
+      "week": 2,
+      "title": "Pattern Matching",
+      "narrative": "The 'match' keyword is incredibly powerful. Use it to exhaustively handle control flow.",
+      "xpReward": 50,
+      "npc": {
+        "name": "Sarah",
+        "title": "Lead Dev",
+        "avatar": "👩‍💻"
+      },
+      "quiz": [
+        {
+          "id": "q_rs_u2",
+          "type": "multiple_choice",
+          "question": "Keyword for matching?",
+          "options": [
+            "switch",
+            "match"
+          ],
+          "correct_answer": 1
+        }
+      ]
+    },
+    {
+      "id": "b_rs_u3",
+      "track": "rust",
+      "week": 3,
+      "title": "Ownership & Borrowing",
+      "narrative": "Welcome to the Borrow Checker. It will frustrate you, then save you from memory leaks.",
+      "xpReward": 50,
+      "npc": {
+        "name": "Sarah",
+        "title": "Lead Dev",
+        "avatar": "👩‍💻"
+      },
+      "quiz": [
+        {
+          "id": "q_rs_u3",
+          "type": "multiple_choice",
+          "question": "Borrowing symbol?",
+          "options": [
+            "&",
+            "*"
+          ],
+          "correct_answer": 0
+        }
+      ]
+    },
+    {
+      "id": "b_rs_u4",
+      "track": "rust",
+      "week": 4,
+      "title": "Vectors & HashMaps",
+      "narrative": "Using dynamic collections safely requires understanding Lifetimes.",
+      "xpReward": 50,
+      "npc": {
+        "name": "Sarah",
+        "title": "Lead Dev",
+        "avatar": "👩‍💻"
+      },
+      "quiz": [
+        {
+          "id": "q_rs_u4",
+          "type": "multiple_choice",
+          "question": "Dynamic array?",
+          "options": [
+            "Vec",
+            "List"
+          ],
+          "correct_answer": 0
+        }
+      ]
+    },
+    {
+      "id": "b_rs_u5",
+      "track": "rust",
+      "week": 5,
+      "title": "Traits & Structs",
+      "narrative": "Rust doesn't have classes. We define data in Structs and behavior via Traits.",
+      "xpReward": 75,
+      "npc": {
+        "name": "Sarah",
+        "title": "Lead Dev",
+        "avatar": "👩‍💻"
+      },
+      "quiz": [
+        {
+          "id": "q_rs_u5",
+          "type": "multiple_choice",
+          "question": "Define behavior interface?",
+          "options": [
+            "Trait",
+            "Interface"
+          ],
+          "correct_answer": 0
+        }
+      ]
+    },
+    {
+      "id": "b_rs_u6",
+      "track": "rust",
+      "week": 6,
+      "title": "Fearless Concurrency",
+      "narrative": "You've proven you can write safe, concurrent Rust code. The compiler loves you.",
+      "xpReward": 150,
+      "npc": {
+        "name": "Sarah",
+        "title": "Lead Dev",
+        "avatar": "👩‍💻"
+      },
+      "quiz": [
+        {
+          "id": "q_rs_u6",
+          "type": "true_false",
+          "question": "Rust prevents data races at compile time.",
+          "correct_answer": "true"
         }
       ]
     }
   ],
-
   "questions": [
     {
-      "id": "py_u1_001",
+      "id": "py_q1",
       "track": "python",
       "domain": "Foundations",
       "week": 1,
       "difficulty": "easy",
       "type": "multiple_choice",
-      "question": "What is the correct way to output text in Python?",
-      "options": ["echo('Hello')", "console.log('Hello')", "print('Hello')", "System.out.println('Hello')"],
-      "correct_answer": 2,
-      "explanation": "print() is Python's built-in output function. echo is shell/PHP, console.log is JavaScript, System.out.println is Java.",
-      "tags": ["output", "print", "basics"]
-    },
-    {
-      "id": "py_u1_002",
-      "track": "python",
-      "domain": "Foundations",
-      "week": 1,
-      "difficulty": "easy",
-      "type": "multiple_choice",
-      "question": "Which of these is a valid Python variable assignment?",
-      "options": ["int x = 5", "x = 5", "var x = 5", "let x = 5"],
-      "correct_answer": 1,
-      "explanation": "Python uses dynamic typing — just write x = 5. No type keyword needed. int/var/let are from Java, JavaScript.",
-      "tags": ["variables", "assignment", "basics"]
-    },
-    {
-      "id": "py_u1_003",
-      "track": "python",
-      "domain": "Foundations",
-      "week": 1,
-      "difficulty": "easy",
-      "type": "true_false",
-      "question": "In Python, you can use both single quotes ('hello') and double quotes (\"hello\") to define strings.",
-      "correct_answer": "true",
-      "explanation": "Python accepts both. Single and double quotes are interchangeable for string literals. Triple quotes (''' or \"\"\") are used for multi-line strings.",
-      "tags": ["strings", "syntax"]
-    },
-    {
-      "id": "py_u1_004",
-      "track": "python",
-      "domain": "Foundations",
-      "week": 1,
-      "difficulty": "easy",
-      "type": "multiple_choice",
-      "question": "What does type(42) return in Python?",
-      "options": ["'number'", "<class 'int'>", "<class 'float'>", "'integer'"],
-      "correct_answer": 1,
-      "explanation": "type() returns the class of an object. 42 is an integer literal, so type(42) returns <class 'int'>.",
-      "tags": ["types", "int", "type()"]
-    },
-    {
-      "id": "py_u1_005",
-      "track": "python",
-      "domain": "Foundations",
-      "week": 1,
-      "difficulty": "easy",
-      "type": "multiple_choice",
-      "question": "Which symbol is used for comments in Python?",
-      "options": ["//", "/* */", "#", "--"],
-      "correct_answer": 2,
-      "explanation": "# starts a single-line comment in Python. // is JavaScript/C++, /* */ is multi-line in C-like languages, -- is SQL/Lua.",
-      "tags": ["comments", "syntax"]
-    },
-    {
-      "id": "py_u1_006",
-      "track": "python",
-      "domain": "Foundations",
-      "week": 1,
-      "difficulty": "easy",
-      "type": "multiple_choice",
-      "question": "What is the result of 10 / 3 in Python 3?",
-      "options": ["3", "3.3333...", "3.0", "Error"],
-      "correct_answer": 1,
-      "explanation": "In Python 3, / is true division and always returns a float. 10 / 3 = 3.3333... Use // for integer (floor) division: 10 // 3 = 3.",
-      "tags": ["operators", "division", "python3"]
-    },
-    {
-      "id": "py_u1_007",
-      "track": "python",
-      "domain": "Foundations",
-      "week": 1,
-      "difficulty": "easy",
-      "type": "multiple_choice",
-      "question": "What does the ** operator do in Python?",
-      "options": ["Multiply by 2", "Integer division", "Exponentiation (power)", "Bitwise AND"],
-      "correct_answer": 2,
-      "explanation": "** is Python's exponentiation operator. 2 ** 8 = 256. Use math.pow() for the same result as a float.",
-      "tags": ["operators", "exponentiation"]
-    },
-    {
-      "id": "py_u1_008",
-      "track": "python",
-      "domain": "Foundations",
-      "week": 1,
-      "difficulty": "medium",
-      "type": "multiple_choice",
-      "question": "What is f-string syntax used for in Python?",
+      "question": "Output text?",
       "options": [
-        "Defining file paths",
-        "Embedding expressions inside string literals",
-        "Converting strings to floats",
-        "Formatting dates only"
+        "echo",
+        "print",
+        "log"
       ],
-      "correct_answer": 1,
-      "explanation": "f-strings (introduced in Python 3.6) allow you to embed expressions: f'Hello, {name}!' substitutes the variable 'name' at runtime.",
-      "tags": ["strings", "f-strings", "formatting"]
+      "correct_answer": 1
     },
     {
-      "id": "py_u1_009",
+      "id": "py_q2",
       "track": "python",
-      "domain": "Foundations",
-      "week": 1,
-      "difficulty": "medium",
+      "domain": "Control Flow",
+      "week": 2,
+      "difficulty": "easy",
       "type": "multiple_choice",
-      "question": "What does int('42') do?",
+      "question": "Loop over range 0-4?",
       "options": [
-        "Returns the string '42'",
-        "Converts the string '42' to the integer 42",
-        "Raises a TypeError",
-        "Returns 4.2"
+        "range(4)",
+        "range(5)",
+        "range(0,4)"
       ],
-      "correct_answer": 1,
-      "explanation": "int() converts compatible strings and floats to integers. int('42') → 42. int('abc') would raise a ValueError.",
-      "tags": ["type conversion", "int()", "casting"]
+      "correct_answer": 1
     },
     {
-      "id": "py_u1_010",
+      "id": "py_q3",
       "track": "python",
-      "domain": "Foundations",
-      "week": 1,
+      "domain": "Functions",
+      "week": 3,
       "difficulty": "medium",
-      "type": "drag_drop",
-      "question": "Order these Python data types from most general to most specific for whole numbers:",
-      "items": ["complex", "int", "bool", "float"],
-      "correct_order": [0, 3, 1, 2],
-      "explanation": "bool is a subclass of int (True==1, False==0). int is a subclass of float conceptually. complex is the most general numeric type.",
-      "tags": ["types", "numeric", "hierarchy"]
-    },
-
-    {
-      "id": "js_u1_001",
-      "track": "javascript",
-      "domain": "Foundations",
-      "week": 1,
-      "difficulty": "easy",
       "type": "multiple_choice",
-      "question": "Which keyword declares a block-scoped variable that can be reassigned in JavaScript?",
-      "options": ["var", "let", "const", "static"],
-      "correct_answer": 1,
-      "explanation": "let declares a block-scoped variable that can be reassigned. const is block-scoped but immutable. var is function-scoped (legacy). static is for class members.",
-      "tags": ["variables", "let", "scope"]
-    },
-    {
-      "id": "js_u1_002",
-      "track": "javascript",
-      "domain": "Foundations",
-      "week": 1,
-      "difficulty": "easy",
-      "type": "true_false",
-      "question": "In JavaScript, typeof null returns 'null'.",
-      "correct_answer": "false",
-      "explanation": "This is a famous JavaScript quirk: typeof null returns 'object'. This is a bug in the original language spec that was never fixed for backwards compatibility.",
-      "tags": ["typeof", "null", "gotchas"]
-    },
-    {
-      "id": "js_u1_003",
-      "track": "javascript",
-      "domain": "Foundations",
-      "week": 1,
-      "difficulty": "easy",
-      "type": "multiple_choice",
-      "question": "What does === check in JavaScript (vs ==)?",
+      "question": "Return value?",
       "options": [
-        "Only value equality",
-        "Only type equality",
-        "Both value and type equality (strict)",
-        "Reference equality only"
+        "exit",
+        "return",
+        "send"
       ],
-      "correct_answer": 2,
-      "explanation": "=== is strict equality: checks both type and value. == is loose equality and performs type coercion (e.g. '5' == 5 is true but '5' === 5 is false). Always prefer ===.",
-      "tags": ["equality", "strict", "type coercion"]
+      "correct_answer": 1
     },
     {
-      "id": "js_u1_004",
-      "track": "javascript",
-      "domain": "Foundations",
-      "week": 1,
-      "difficulty": "medium",
+      "id": "py_q4",
+      "track": "python",
+      "domain": "Data Structures",
+      "week": 4,
+      "difficulty": "easy",
       "type": "multiple_choice",
-      "question": "What is the output of: console.log(typeof [])?",
-      "options": ["'array'", "'object'", "'list'", "'undefined'"],
-      "correct_answer": 1,
-      "explanation": "Arrays in JavaScript are objects. typeof [] returns 'object'. To check for arrays, use Array.isArray([]) which returns true.",
-      "tags": ["typeof", "arrays", "objects"]
-    },
-    {
-      "id": "js_u1_005",
-      "track": "javascript",
-      "domain": "Foundations",
-      "week": 1,
-      "difficulty": "medium",
-      "type": "multiple_choice",
-      "question": "What is a template literal in JavaScript?",
+      "question": "Add to list?",
       "options": [
-        "A string defined with single quotes",
-        "A reusable HTML component",
-        "A string defined with backticks that supports embedded expressions",
-        "A constant string that cannot change"
+        "push",
+        "append",
+        "add"
       ],
-      "correct_answer": 2,
-      "explanation": "Template literals use backticks (`) and allow ${expression} interpolation: `Hello, ${name}!`. They also support multi-line strings natively.",
-      "tags": ["template literals", "strings", "interpolation"]
+      "correct_answer": 1
     },
-
     {
-      "id": "lua_u1_001",
+      "id": "py_q5",
+      "track": "python",
+      "domain": "OOP",
+      "week": 5,
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "question": "What is 'self'?",
+      "options": [
+        "The class",
+        "The instance",
+        "The parent"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "id": "lua_q1",
       "track": "lua",
       "domain": "Foundations",
       "week": 1,
       "difficulty": "easy",
       "type": "multiple_choice",
-      "question": "How do you declare a local variable in Lua?",
-      "options": ["var x = 5", "let x = 5", "local x = 5", "x := 5"],
-      "correct_answer": 2,
-      "explanation": "The 'local' keyword declares a local variable in Lua. Without it, variables are global by default. Always prefer 'local' to avoid polluting the global namespace.",
-      "tags": ["variables", "local", "scope"]
-    },
-    {
-      "id": "lua_u1_002",
-      "track": "lua",
-      "domain": "Foundations",
-      "week": 1,
-      "difficulty": "easy",
-      "type": "true_false",
-      "question": "In Lua, the string concatenation operator is .. (two dots).",
-      "correct_answer": "true",
-      "explanation": "Lua uses .. for string concatenation: 'Hello' .. ' World' produces 'Hello World'. This is different from + (Python/JS) or & (Visual Basic).",
-      "tags": ["strings", "concatenation", "operators"]
-    },
-    {
-      "id": "lua_u1_003",
-      "track": "lua",
-      "domain": "Foundations",
-      "week": 1,
-      "difficulty": "easy",
-      "type": "multiple_choice",
-      "question": "What symbol is used for single-line comments in Lua?",
-      "options": ["//", "#", "--", "/*"],
-      "correct_answer": 2,
-      "explanation": "Lua uses -- for single-line comments. Multi-line comments use --[[ ... ]]. This is the same as SQL comments.",
-      "tags": ["comments", "syntax"]
-    },
-    {
-      "id": "lua_u1_004",
-      "track": "lua",
-      "domain": "Foundations",
-      "week": 1,
-      "difficulty": "medium",
-      "type": "multiple_choice",
-      "question": "What is the Lua equivalent of Python's None or JavaScript's null?",
-      "options": ["null", "nil", "undefined", "void"],
-      "correct_answer": 1,
-      "explanation": "nil is Lua's only null-like value. A variable that has not been assigned has the value nil. Setting a variable to nil effectively deletes it from scope.",
-      "tags": ["nil", "null", "types"]
-    },
-
-    {
-      "id": "cpp_u1_001",
-      "track": "cpp",
-      "domain": "Foundations",
-      "week": 1,
-      "difficulty": "easy",
-      "type": "multiple_choice",
-      "question": "What is the correct way to output text in C++?",
-      "options": ["print('Hello')", "echo 'Hello'", "cout << 'Hello';", "std::cout << \"Hello\";"],
-      "correct_answer": 3,
-      "explanation": "std::cout (from <iostream>) is used for output in C++. Single quotes denote chars; double quotes denote string literals. The << operator inserts data into the stream.",
-      "tags": ["output", "cout", "iostream"]
-    },
-    {
-      "id": "cpp_u1_002",
-      "track": "cpp",
-      "domain": "Foundations",
-      "week": 1,
-      "difficulty": "easy",
-      "type": "true_false",
-      "question": "In C++, you must declare the type of a variable before using it.",
-      "correct_answer": "true",
-      "explanation": "C++ is statically typed. You must write 'int x = 5;' not just 'x = 5'. The 'auto' keyword (C++11) can infer the type, but a type must still be determinable at compile time.",
-      "tags": ["variables", "types", "static typing"]
-    },
-    {
-      "id": "cpp_u1_003",
-      "track": "cpp",
-      "domain": "Foundations",
-      "week": 1,
-      "difficulty": "medium",
-      "type": "multiple_choice",
-      "question": "What is the difference between int and int* in C++?",
+      "question": "Local variable?",
       "options": [
-        "int* is a larger integer type",
-        "int* is a pointer — it stores the memory address of an int",
-        "int* means integer multiply",
-        "int* is unsigned integer"
+        "var x=1",
+        "local x=1",
+        "let x=1"
       ],
-      "correct_answer": 1,
-      "explanation": "int stores an integer value. int* is a pointer — it stores the memory address where an integer lives. Dereferencing with * gives the value at that address.",
-      "tags": ["pointers", "memory", "types"]
+      "correct_answer": 1
     },
-
     {
-      "id": "csharp_u1_001",
-      "track": "csharp",
-      "domain": "Foundations",
-      "week": 1,
+      "id": "lua_q2",
+      "track": "lua",
+      "domain": "Control Flow",
+      "week": 2,
       "difficulty": "easy",
       "type": "multiple_choice",
-      "question": "What is the correct way to output text in C#?",
-      "options": ["print('Hello')", "cout << 'Hello'", "Console.WriteLine(\"Hello\");", "System.out.println('Hello')"],
-      "correct_answer": 2,
-      "explanation": "Console.WriteLine() is C#'s standard output method. System.out.println is Java. cout is C++. print() is Python.",
-      "tags": ["output", "Console", "basics"]
-    },
-    {
-      "id": "csharp_u1_002",
-      "track": "csharp",
-      "domain": "Foundations",
-      "week": 1,
-      "difficulty": "easy",
-      "type": "true_false",
-      "question": "In C#, string interpolation uses a $ prefix before the string: $\"Hello, {name}!\"",
-      "correct_answer": "true",
-      "explanation": "C# string interpolation uses $ before the opening quote and {} for embedded expressions. This is similar to Python's f-strings (f'Hello, {name}!') and JS template literals (`Hello, ${name}!`).",
-      "tags": ["strings", "interpolation", "syntax"]
-    },
-
-    {
-      "id": "go_u1_001",
-      "track": "go",
-      "domain": "Foundations",
-      "week": 1,
-      "difficulty": "easy",
-      "type": "multiple_choice",
-      "question": "Which of the following is the correct short variable declaration in Go?",
-      "options": ["var x := 5", "x := 5", "let x = 5", "int x = 5"],
-      "correct_answer": 1,
-      "explanation": ":= is Go's short variable declaration — it declares and initialises in one step, inferring the type. It can only be used inside functions. Outside functions, use 'var x = 5' or 'var x int = 5'.",
-      "tags": ["variables", "short declaration", ":="]
-    },
-    {
-      "id": "go_u1_002",
-      "track": "go",
-      "domain": "Foundations",
-      "week": 1,
-      "difficulty": "medium",
-      "type": "true_false",
-      "question": "In Go, if you declare a variable but never use it, the code will fail to compile.",
-      "correct_answer": "true",
-      "explanation": "Go enforces that every declared variable is used. An unused import or variable is a compile error, not a warning. This keeps code clean but surprises developers coming from other languages.",
-      "tags": ["compilation", "variables", "gotchas"]
-    },
-
-    {
-      "id": "rust_u1_001",
-      "track": "rust",
-      "domain": "Foundations",
-      "week": 1,
-      "difficulty": "easy",
-      "type": "multiple_choice",
-      "question": "What does the 'let' keyword do in Rust?",
+      "question": "End an if block?",
       "options": [
-        "Declares a mutable variable",
-        "Declares an immutable binding by default",
-        "Declares a constant",
-        "Declares a pointer"
+        "}",
+        "end",
+        "stop"
       ],
-      "correct_answer": 1,
-      "explanation": "In Rust, let creates an immutable binding by default. To make it mutable, use 'let mut x = 5'. This is the opposite of most languages where variables are mutable by default.",
-      "tags": ["variables", "let", "immutability"]
+      "correct_answer": 1
     },
     {
-      "id": "rust_u1_002",
-      "track": "rust",
-      "domain": "Foundations",
-      "week": 1,
+      "id": "lua_q3",
+      "track": "lua",
+      "domain": "Functions",
+      "week": 3,
       "difficulty": "medium",
-      "type": "true_false",
-      "question": "In Rust, every value has a single owner, and when that owner goes out of scope, the value is dropped (freed).",
-      "correct_answer": "true",
-      "explanation": "This is Rust's ownership rule. When a variable (owner) goes out of scope, Rust automatically calls drop() and frees the memory. No garbage collector needed — memory is managed at compile time.",
-      "tags": ["ownership", "memory", "drop"]
+      "type": "multiple_choice",
+      "question": "Return multiple values?",
+      "options": [
+        "return x, y",
+        "return [x, y]",
+        "return {x, y}"
+      ],
+      "correct_answer": 0
+    },
+    {
+      "id": "lua_q4",
+      "track": "lua",
+      "domain": "Data Structures",
+      "week": 4,
+      "difficulty": "easy",
+      "type": "multiple_choice",
+      "question": "Get table length (if array)?",
+      "options": [
+        "table.len",
+        "table.length",
+        "#table"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "id": "lua_q5",
+      "track": "lua",
+      "domain": "OOP",
+      "week": 5,
+      "difficulty": "medium",
+      "type": "multiple_choice",
+      "question": "Method call syntax?",
+      "options": [
+        "obj.method()",
+        "obj:method()",
+        "obj->method()"
+      ],
+      "correct_answer": 1
     }
   ],
-
   "labs": [
     {
-      "id": "lab_py_u1_l1",
+      "id": "l_py_u1",
       "track": "python",
-      "title": "Hello, Studio!",
-      "description": "Write a Python script that prints the studio welcome banner. Your output must match exactly.",
+      "title": "Splash Screen",
       "week": 1,
       "difficulty": "easy",
       "xp": 50,
       "runtime": "python",
-      "objectives": [
-        "Use the print() function",
-        "Output multiple lines",
-        "Match the expected output exactly"
-      ],
-      "starter_code": "# Welcome to Pixel Forge Studio\n# TODO: print the studio banner\n\n",
-      "hints": [
-        "Call print() once for each line you want to output.",
-        "print('Line 1') then print('Line 2') on separate lines produces two lines of output.",
-        "Your output should be:\n=== Pixel Forge Studio ===\nReady to build something great!"
-      ],
+      "starter_code": "print('--- Pixel Forge ---')\n",
       "test_cases": [
         {
-          "input": "",
-          "expected_output": "=== Pixel Forge Studio ===\nReady to build something great!"
+          "expected_output": "--- Pixel Forge ---\nReady."
         }
       ],
-      "solution": "print('=== Pixel Forge Studio ===')\nprint('Ready to build something great!')",
-      "concepts": ["print", "strings", "output"],
-      "source_ref": "Python.org — Built-in Functions: print()"
+      "solution": "print('--- Pixel Forge ---')\nprint('Ready.')"
     },
     {
-      "id": "lab_py_u1_l2",
+      "id": "l_py_u2",
       "track": "python",
-      "title": "Variable Vault",
-      "description": "Store your name and favourite number in variables, then print a formatted sentence using an f-string.",
-      "week": 1,
+      "title": "Combat Check",
+      "week": 2,
       "difficulty": "easy",
       "xp": 60,
       "runtime": "python",
-      "objectives": [
-        "Declare string and integer variables",
-        "Use an f-string for output",
-        "Match the output format exactly"
-      ],
-      "starter_code": "# TODO: declare a variable 'name' with value 'Alex'\n# TODO: declare a variable 'lucky_number' with value 7\n# TODO: print: My name is Alex and my lucky number is 7.\n",
-      "hints": [
-        "Declare variables with name = 'Alex' and lucky_number = 7",
-        "f-strings start with f before the quote: f'Hello {name}'",
-        "Your output should be: My name is Alex and my lucky number is 7."
-      ],
+      "starter_code": "hp = 10\n# TODO: if hp < 5 print 'Low'\n",
       "test_cases": [
         {
-          "input": "",
-          "expected_output": "My name is Alex and my lucky number is 7."
+          "input": "hp=3",
+          "expected_output": "Low"
         }
       ],
-      "solution": "name = 'Alex'\nlucky_number = 7\nprint(f'My name is {name} and my lucky number is {lucky_number}.')",
-      "concepts": ["variables", "f-strings", "int", "str"],
-      "source_ref": "Python.org — Formatted String Literals"
+      "solution": "if hp < 5: print('Low')"
     },
     {
-      "id": "lab_py_u1_l3",
+      "id": "l_py_u3",
       "track": "python",
-      "title": "Type Detective",
-      "description": "Use type() and isinstance() to inspect variables and print their types.",
-      "week": 1,
+      "title": "Damage Function",
+      "week": 3,
       "difficulty": "medium",
-      "xp": 75,
+      "xp": 80,
       "runtime": "python",
-      "objectives": [
-        "Use type() to inspect a variable's type",
-        "Use isinstance() to check if a value is a specific type",
-        "Output the correct type labels"
-      ],
-      "starter_code": "x = 42\ny = 3.14\nz = 'hello'\nw = True\n\n# TODO: for each variable, print its type using type()\n# Output format: x is <class 'int'>\n",
-      "hints": [
-        "type(x) returns the type object. Use print(f'x is {type(x)}')",
-        "Loop approach: for var_name, value in [('x',x),('y',y),...]: print(f'{var_name} is {type(value)}')",
-        "Expected output:\nx is <class 'int'>\ny is <class 'float'>\nz is <class 'str'>\nw is <class 'bool'>"
-      ],
+      "starter_code": "def deal_damage(hp, dmg):\n    pass\n",
       "test_cases": [
         {
-          "input": "",
-          "expected_output": "x is <class 'int'>\ny is <class 'float'>\nz is <class 'str'>\nw is <class 'bool'>"
+          "input": "deal_damage(100, 20)",
+          "expected_output": "80"
         }
       ],
-      "solution": "x = 42\ny = 3.14\nz = 'hello'\nw = True\nfor name, value in [('x',x),('y',y),('z',z),('w',w)]:\n    print(f'{name} is {type(value)}')",
-      "concepts": ["type()", "isinstance()", "types", "introspection"]
+      "solution": "def deal_damage(hp, dmg): return hp - dmg"
     },
     {
-      "id": "lab_js_u1_l1",
-      "track": "javascript",
-      "title": "DOM Word Counter",
-      "description": "Write a function countWords(text) that returns the number of words in a string. Words are separated by spaces.",
-      "week": 1,
+      "id": "l_py_u4",
+      "track": "python",
+      "title": "Loot List",
+      "week": 4,
       "difficulty": "easy",
-      "xp": 60,
-      "runtime": "javascript",
-      "objectives": [
-        "Define a function that accepts a string parameter",
-        "Split the string into words",
-        "Return the word count"
-      ],
-      "starter_code": "function countWords(text) {\n  // TODO: return the number of words in text\n  // Words are separated by one or more spaces\n}\n\nconsole.log(countWords('Hello World'));          // 2\nconsole.log(countWords('The quick brown fox'));   // 4\nconsole.log(countWords('  spaces  around  '));    // 2\n",
-      "hints": [
-        "String.prototype.split(' ') splits by space, but gives empty strings for extra spaces.",
-        "Use .trim() first to remove leading/trailing spaces, then split.",
-        "Filter out empty strings: text.trim().split(/\\s+/).filter(w => w.length > 0)"
-      ],
+      "xp": 70,
+      "runtime": "python",
+      "starter_code": "loot = ['Gold']\n# TODO: append 'Gem'\n",
       "test_cases": [
-        { "input": "countWords('Hello World')", "expected_output": "2" },
-        { "input": "countWords('The quick brown fox')", "expected_output": "4" },
-        { "input": "countWords('  spaces  around  ')", "expected_output": "2" }
+        {
+          "expected_output": "Gold, Gem"
+        }
       ],
-      "solution": "function countWords(text) {\n  return text.trim().split(/\\s+/).filter(w => w.length > 0).length;\n}",
-      "concepts": ["functions", "strings", "split", "filter", "regex"]
+      "solution": "loot = ['Gold', 'Gem']\nprint(', '.join(loot))"
     },
     {
-      "id": "lab_lua_u1_l1",
+      "id": "l_py_u5",
+      "track": "python",
+      "title": "Hero Class",
+      "week": 5,
+      "difficulty": "medium",
+      "xp": 100,
+      "runtime": "python",
+      "starter_code": "class Hero:\n    def __init__(self, n): self.name = n\n",
+      "test_cases": [
+        {
+          "expected_output": "Alex"
+        }
+      ],
+      "solution": "h = Hero('Alex')\nprint(h.name)"
+    },
+    {
+      "id": "l_lua_u1",
       "track": "lua",
-      "title": "NPC Greeter",
-      "description": "Write a Lua script that stores an NPC's name and level in local variables, then prints a greeting message.",
+      "title": "Debug Log",
       "week": 1,
       "difficulty": "easy",
       "xp": 50,
       "runtime": "lua",
-      "objectives": [
-        "Declare local variables",
-        "Use string concatenation with ..",
-        "Print a formatted message"
-      ],
-      "starter_code": "-- TODO: store the NPC name 'Garrick' in a local variable\n-- TODO: store the NPC level 42 in a local variable\n-- TODO: print: Greetings! I am Garrick, level 42.\n",
-      "hints": [
-        "Use 'local name = \"Garrick\"' and 'local level = 42'",
-        "Lua concatenation uses ..: 'Hello ' .. name",
-        "To include a number in a string: 'Level: ' .. tostring(level)"
-      ],
+      "starter_code": "-- Print 'Engine Started'\n",
       "test_cases": [
         {
-          "input": "",
-          "expected_output": "Greetings! I am Garrick, level 42."
+          "expected_output": "Engine Started"
         }
       ],
-      "solution": "local name = 'Garrick'\nlocal level = 42\nprint('Greetings! I am ' .. name .. ', level ' .. tostring(level) .. '.')",
-      "concepts": ["local variables", "concatenation", "tostring()"]
+      "solution": "print('Engine Started')"
+    },
+    {
+      "id": "l_lua_u2",
+      "track": "lua",
+      "title": "Health Check",
+      "week": 2,
+      "difficulty": "easy",
+      "xp": 60,
+      "runtime": "lua",
+      "starter_code": "hp = 10\n-- if hp < 5 print 'Heal'\n",
+      "test_cases": [
+        {
+          "input": "hp=3",
+          "expected_output": "Heal"
+        }
+      ],
+      "solution": "if hp < 5 then print('Heal') end"
+    },
+    {
+      "id": "l_lua_u3",
+      "track": "lua",
+      "title": "Math Func",
+      "week": 3,
+      "difficulty": "medium",
+      "xp": 80,
+      "runtime": "lua",
+      "starter_code": "function add(a, b)\nend\n",
+      "test_cases": [
+        {
+          "input": "print(add(2,3))",
+          "expected_output": "5"
+        }
+      ],
+      "solution": "function add(a, b) return a + b end"
+    },
+    {
+      "id": "l_lua_u4",
+      "track": "lua",
+      "title": "Item Table",
+      "week": 4,
+      "difficulty": "easy",
+      "xp": 70,
+      "runtime": "lua",
+      "starter_code": "items = {'Sword', 'Shield'}\n-- print the first item\n",
+      "test_cases": [
+        {
+          "expected_output": "Sword"
+        }
+      ],
+      "solution": "items = {'Sword', 'Shield'}\nprint(items[1])"
+    },
+    {
+      "id": "l_lua_u5",
+      "track": "lua",
+      "title": "Metatable Magic",
+      "week": 5,
+      "difficulty": "medium",
+      "xp": 100,
+      "runtime": "lua",
+      "starter_code": "Vector = {}\nVector.__index = Vector\nfunction Vector:new(x) \n  -- return table with metatable\nend\n",
+      "test_cases": [
+        {
+          "expected_output": "5"
+        }
+      ],
+      "solution": "Vector = {}\nVector.__index = Vector\nfunction Vector:new(x)\n  local obj = {x = x}\n  setmetatable(obj, Vector)\n  return obj\nend\nv = Vector:new(5)\nprint(v.x)"
+    },
+    {
+      "id": "l_js_1",
+      "track": "javascript",
+      "title": "Console Message",
+      "week": 1,
+      "difficulty": "easy",
+      "xp": 50,
+      "runtime": "javascript",
+      "starter_code": "console.log('Test');\n",
+      "test_cases": [
+        {
+          "expected_output": "Test"
+        }
+      ],
+      "solution": "console.log('Test');"
+    },
+    {
+      "id": "l_js_2",
+      "track": "javascript",
+      "title": "Even or Odd",
+      "week": 2,
+      "difficulty": "easy",
+      "xp": 50,
+      "runtime": "javascript",
+      "starter_code": "let n = 4; // print 'even'\n",
+      "test_cases": [
+        {
+          "expected_output": "even"
+        }
+      ],
+      "solution": "let n = 4; if (n % 2 === 0) console.log('even');"
+    },
+    {
+      "id": "l_js_3",
+      "track": "javascript",
+      "title": "Multiplier Func",
+      "week": 3,
+      "difficulty": "medium",
+      "xp": 50,
+      "runtime": "javascript",
+      "starter_code": "const mul = (a, b) => a * b;\n",
+      "test_cases": [
+        {
+          "input": "console.log(mul(3,4))",
+          "expected_output": "12"
+        }
+      ],
+      "solution": "const mul = (a, b) => a * b;"
+    },
+    {
+      "id": "l_js_4",
+      "track": "javascript",
+      "title": "Object Keys",
+      "week": 4,
+      "difficulty": "medium",
+      "xp": 50,
+      "runtime": "javascript",
+      "starter_code": "let obj = {x: 10}; console.log(obj.x);\n",
+      "test_cases": [
+        {
+          "expected_output": "10"
+        }
+      ],
+      "solution": "let obj = {x: 10}; console.log(obj.x);"
+    },
+    {
+      "id": "l_js_5",
+      "track": "javascript",
+      "title": "UI Class",
+      "week": 5,
+      "difficulty": "medium",
+      "xp": 50,
+      "runtime": "javascript",
+      "starter_code": "class UI { constructor() { this.name = 'btn'; } }\n",
+      "test_cases": [
+        {
+          "input": "console.log(new UI().name)",
+          "expected_output": "btn"
+        }
+      ],
+      "solution": "class UI { constructor() { this.name = 'btn'; } }"
+    },
+    {
+      "id": "l_go_1",
+      "track": "go",
+      "title": "Go Fmt",
+      "week": 1,
+      "difficulty": "easy",
+      "xp": 50,
+      "runtime": "go",
+      "starter_code": "package main\nimport \"fmt\"\nfunc main() { fmt.Println(\"Go!\") }\n",
+      "test_cases": [
+        {
+          "expected_output": "Go!"
+        }
+      ],
+      "solution": "package main\nimport \"fmt\"\nfunc main() { fmt.Println(\"Go!\") }"
+    },
+    {
+      "id": "l_go_2",
+      "track": "go",
+      "title": "For Loop",
+      "week": 2,
+      "difficulty": "easy",
+      "xp": 50,
+      "runtime": "go",
+      "starter_code": "package main\nimport \"fmt\"\nfunc main() { for i:=0;i<1;i++ { fmt.Println(\"Loop\") } }\n",
+      "test_cases": [
+        {
+          "expected_output": "Loop"
+        }
+      ],
+      "solution": "package main\nimport \"fmt\"\nfunc main() { for i:=0;i<1;i++ { fmt.Println(\"Loop\") } }"
+    },
+    {
+      "id": "l_go_3",
+      "track": "go",
+      "title": "Multiple Returns",
+      "week": 3,
+      "difficulty": "medium",
+      "xp": 50,
+      "runtime": "go",
+      "starter_code": "package main\nimport \"fmt\"\nfunc nums() (int, int) { return 1, 2 }\nfunc main() { a, b := nums(); fmt.Println(a, b) }\n",
+      "test_cases": [
+        {
+          "expected_output": "1 2"
+        }
+      ],
+      "solution": "package main\nimport \"fmt\"\nfunc nums() (int, int) { return 1, 2 }\nfunc main() { a, b := nums(); fmt.Println(a, b) }"
+    },
+    {
+      "id": "l_go_4",
+      "track": "go",
+      "title": "Slice",
+      "week": 4,
+      "difficulty": "medium",
+      "xp": 50,
+      "runtime": "go",
+      "starter_code": "package main\nimport \"fmt\"\nfunc main() { s := []int{5}; fmt.Println(s[0]) }\n",
+      "test_cases": [
+        {
+          "expected_output": "5"
+        }
+      ],
+      "solution": "package main\nimport \"fmt\"\nfunc main() { s := []int{5}; fmt.Println(s[0]) }"
+    },
+    {
+      "id": "l_go_5",
+      "track": "go",
+      "title": "Struct",
+      "week": 5,
+      "difficulty": "medium",
+      "xp": 50,
+      "runtime": "go",
+      "starter_code": "package main\nimport \"fmt\"\ntype P struct{x int}\nfunc main() { p:=P{x:10}; fmt.Println(p.x) }\n",
+      "test_cases": [
+        {
+          "expected_output": "10"
+        }
+      ],
+      "solution": "package main\nimport \"fmt\"\ntype P struct{x int}\nfunc main() { p:=P{x:10}; fmt.Println(p.x) }"
+    },
+    {
+      "id": "l_cs_1",
+      "track": "csharp",
+      "title": "Console Write",
+      "week": 1,
+      "difficulty": "easy",
+      "xp": 50,
+      "runtime": "csharp",
+      "starter_code": "System.Console.WriteLine(\"C#\");\n",
+      "test_cases": [
+        {
+          "expected_output": "C#"
+        }
+      ],
+      "solution": "System.Console.WriteLine(\"C#\");"
+    },
+    {
+      "id": "l_cs_2",
+      "track": "csharp",
+      "title": "If Bounds",
+      "week": 2,
+      "difficulty": "easy",
+      "xp": 50,
+      "runtime": "csharp",
+      "starter_code": "int x=5; if(x>0) System.Console.WriteLine(\"Pos\");\n",
+      "test_cases": [
+        {
+          "expected_output": "Pos"
+        }
+      ],
+      "solution": "int x=5; if(x>0) System.Console.WriteLine(\"Pos\");"
+    },
+    {
+      "id": "l_cs_3",
+      "track": "csharp",
+      "title": "Void Method",
+      "week": 3,
+      "difficulty": "medium",
+      "xp": 50,
+      "runtime": "csharp",
+      "starter_code": "class P { static void Msg(){ System.Console.WriteLine(\"M\"); } static void Main(){ Msg(); } }\n",
+      "test_cases": [
+        {
+          "expected_output": "M"
+        }
+      ],
+      "solution": "class P { static void Msg(){ System.Console.WriteLine(\"M\"); } static void Main(){ Msg(); } }"
+    },
+    {
+      "id": "l_cs_4",
+      "track": "csharp",
+      "title": "Array Length",
+      "week": 4,
+      "difficulty": "medium",
+      "xp": 50,
+      "runtime": "csharp",
+      "starter_code": "class P { static void Main(){ int[] a = {1}; System.Console.WriteLine(a.Length); } }\n",
+      "test_cases": [
+        {
+          "expected_output": "1"
+        }
+      ],
+      "solution": "class P { static void Main(){ int[] a = {1}; System.Console.WriteLine(a.Length); } }"
+    },
+    {
+      "id": "l_cs_5",
+      "track": "csharp",
+      "title": "Class Instance",
+      "week": 5,
+      "difficulty": "medium",
+      "xp": 50,
+      "runtime": "csharp",
+      "starter_code": "class E{ public int hp=10; } class P{ static void Main(){ E e = new E(); System.Console.WriteLine(e.hp); } }\n",
+      "test_cases": [
+        {
+          "expected_output": "10"
+        }
+      ],
+      "solution": "class E{ public int hp=10; } class P{ static void Main(){ E e = new E(); System.Console.WriteLine(e.hp); } }"
+    },
+    {
+      "id": "l_cpp_1",
+      "track": "cpp",
+      "title": "C++ Out",
+      "week": 1,
+      "difficulty": "easy",
+      "xp": 50,
+      "runtime": "cpp",
+      "starter_code": "#include <iostream>\nint main() { std::cout << \"C++\"; return 0; }\n",
+      "test_cases": [
+        {
+          "expected_output": "C++"
+        }
+      ],
+      "solution": "#include <iostream>\nint main() { std::cout << \"C++\"; return 0; }"
+    },
+    {
+      "id": "l_cpp_2",
+      "track": "cpp",
+      "title": "Switch",
+      "week": 2,
+      "difficulty": "easy",
+      "xp": 50,
+      "runtime": "cpp",
+      "starter_code": "#include <iostream>\nint main() { int x=1; switch(x){ case 1: std::cout<<\"One\"; } return 0; }\n",
+      "test_cases": [
+        {
+          "expected_output": "One"
+        }
+      ],
+      "solution": "#include <iostream>\nint main() { int x=1; switch(x){ case 1: std::cout<<\"One\"; } return 0; }"
+    },
+    {
+      "id": "l_cpp_3",
+      "track": "cpp",
+      "title": "Pointer",
+      "week": 3,
+      "difficulty": "medium",
+      "xp": 50,
+      "runtime": "cpp",
+      "starter_code": "#include <iostream>\nint main() { int x=5; int* p = &x; std::cout<<*p; return 0; }\n",
+      "test_cases": [
+        {
+          "expected_output": "5"
+        }
+      ],
+      "solution": "#include <iostream>\nint main() { int x=5; int* p = &x; std::cout<<*p; return 0; }"
+    },
+    {
+      "id": "l_cpp_4",
+      "track": "cpp",
+      "title": "Vector",
+      "week": 4,
+      "difficulty": "medium",
+      "xp": 50,
+      "runtime": "cpp",
+      "starter_code": "#include <iostream>\n#include <vector>\nint main() { std::vector<int> v; v.push_back(1); std::cout<<v[0]; return 0; }\n",
+      "test_cases": [
+        {
+          "expected_output": "1"
+        }
+      ],
+      "solution": "#include <iostream>\n#include <vector>\nint main() { std::vector<int> v; v.push_back(1); std::cout<<v[0]; return 0; }"
+    },
+    {
+      "id": "l_cpp_5",
+      "track": "cpp",
+      "title": "Class",
+      "week": 5,
+      "difficulty": "medium",
+      "xp": 50,
+      "runtime": "cpp",
+      "starter_code": "#include <iostream>\nclass A { public: int x = 3; }; int main() { A a; std::cout<<a.x; return 0; }\n",
+      "test_cases": [
+        {
+          "expected_output": "3"
+        }
+      ],
+      "solution": "#include <iostream>\nclass A { public: int x = 3; }; int main() { A a; std::cout<<a.x; return 0; }"
+    },
+    {
+      "id": "l_rs_1",
+      "track": "rust",
+      "title": "Mut",
+      "week": 1,
+      "difficulty": "easy",
+      "xp": 50,
+      "runtime": "rust",
+      "starter_code": "fn main() { let mut x = 1; x = 2; println!(\"{}\", x); }\n",
+      "test_cases": [
+        {
+          "expected_output": "2"
+        }
+      ],
+      "solution": "fn main() { let mut x = 1; x = 2; println!(\"{}\", x); }"
+    },
+    {
+      "id": "l_rs_2",
+      "track": "rust",
+      "title": "Match",
+      "week": 2,
+      "difficulty": "easy",
+      "xp": 50,
+      "runtime": "rust",
+      "starter_code": "fn main() { let x=1; match x { 1 => println!(\"1\"), _ => () } }\n",
+      "test_cases": [
+        {
+          "expected_output": "1"
+        }
+      ],
+      "solution": "fn main() { let x=1; match x { 1 => println!(\"1\"), _ => () } }"
+    },
+    {
+      "id": "l_rs_3",
+      "track": "rust",
+      "title": "Borrow",
+      "week": 3,
+      "difficulty": "medium",
+      "xp": 50,
+      "runtime": "rust",
+      "starter_code": "fn p(s: &String){println!(\"{}\", s);}\nfn main(){let s=String::from(\"R\"); p(&s);}\n",
+      "test_cases": [
+        {
+          "expected_output": "R"
+        }
+      ],
+      "solution": "fn p(s: &String){println!(\"{}\", s);}\nfn main(){let s=String::from(\"R\"); p(&s);}"
+    },
+    {
+      "id": "l_rs_4",
+      "track": "rust",
+      "title": "Vec",
+      "week": 4,
+      "difficulty": "medium",
+      "xp": 50,
+      "runtime": "rust",
+      "starter_code": "fn main(){let v = vec![5]; println!(\"{}\", v[0]);}\n",
+      "test_cases": [
+        {
+          "expected_output": "5"
+        }
+      ],
+      "solution": "fn main(){let v = vec![5]; println!(\"{}\", v[0]);}"
+    },
+    {
+      "id": "l_rs_5",
+      "track": "rust",
+      "title": "Struct",
+      "week": 5,
+      "difficulty": "medium",
+      "xp": 50,
+      "runtime": "rust",
+      "starter_code": "struct P{x:i32} fn main(){let p=P{x:8}; println!(\"{}\", p.x);}\n",
+      "test_cases": [
+        {
+          "expected_output": "8"
+        }
+      ],
+      "solution": "struct P{x:i32} fn main(){let p=P{x:8}; println!(\"{}\", p.x);}"
     }
   ],
-
-  "bosses": [
+  "projects": [
     {
-      "id": "capstone_py_u1",
+      "id": "py_p1",
       "track": "python",
-      "name": "The Splash Screen Challenge",
-      "week": 1,
-      "type": "capstone",
-      "description": "Build a complete studio splash screen tool in Python. Each phase adds complexity.",
-      "total_xp": 300,
-      "perfect_bonus": 100,
+      "title": "Forge Greeting",
+      "icon": "👋",
+      "difficulty": "beginner",
+      "xp": 200,
+      "minLevel": 1,
+      "description": "Professional CLI onboarding script.",
+      "briefing": "Sarah wants a script that greets new developers and collects their department info.",
       "phases": [
         {
-          "phase": 1,
-          "name": "Basic Output",
-          "description": "Print a banner with the studio name and a tagline.",
-          "xp": 75,
-          "test_cases": [
-            { "expected_output": "=== Pixel Forge Studio ===\nWhere ideas become worlds." }
-          ]
+          "id": "p1",
+          "type": "code",
+          "title": "Basic Inputs",
+          "xp": 100,
+          "filename": "onboard.py",
+          "starter_code": "name = input('Name: ')\n",
+          "solution": "name = input('Name: ')\ndept = input('Dept: ')\nprint(f'Welcome {name} to {dept}!')"
         },
         {
-          "phase": 2,
-          "name": "Variables & F-Strings",
-          "description": "Dynamically insert the current version number (1.0) and year (2026) into the banner.",
-          "xp": 75,
-          "test_cases": [
-            { "expected_output": "=== Pixel Forge Studio v1.0 ===\nCopyright 2026. Where ideas become worlds." }
-          ]
-        },
-        {
-          "phase": 3,
-          "name": "Input & Personalisation",
-          "description": "Ask the user for their developer name and greet them personally.",
-          "xp": 75,
-          "notes": "Use input() to read from stdin. Test input will be provided."
-        },
-        {
-          "phase": 4,
-          "name": "Polish",
-          "description": "Add a separator line of 30 dashes above and below the banner. Use string multiplication.",
-          "xp": 75,
-          "test_cases": [
-            { "expected_output": "------------------------------\n=== Pixel Forge Studio ===\nWhere ideas become worlds.\n------------------------------" }
-          ]
+          "id": "p2",
+          "type": "code",
+          "title": "Validation",
+          "xp": 100,
+          "filename": "onboard.py",
+          "description": "Ensure Name is not empty.",
+          "starter_code": "name = input('Name: ')\n"
         }
       ]
     },
     {
-      "id": "capstone_js_u1",
-      "track": "javascript",
-      "name": "The DOM Toolbelt",
-      "week": 1,
-      "type": "capstone",
-      "description": "Build a set of utility functions that manipulate strings and arrays — the core of any JS developer's toolbelt.",
-      "total_xp": 300,
-      "perfect_bonus": 100,
+      "id": "py_p2",
+      "track": "python",
+      "title": "Loot Tracker Pro",
+      "icon": "💰",
+      "difficulty": "easy",
+      "xp": 500,
+      "minLevel": 1,
+      "description": "Manage game inventory items with quantities.",
+      "briefing": "Track loot drops using dictionaries to store item names and counts.",
       "phases": [
         {
-          "phase": 1,
-          "name": "String Utilities",
-          "description": "Implement capitalize(str), truncate(str, n), and isPalindrome(str).",
-          "xp": 100
+          "id": "p1",
+          "type": "code",
+          "title": "Collection",
+          "xp": 250,
+          "filename": "inventory.py",
+          "starter_code": "inv = {}\n",
+          "solution": "inv = {}\ndef add(item): inv[item] = inv.get(item, 0) + 1"
         },
         {
-          "phase": 2,
-          "name": "Array Utilities",
-          "description": "Implement unique(arr) — return array with duplicates removed, preserving order.",
-          "xp": 100
+          "id": "p2",
+          "type": "code",
+          "title": "Reporter",
+          "xp": 250,
+          "filename": "inventory.py",
+          "description": "Print a formatted loot report."
+        }
+      ]
+    },
+    {
+      "id": "py_p3",
+      "track": "python",
+      "title": "Roguelike Quest",
+      "icon": "⚔️",
+      "difficulty": "medium",
+      "xp": 1200,
+      "minLevel": 2,
+      "description": "Turn-based CLI RPG combat engine.",
+      "briefing": "Sarah needs a combat engine prototype with classes and random encounters.",
+      "phases": [
+        {
+          "id": "p1",
+          "type": "code",
+          "title": "Entities",
+          "xp": 400,
+          "filename": "entities.py",
+          "starter_code": "class Entity:\n    pass\n"
         },
         {
-          "phase": 3,
-          "name": "Composition",
-          "description": "Implement pipe(...fns) — compose functions left-to-right: pipe(f, g)(x) = g(f(x)).",
-          "xp": 100
+          "id": "p2",
+          "type": "code",
+          "title": "Combat Loop",
+          "xp": 400,
+          "filename": "combat.py"
+        },
+        {
+          "id": "p3",
+          "type": "code",
+          "title": "Game Engine",
+          "xp": 400,
+          "filename": "main.py"
+        }
+      ]
+    },
+    {
+      "id": "py_p4",
+      "track": "python",
+      "title": "Save Cryptographer",
+      "icon": "🔐",
+      "difficulty": "hard",
+      "xp": 2000,
+      "minLevel": 3,
+      "description": "Secure game save files using encryption algorithms.",
+      "briefing": "Protect player data. Implement a custom XOR cipher and Base64 encoding for save files.",
+      "phases": [
+        {
+          "id": "p1",
+          "type": "code",
+          "title": "Cipher Core",
+          "xp": 600,
+          "filename": "crypto.py",
+          "starter_code": "def xor_cipher(data, key):\n    pass\n"
+        },
+        {
+          "id": "p2",
+          "type": "code",
+          "title": "Base64 Layer",
+          "xp": 700,
+          "filename": "crypto.py"
+        },
+        {
+          "id": "p3",
+          "type": "code",
+          "title": "File I/O",
+          "xp": 700,
+          "filename": "save_manager.py"
+        }
+      ]
+    },
+    {
+      "id": "py_p5",
+      "track": "python",
+      "title": "Build Master",
+      "icon": "🏗️",
+      "difficulty": "epic",
+      "xp": 3500,
+      "minLevel": 4,
+      "description": "Distributed task runner for studio build automation.",
+      "briefing": "Architect a system that distributes build tasks to worker nodes via sockets.",
+      "phases": [
+        {
+          "id": "p1",
+          "type": "code",
+          "title": "Worker Socket",
+          "xp": 1000,
+          "filename": "worker.py",
+          "starter_code": "import socket\n"
+        },
+        {
+          "id": "p2",
+          "type": "code",
+          "title": "Task Scheduler",
+          "xp": 1200,
+          "filename": "master.py"
+        },
+        {
+          "id": "p3",
+          "type": "code",
+          "title": "Error Recovery",
+          "xp": 1300,
+          "filename": "master.py"
+        }
+      ]
+    },
+    {
+      "id": "py_p6",
+      "track": "python",
+      "title": "PyVM",
+      "icon": "💻",
+      "difficulty": "legendary",
+      "xp": 6000,
+      "minLevel": 5,
+      "description": "Stack-based Virtual Machine for a custom bytecode language.",
+      "briefing": "Touch the metal. Build a VM that parses and executes a custom instruction set (PUSH, ADD, PRINT).",
+      "phases": [
+        {
+          "id": "p1",
+          "type": "code",
+          "title": "The Stack",
+          "xp": 2000,
+          "filename": "vm.py",
+          "starter_code": "class VM:\n    def __init__(self): self.stack = []\n"
+        },
+        {
+          "id": "p2",
+          "type": "code",
+          "title": "Instruction Set",
+          "xp": 2000,
+          "filename": "vm.py"
+        },
+        {
+          "id": "p3",
+          "type": "code",
+          "title": "Bytecode Loader",
+          "xp": 2000,
+          "filename": "vm.py"
+        }
+      ]
+    },
+    {
+      "id": "py_p7",
+      "track": "python",
+      "title": "NeuroNPC",
+      "icon": "🧠",
+      "difficulty": "mythic",
+      "xp": 12000,
+      "minLevel": 6,
+      "description": "Neural Network implementation for evolving NPC behavior.",
+      "briefing": "Create a backpropagation neural network from scratch (no external libs) to train NPCs.",
+      "phases": [
+        {
+          "id": "p1",
+          "type": "code",
+          "title": "The Neuron",
+          "xp": 4000,
+          "filename": "brain.py",
+          "starter_code": "import math\ndef sigmoid(x): return 1 / (1 + math.exp(-x))\n"
+        },
+        {
+          "id": "p2",
+          "type": "code",
+          "title": "Backpropagation",
+          "xp": 4000,
+          "filename": "brain.py"
+        },
+        {
+          "id": "p3",
+          "type": "code",
+          "title": "Evolution Loop",
+          "xp": 4000,
+          "filename": "main.py"
+        }
+      ]
+    },
+    {
+      "id": "lua_p1",
+      "track": "lua",
+      "title": "Config Loader",
+      "icon": "⚙️",
+      "difficulty": "beginner",
+      "xp": 200,
+      "minLevel": 1,
+      "description": "Basic game config parser.",
+      "briefing": "Load game settings from a Lua table.",
+      "phases": [
+        {
+          "id": "p1",
+          "type": "code",
+          "title": "Settings",
+          "xp": 200,
+          "filename": "config.lua",
+          "starter_code": "config = { diff = 'hard' }\n",
+          "solution": "config = { diff = 'hard', res = '1080p' }\nprint(config.diff)"
+        }
+      ]
+    },
+    {
+      "id": "lua_p2",
+      "track": "lua",
+      "title": "NPC Dialog",
+      "icon": "💬",
+      "difficulty": "easy",
+      "xp": 400,
+      "minLevel": 1,
+      "description": "Branching dialog trees.",
+      "briefing": "Use nested tables for dialog options.",
+      "phases": [
+        {
+          "id": "p1",
+          "type": "code",
+          "title": "Tree",
+          "xp": 400,
+          "filename": "dialog.lua",
+          "starter_code": "dialog = {}\n"
+        }
+      ]
+    },
+    {
+      "id": "lua_p3",
+      "track": "lua",
+      "title": "Nebula Quest",
+      "icon": "🚀",
+      "difficulty": "medium",
+      "xp": 1000,
+      "minLevel": 2,
+      "description": "Text adventure engine.",
+      "briefing": "Lua-driven events and rooms.",
+      "phases": [
+        {
+          "id": "p1",
+          "type": "code",
+          "title": "Rooms",
+          "xp": 1000,
+          "filename": "rooms.lua",
+          "starter_code": "rooms = {}\n"
+        }
+      ]
+    },
+    {
+      "id": "lua_p4",
+      "track": "lua",
+      "title": "UI Builder",
+      "icon": "🖼️",
+      "difficulty": "hard",
+      "xp": 1500,
+      "minLevel": 3,
+      "description": "Declarative UI layout system.",
+      "briefing": "Build a flex-box like system in Lua.",
+      "phases": [
+        {
+          "id": "p1",
+          "type": "code",
+          "title": "Layout",
+          "xp": 1500,
+          "filename": "ui.lua",
+          "starter_code": "function Row(children) end\n"
+        }
+      ]
+    },
+    {
+      "id": "lua_p5",
+      "track": "lua",
+      "title": "ECS Framework",
+      "icon": "🧬",
+      "difficulty": "epic",
+      "xp": 2500,
+      "minLevel": 4,
+      "description": "Entity Component System.",
+      "briefing": "Data-oriented design in Lua.",
+      "phases": [
+        {
+          "id": "p1",
+          "type": "code",
+          "title": "Systems",
+          "xp": 2500,
+          "filename": "ecs.lua",
+          "starter_code": "world = {}\n"
+        }
+      ]
+    },
+    {
+      "id": "lua_p6",
+      "track": "lua",
+      "title": "Custom Linter",
+      "icon": "🧹",
+      "difficulty": "legendary",
+      "xp": 5000,
+      "minLevel": 5,
+      "description": "AST Parser and Linter.",
+      "briefing": "Parse Lua code using Lua.",
+      "phases": [
+        {
+          "id": "p1",
+          "type": "code",
+          "title": "Parser",
+          "xp": 5000,
+          "filename": "linter.lua",
+          "starter_code": "function parse(str) end\n"
+        }
+      ]
+    },
+    {
+      "id": "lua_p7",
+      "track": "lua",
+      "title": "LuaJIT Optimizer",
+      "icon": "🏎️",
+      "difficulty": "mythic",
+      "xp": 10000,
+      "minLevel": 6,
+      "description": "Bytecode optimization pass.",
+      "briefing": "Optimize generated Lua bytecode.",
+      "phases": [
+        {
+          "id": "p1",
+          "type": "code",
+          "title": "Opt",
+          "xp": 10000,
+          "filename": "opt.lua",
+          "starter_code": "function optimize(bc) end\n"
         }
       ]
     }
   ],
-
   "debug_drills": [
     {
-      "id": "debug_py_001",
+      "id": "d_py_1",
       "track": "python",
       "difficulty": "easy",
-      "broken_code": "print('Hello World'",
-      "bug_description": "Missing closing parenthesis",
+      "broken_code": "print('Hi'",
+      "bug_description": "Missing bracket",
       "options": [
-        "print('Hello World')",
-        "print 'Hello World'",
-        "Print('Hello World')",
-        "print('Hello World']"
+        "print('Hi')",
+        "print 'Hi'"
       ],
-      "correct_fix_index": 0,
-      "explanation": "Python's print() is a function and requires balanced parentheses. Missing the closing ) causes a SyntaxError."
-    },
-    {
-      "id": "debug_py_002",
-      "track": "python",
-      "difficulty": "easy",
-      "broken_code": "x = 5\ny = '3'\nresult = x + y\nprint(result)",
-      "bug_description": "Cannot add int and str",
-      "options": [
-        "result = x + int(y)",
-        "result = str(x) + y",
-        "result = x + float(y)",
-        "result = x - y"
-      ],
-      "correct_fix_index": 0,
-      "explanation": "Python won't implicitly convert types. To add an integer and a numeric string, convert the string to int first: int(y)."
-    },
-    {
-      "id": "debug_py_003",
-      "track": "python",
-      "difficulty": "medium",
-      "broken_code": "def greet(name):\n    message = f'Hello, {Name}!'\n    return message",
-      "bug_description": "NameError: Name is not defined (case mismatch)",
-      "options": [
-        "message = f'Hello, {name}!'",
-        "message = f'Hello, {NAME}!'",
-        "message = f'Hello, {name.lower()}!'",
-        "message = 'Hello, ' + name + '!'"
-      ],
-      "correct_fix_index": 0,
-      "explanation": "Python is case-sensitive. The parameter is 'name' (lowercase) but the f-string references 'Name' (capital N). Fix: use {name}."
-    },
-    {
-      "id": "debug_js_001",
-      "track": "javascript",
-      "difficulty": "easy",
-      "broken_code": "function add(a, b) {\n  return a - b;\n}",
-      "bug_description": "Wrong arithmetic operator",
-      "options": [
-        "return a + b;",
-        "return a * b;",
-        "return a / b;",
-        "return a % b;"
-      ],
-      "correct_fix_index": 0,
-      "explanation": "The function is named 'add' but uses subtraction (-). The correct operator for addition is +."
-    },
-    {
-      "id": "debug_js_002",
-      "track": "javascript",
-      "difficulty": "medium",
-      "broken_code": "const arr = [1, 2, 3];\nif (arr == [1, 2, 3]) {\n  console.log('match');\n}",
-      "bug_description": "Reference equality vs value equality for arrays",
-      "options": [
-        "if (JSON.stringify(arr) === JSON.stringify([1, 2, 3]))",
-        "if (arr === [1, 2, 3])",
-        "if (arr.equals([1, 2, 3]))",
-        "if (arr.compare([1, 2, 3]) === 0)"
-      ],
-      "correct_fix_index": 0,
-      "explanation": "In JavaScript, arrays are objects and == / === compares references, not values. Two different array literals are never equal by reference. Use JSON.stringify for simple value comparison, or compare element by element."
-    },
-    {
-      "id": "debug_lua_001",
-      "track": "lua",
-      "difficulty": "easy",
-      "broken_code": "local x = 10\nlocal y = '5'\nlocal result = x + y\nprint(result)",
-      "bug_description": "This code actually works in Lua — but is it correct style?",
-      "options": [
-        "local result = x + tonumber(y)",
-        "local result = tostring(x) + y",
-        "local result = x .. y",
-        "local result = x - y"
-      ],
-      "correct_fix_index": 0,
-      "explanation": "Lua auto-coerces strings to numbers in arithmetic contexts, so x + '5' works but is bad practice. Explicit tonumber() makes intent clear and prevents bugs if y ever holds a non-numeric string."
+      "correct_fix_index": 0
     }
   ]
 }
