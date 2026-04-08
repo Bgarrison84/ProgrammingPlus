@@ -215,16 +215,31 @@ export class CodeEditor {
         <!-- Objectives -->
         ${objectives ? `<ul class="bg-[#252526] rounded p-3 border-l-2 border-[#569cd6] list-none">${objectives}</ul>` : ''}
 
-        <!-- Editor area -->
-        <div class="relative border border-[#3e3e42] rounded overflow-hidden">
-          <div id="editor-tabs" class="flex bg-[#2d2d30] border-b border-[#3e3e42] min-h-[28px]">
-            <!-- Dynamic tabs -->
+        <div class="flex flex-col lg:flex-row gap-4">
+          <!-- Editor area -->
+          <div class="flex-1 flex flex-col relative border border-[#3e3e42] rounded overflow-hidden min-w-0">
+            <div id="editor-tabs" class="flex bg-[#2d2d30] border-b border-[#3e3e42] min-h-[28px]">
+              <!-- Dynamic tabs -->
+            </div>
+            <textarea
+              data-role="editor"
+              spellcheck="false"
+              class="w-full min-h-[300px] p-3 bg-[#1e1e1e] text-[#d4d4d4] border-none outline-none resize-none focus:ring-1 focus:ring-inset focus:ring-[#569cd6] leading-relaxed"
+            >${this._escapeHtml(this.files[this.activeFile])}</textarea>
           </div>
-          <textarea
-            data-role="editor"
-            spellcheck="false"
-            class="w-full min-h-[200px] p-3 bg-[#1e1e1e] text-[#d4d4d4] border-none outline-none resize-y focus:ring-1 focus:ring-inset focus:ring-[#569cd6] leading-relaxed"
-          >${this._escapeHtml(this.files[this.activeFile])}</textarea>
+
+          <!-- Visual Forge (Live Preview) -->
+          ${lang === 'javascript' ? `
+            <div class="flex-1 flex flex-col border border-[#3e3e42] rounded bg-[#0d0d0d] overflow-hidden min-w-0 min-h-[300px]">
+              <div class="bg-[#2d2d30] border-b border-[#3e3e42] px-3 py-1 flex items-center justify-between">
+                <span class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">🖼️ Visual Forge</span>
+                <span class="text-[10px] text-green-500 font-bold animate-pulse">● LIVE</span>
+              </div>
+              <div id="preview-container" class="flex-1 relative bg-white">
+                <iframe id="live-preview" class="w-full h-full border-none bg-white"></iframe>
+              </div>
+            </div>
+          ` : ''}
         </div>
 
         <!-- Run button -->
@@ -248,7 +263,7 @@ export class CodeEditor {
         <!-- Console output -->
         <div
           data-role="console"
-          class="min-h-[80px] max-h-[300px] overflow-y-auto p-3 bg-[#0d0d0d] border border-[#3e3e42] rounded text-[#d4d4d4] text-xs leading-relaxed whitespace-pre-wrap"
+          class="min-h-[80px] max-h-[200px] overflow-y-auto p-3 bg-[#0d0d0d] border border-[#3e3e42] rounded text-[#d4d4d4] text-xs leading-relaxed whitespace-pre-wrap"
         ><span class="text-[#858585]">// output will appear here</span></div>
 
       </div>
@@ -257,6 +272,13 @@ export class CodeEditor {
 
   _wireEvents() {
     if (!this._container) return;
+
+    // Listen for logs from preview iframe
+    window.addEventListener('message', e => {
+      if (e.data?.type === 'preview-log') {
+        this._appendToConsole(`[Preview] ${e.data.payload}`, 'text-blue-300');
+      }
+    });
 
     this._container.addEventListener('click', e => {
       const tab = e.target.closest('[data-file]');
@@ -330,10 +352,17 @@ this._appendToConsole(`🔴 AI Error: ${result.error}`, 'text-red-400');
     // Auto-save code to store on change
     const textarea = this._getEditor();
     if (textarea) {
+      let previewTimeout;
       textarea.addEventListener('input', () => {
         this.files[this.activeFile] = textarea.value;
         if (this.store) {
           this.store.saveCodeSnippet(this.lab.id, JSON.stringify(this.files));
+        }
+
+        // Live Preview Update (debounced)
+        if (this.lab.runtime === 'javascript') {
+          clearTimeout(previewTimeout);
+          previewTimeout = setTimeout(() => this._updatePreview(), 500);
         }
       });
 
@@ -345,9 +374,59 @@ this._appendToConsole(`🔴 AI Error: ${result.error}`, 'text-red-400');
           const end   = textarea.selectionEnd;
           textarea.value = textarea.value.substring(0, start) + '  ' + textarea.value.substring(end);
           textarea.selectionStart = textarea.selectionEnd = start + 2;
+          
+          // Trigger input event for live preview
+          textarea.dispatchEvent(new Event('input'));
         }
       });
     }
+  }
+
+  _updatePreview() {
+    const iframe = this._container?.querySelector('#live-preview');
+    if (!iframe) return;
+
+    // Build multi-file context if available
+    let scriptContent = '';
+    if (Object.keys(this.files).length > 1) {
+      // Concatenate files (simple approach for preview)
+      // In a real IDE we might use a bundler or local server
+      scriptContent = Object.values(this.files).join('\n\n');
+    } else {
+      scriptContent = this._getCode();
+    }
+
+    const html = `
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <style>
+            body { margin: 0; overflow: hidden; background: white; font-family: sans-serif; }
+            canvas { display: block; width: 100vw; height: 100vh; }
+          </style>
+        </head>
+        <body>
+          <div id="app"></div>
+          <script>
+            try {
+              // Redirect console.log to parent if needed
+              const oldLog = console.log;
+              console.log = (...args) => {
+                window.parent.postMessage({ type: 'preview-log', payload: args.join(' ') }, '*');
+                oldLog(...args);
+              };
+              
+              ${scriptContent}
+            } catch (err) {
+              document.body.innerHTML = '<div style="color:red;padding:20px;font-family:monospace;"><b>Preview Error:</b><br>' + err.message + '</div>';
+            }
+          <\/script>
+        </body>
+      </html>
+    `;
+
+    const blob = new Blob([html], { type: 'text/html' });
+    iframe.src = URL.createObjectURL(blob);
   }
 
   _restoreSavedCode() {
@@ -369,6 +448,11 @@ this._appendToConsole(`🔴 AI Error: ${result.error}`, 'text-red-400');
         this._setCode(saved);
       }
       this._appendToConsole('// restored from last session', 'text-[#858585]');
+      
+      // Initial preview render
+      if (this.lab.runtime === 'javascript') {
+        setTimeout(() => this._updatePreview(), 100);
+      }
     }
   }
 
