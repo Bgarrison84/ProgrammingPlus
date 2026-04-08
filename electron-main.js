@@ -75,6 +75,24 @@ ipcMain.handle('git-init-native', async (event, targetDir) => {
   });
 });
 
+// Call local Ollama API
+ipcMain.handle('ollama-chat-native', async (event, prompt) => {
+  try {
+    const response = await fetch('http://localhost:11434/api/generate', {
+      method: 'POST',
+      body: JSON.stringify({
+        model: 'mistral', // default to mistral
+        prompt: prompt,
+        stream: false
+      })
+    });
+    const data = await response.json();
+    return { success: true, response: data.response };
+  } catch (err) {
+    return { success: false, error: 'Ollama not detected. Ensure Ollama is running on localhost:11434' };
+  }
+});
+
 // Execute native command (e.g., python, rustc, go)
 ipcMain.handle('run-native', async (event, command, args, input) => {
   return new Promise((resolve) => {

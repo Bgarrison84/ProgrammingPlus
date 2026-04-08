@@ -42,7 +42,13 @@ export class CodeEditor {
     this.store    = store;
     this.state    = STATE.IDLE;
     this.hintIdx  = 0;
-    this.code     = lab.starter_code || '';
+    
+    // Multi-file support
+    this.files = lab.files || {
+      [lab.filename || 'main.js']: lab.starter_code || ''
+    };
+    this.activeFile = Object.keys(this.files)[0];
+    
     this._container = null;
   }
 
@@ -57,7 +63,32 @@ export class CodeEditor {
     container.innerHTML = this._buildHTML();
     this._wireEvents();
     this._restoreSavedCode();
+    this._renderFileTabs();
   }
+
+  _renderFileTabs() {
+    const tabContainer = this._container.querySelector('#editor-tabs');
+    if (!tabContainer) return;
+
+    tabContainer.innerHTML = Object.keys(this.files).map(filename => `
+      <button data-file="${filename}" class="px-3 py-1 text-[10px] border-r border-[#3e3e42] transition-colors ${
+        filename === this.activeFile ? 'bg-[#1e1e1e] text-[#569cd6] border-t-2 border-t-[#569cd6]' : 'bg-[#2d2d30] text-gray-500 hover:text-gray-300'
+      }">
+        ${filename}
+      </button>
+    `).join('');
+  }
+
+  _switchFile(filename) {
+    // Save current code to object
+    this.files[this.activeFile] = this._getCode();
+    
+    this.activeFile = filename;
+    this._setCode(this.files[filename]);
+    this._renderFileTabs();
+  }
+
+  // ... (buildHTML needs update)
 
   /**
    * Run the current code against the test cases.
@@ -174,6 +205,7 @@ export class CodeEditor {
             <span class="text-[#858585] text-xs">${lang} · <span class="${difficultyColour}">${difficulty}</span> · ${xp} XP</span>
           </div>
           <div class="flex gap-2">
+            ${window.electron ? `<button data-action="ai" class="px-2 py-1 text-xs bg-purple-900/30 text-purple-400 border border-purple-800 rounded hover:bg-purple-900/50 transition-colors">✨ Ask Sarah AI</button>` : ''}
             <button data-action="hint"     class="px-2 py-1 text-xs bg-[#2d2d30] text-yellow-400 border border-[#3e3e42] rounded hover:bg-[#3e3e42]">💡 Hint</button>
             <button data-action="reset"    class="px-2 py-1 text-xs bg-[#2d2d30] text-gray-400  border border-[#3e3e42] rounded hover:bg-[#3e3e42]">↺ Reset</button>
             <button data-action="solution" class="px-2 py-1 text-xs bg-[#2d2d30] text-red-400   border border-[#3e3e42] rounded hover:bg-[#3e3e42]">🔓 Solution</button>
@@ -184,12 +216,15 @@ export class CodeEditor {
         ${objectives ? `<ul class="bg-[#252526] rounded p-3 border-l-2 border-[#569cd6] list-none">${objectives}</ul>` : ''}
 
         <!-- Editor area -->
-        <div class="relative">
+        <div class="relative border border-[#3e3e42] rounded overflow-hidden">
+          <div id="editor-tabs" class="flex bg-[#2d2d30] border-b border-[#3e3e42] min-h-[28px]">
+            <!-- Dynamic tabs -->
+          </div>
           <textarea
             data-role="editor"
             spellcheck="false"
-            class="w-full min-h-[200px] p-3 bg-[#1e1e1e] text-[#d4d4d4] border border-[#3e3e42] rounded resize-y outline-none focus:border-[#569cd6] leading-relaxed"
-          >${this._escapeHtml(this.code)}</textarea>
+            class="w-full min-h-[200px] p-3 bg-[#1e1e1e] text-[#d4d4d4] border-none outline-none resize-y focus:ring-1 focus:ring-inset focus:ring-[#569cd6] leading-relaxed"
+          >${this._escapeHtml(this.files[this.activeFile])}</textarea>
         </div>
 
         <!-- Run button -->
@@ -214,24 +249,49 @@ export class CodeEditor {
     if (!this._container) return;
 
     this._container.addEventListener('click', e => {
+      const tab = e.target.closest('[data-file]');
+      if (tab) {
+        this._switchFile(tab.dataset.file);
+        return;
+      }
+
       const action = e.target.closest('[data-action]')?.dataset?.action;
       if (!action) return;
+switch (action) {
+  case 'ai':       this._askAI();         break;
+  case 'run':      this.run();            break;
+  case 'hint':     this.showHint();       break;
+  case 'reset':    this.reset();          break;
+  case 'solution': this._confirmSolution(); break;
+}
+});
 
-      switch (action) {
-        case 'run':      this.run();            break;
-        case 'hint':     this.showHint();       break;
-        case 'reset':    this.reset();          break;
-        case 'solution': this._confirmSolution(); break;
-      }
-    });
+}
 
+async _askAI() {
+this._appendToConsole('✨ Sarah AI is thinking...', 'text-purple-400');
+const prompt = `You are Sarah, Lead Developer at Pixel Forge Studio. 
+A junior developer is working on a ${this.lab.runtime} lab called "${this.lab.title}".
+Lab Description: ${this.lab.description}
+The current code is:
+${this._getCode()}
+
+Give a short, encouraging hint without revealing the full solution. Keep it under 3 sentences.`;
+
+const result = await window.electron.askAI(prompt);
+if (result.success) {
+this._appendToConsole(`✨ Sarah AI: ${result.response}`, 'text-purple-300');
+} else {
+this._appendToConsole(`🔴 AI Error: ${result.error}`, 'text-red-400');
+}
+}
     // Auto-save code to store on change
     const textarea = this._getEditor();
     if (textarea) {
       textarea.addEventListener('input', () => {
-        this.code = textarea.value;
+        this.files[this.activeFile] = textarea.value;
         if (this.store) {
-          this.store.saveCodeSnippet(this.lab.id, this.code);
+          this.store.saveCodeSnippet(this.lab.id, JSON.stringify(this.files));
         }
       });
 
@@ -252,7 +312,20 @@ export class CodeEditor {
     if (!this.store) return;
     const saved = this.store.getCodeSnippet(this.lab.id);
     if (saved) {
-      this._setCode(saved);
+      try {
+        // Try parsing as multi-file JSON
+        const parsed = JSON.parse(saved);
+        if (typeof parsed === 'object') {
+          this.files = parsed;
+          this.activeFile = Object.keys(this.files)[0];
+          this._setCode(this.files[this.activeFile]);
+        } else {
+          this._setCode(saved);
+        }
+      } catch (e) {
+        // Fallback to plain string
+        this._setCode(saved);
+      }
       this._appendToConsole('// restored from last session', 'text-[#858585]');
     }
   }
