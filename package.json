@@ -5,14 +5,36 @@
   "main": "electron-main.js",
   "scripts": {
     "start": "electron .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "rebuild": "electron-rebuild",
+    "dist": "electron-builder",
+    "pack": "electron-builder --dir"
+  },
+  "build": {
+    "appId": "com.pixelforge.programmingplus",
+    "productName": "Programming Plus",
+    "copyright": "Copyright © 2026 Pixel Forge Studio",
+    "directories": {
+      "output": "dist"
+    },
+    "win": {
+      "target": [
+        "nsis",
+        "zip"
+      ]
+    },
+    "mac": {
+      "target": "dmg"
+    }
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@electron/rebuild": "^4.0.3",
     "adm-zip": "^0.5.16",
-    "electron": "^34.3.0"
+    "electron": "^34.3.0",
+    "electron-builder": "^26.8.1"
   },
   "dependencies": {
     "node-pty": "^1.1.0",
