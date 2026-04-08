@@ -305,39 +305,52 @@ switch (action) {
 
 }
 
-async _auditCode() {
-this._clearConsole();
-this._appendToConsole('🧹 Auditing code quality...', 'text-blue-400');
+  async _auditCode() {
+    this._clearConsole();
+    this._appendToConsole('🧹 Auditing code quality...', 'text-blue-400');
+    
+    const { NativeRuntime } = await import('../runtimes/NativeRuntime.js');
+    const runtime = new NativeRuntime(this.lab.runtime);
 
-const { NativeRuntime } = await import('../runtimes/NativeRuntime.js');
-const runtime = new NativeRuntime(this.lab.runtime);
+    try {
+      const result = await runtime.lint(JSON.stringify(this.files));
+      const findings = result.findings ? result.findings.trim() : '';
+      
+      // Calculate a grade based on weighted findings
+      const lines = findings ? findings.split('\n').filter(l => l.trim()) : [];
+      let score = 100;
+      
+      lines.forEach(line => {
+        if (line.toLowerCase().includes('error')) score -= 15;
+        else if (line.toLowerCase().includes('warn')) score -= 5;
+        else score -= 2; // general finding
+      });
 
-try {
-const result = await runtime.lint(JSON.stringify(this.files));
-const findings = result.findings.trim();
+      score = Math.max(0, score);
+      let grade = 'A';
+      let color = 'text-green-400';
 
-// Calculate a grade (simulated based on number of findings)
-const lines = findings ? findings.split('\n').filter(l => l.trim()) : [];
-let grade = 'A';
-let color = 'text-green-400';
+      if (score < 60) { grade = 'F'; color = 'text-red-500'; }
+      else if (score < 70) { grade = 'D'; color = 'text-red-400'; }
+      else if (score < 80) { grade = 'C'; color = 'text-yellow-500'; }
+      else if (score < 90) { grade = 'B'; color = 'text-yellow-400'; }
 
-if (lines.length > 10) { grade = 'F'; color = 'text-red-500'; }
-else if (lines.length > 5) { grade = 'D'; color = 'text-red-400'; }
-else if (lines.length > 2) { grade = 'C'; color = 'text-yellow-500'; }
-else if (lines.length > 0) { grade = 'B'; color = 'text-yellow-400'; }
-
-this._appendToConsole(`🏆 Code Quality Grade: ${grade}`, `${color} font-bold text-lg`);
-
-if (findings) {
-  this._appendToConsole('--- Findings ---', 'text-gray-500');
-  this._appendToConsole(findings, 'text-gray-400');
-} else {
-  this._appendToConsole('✨ No issues found! Your code is professional-grade.', 'text-green-400');
-}
-} catch (err) {
-this._showError(err.message);
-}
-}
+      this._appendToConsole(`🏆 Code Quality Grade: ${grade} (${score}/100)`, `${color} font-bold text-lg`);
+      
+      if (findings) {
+        this._appendToConsole('--- Findings ---', 'text-gray-500');
+        this._appendToConsole(findings, 'text-gray-400');
+      } else {
+        this._appendToConsole('✨ No issues found! Your code is professional-grade.', 'text-green-400');
+        if (score === 100) {
+          // Award achievement if not already earned
+          if (this.store) this.store.unlockAchievement('ach_clean_coder', 'The Pristine Developer');
+        }
+      }
+    } catch (err) {
+      this._showError(`Audit Failed: ${err.message}`);
+    }
+  }
 async runTests() {
 if (this.state === STATE.RUNNING) return;
 this._setState(STATE.RUNNING);

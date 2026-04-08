@@ -39,6 +39,8 @@ export class TerminalView {
   }
 
   async _initTerminal() {
+    if (this._initialized) return;
+    
     // Load Xterm.js dynamically
     if (!window.Terminal) {
       await this._loadScript('./node_modules/xterm/lib/xterm.js');
@@ -46,6 +48,8 @@ export class TerminalView {
     }
 
     const container = document.getElementById('terminal-container');
+    if (!container) return;
+
     this.term = new window.Terminal({
       theme: {
         background: '#000000',
@@ -61,9 +65,11 @@ export class TerminalView {
     this._initialized = true;
 
     // Connect to Electron PTY
-    window.electron.terminal.onData((data) => {
-      this.term.write(data);
-    });
+    const onDataHandler = (data) => {
+      if (this.term) this.term.write(data);
+    };
+    
+    window.electron.terminal.onData(onDataHandler);
 
     this.term.onData((data) => {
       window.electron.terminal.send(data);
@@ -71,13 +77,25 @@ export class TerminalView {
 
     // Handle resize
     const resizeObserver = new ResizeObserver(() => {
-      // Basic fit logic
+      if (!this.term) return;
       const cols = Math.floor(container.clientWidth / 8);
       const rows = Math.floor(container.clientHeight / 18);
-      this.term.resize(cols, rows);
-      window.electron.terminal.resize(cols, rows);
+      if (cols > 0 && rows > 0) {
+        this.term.resize(cols, rows);
+        window.electron.terminal.resize(cols, rows);
+      }
     });
     resizeObserver.observe(container);
+
+    // Cleanup on destroy
+    this.destroy = () => {
+      if (this.term) {
+        this.term.dispose();
+        this.term = null;
+      }
+      this._initialized = false;
+      resizeObserver.disconnect();
+    };
   }
 
   _loadScript(src) {

@@ -8,6 +8,27 @@ const os = require('os');
 
 let ptyProcess = null;
 
+function setupTerminal(win) {
+  if (ptyProcess) {
+    try { ptyProcess.kill(); } catch(e) {}
+  }
+
+  const shellCmd = os.platform() === 'win32' ? 'powershell.exe' : 'bash';
+  ptyProcess = pty.spawn(shellCmd, [], {
+    name: 'xterm-color',
+    cols: 80,
+    rows: 30,
+    cwd: os.homedir(),
+    env: process.env
+  });
+
+  ptyProcess.onData((data) => {
+    if (!win.isDestroyed()) {
+      win.webContents.send('terminal-data', data);
+    }
+  });
+}
+
 function createWindow() {
   const win = new BrowserWindow({
     width: 1200,
@@ -21,30 +42,36 @@ function createWindow() {
   });
 
   win.loadFile('app.html');
-  // win.webContents.openDevTools();
+  
+  setupTerminal(win);
 
-  // Create PTY process
-  const shellCmd = os.platform() === 'win32' ? 'powershell.exe' : 'bash';
-  ptyProcess = pty.spawn(shellCmd, [], {
-    name: 'xterm-color',
-    cols: 80,
-    rows: 30,
-    cwd: os.homedir(),
-    env: process.env
-  });
-
-  ptyProcess.onData((data) => {
-    win.webContents.send('terminal-data', data);
-  });
-
-  ipcMain.on('terminal-input', (event, data) => {
-    if (ptyProcess) ptyProcess.write(data);
-  });
-
-  ipcMain.on('terminal-resize', (event, { cols, rows }) => {
-    if (ptyProcess) ptyProcess.resize(cols, rows);
+  win.on('closed', () => {
+    if (ptyProcess) {
+      try { ptyProcess.kill(); } catch(e) {}
+      ptyProcess = null;
+    }
   });
 }
+
+// ... rest of handlers ...
+
+app.on('before-quit', () => {
+  if (ptyProcess) {
+    try { ptyProcess.kill(); } catch(e) {}
+  }
+});
+
+ipcMain.on('terminal-input', (event, data) => {
+  if (ptyProcess) {
+    try { ptyProcess.write(data); } catch(e) {}
+  }
+});
+
+ipcMain.on('terminal-resize', (event, { cols, rows }) => {
+  if (ptyProcess) {
+    try { ptyProcess.resize(cols, rows); } catch(e) {}
+  }
+});
 
 app.whenReady().then(() => {
   createWindow();
