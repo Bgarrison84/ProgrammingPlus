@@ -2195,7 +2195,14 @@
           "starter_code": "function optimize(bc) end\n"
         }
       ]
-    }
+    },
+    { "id": "js_p1", "track": "javascript", "title": "Pixel Clock", "icon": "⏰", "difficulty": "beginner", "xp": 200, "minLevel": 1, "description": "Digital HUD clock.", "briefing": "Build a live HUD clock.", "phases": [{ "id": "p1", "type": "code", "title": "Clock", "xp": 200, "filename": "clock.js", "starter_code": "function updateTime() {}\n" }] },
+    { "id": "js_p2", "track": "javascript", "title": "Stat Bar", "icon": "📏", "difficulty": "easy", "xp": 400, "minLevel": 1, "description": "Dynamic health/XP bars.", "briefing": "Create reactive UI elements.", "phases": [{ "id": "p1", "type": "code", "title": "Bars", "xp": 400, "filename": "bars.js", "starter_code": "function setXP(p) {}\n" }] },
+    { "id": "js_p3", "track": "javascript", "title": "Tile Map Editor", "icon": "🗺️", "difficulty": "medium", "xp": 1000, "minLevel": 2, "description": "Visual grid-based level editor.", "briefing": "Drag and drop world tiles.", "phases": [{ "id": "p1", "type": "code", "title": "Grid", "xp": 1000, "filename": "grid.js", "starter_code": "const grid = [];\n" }] },
+    { "id": "js_p4", "track": "javascript", "title": "Pixel Pulse", "icon": "🕹️", "difficulty": "hard", "xp": 1500, "minLevel": 3, "description": "2D Canvas Game Engine.", "briefing": "Build a frame-based engine.", "phases": [{ "id": "p1", "type": "code", "title": "Render", "xp": 1500, "filename": "engine.js", "starter_code": "class Engine {}\n" }] },
+    { "id": "js_p5", "track": "javascript", "title": "SyncLink", "icon": "🔄", "difficulty": "epic", "xp": 2500, "minLevel": 4, "description": "Real-time state sync (WebSockets).", "briefing": "Sync player positions.", "phases": [{ "id": "p1", "type": "code", "title": "Socket", "xp": 2500, "filename": "sync.js", "starter_code": "const ws = new WebSocket();\n" }] },
+    { "id": "js_p6", "track": "javascript", "title": "Ghost DOM", "icon": "👻", "difficulty": "legendary", "xp": 5000, "minLevel": 5, "description": "Custom Virtual DOM Framework.", "briefing": "Build a React-like diffing engine.", "phases": [{ "id": "p1", "type": "code", "title": "VDOM", "xp": 5000, "filename": "ghost.js", "starter_code": "function createElement() {}\n" }] },
+    { "id": "js_p7", "track": "javascript", "title": "WASM Portal", "icon": "🌀", "difficulty": "mythic", "xp": 10000, "minLevel": 6, "description": "WASM Bridge for Heavy Physics.", "briefing": "Offload physics to C++/Rust.", "phases": [{ "id": "p1", "type": "code", "title": "Bridge", "xp": 10000, "filename": "bridge.js", "starter_code": "WebAssembly.instantiate();\n" }] }
   ],
   "debug_drills": [
     {
