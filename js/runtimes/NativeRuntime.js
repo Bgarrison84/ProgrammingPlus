@@ -12,11 +12,11 @@ export class NativeRuntime {
     
     // Command mappings for native binaries
     this.commands = {
-      python: { cmd: 'python', args: [] },
-      rust:   { cmd: 'rustc',  args: ['--out-dir', 'temp_bin'] }, // simplified
-      go:     { cmd: 'go',     args: ['run'] },
-      csharp: { cmd: 'dotnet', args: ['run'] },
-      cpp:    { cmd: 'g++',    args: ['-o', 'temp_bin/app'] }
+      python: { cmd: 'python', args: [], testCmd: 'pytest' },
+      rust:   { cmd: 'rustc',  args: ['--out-dir', 'temp_bin'], testCmd: 'cargo test' },
+      go:     { cmd: 'go',     args: ['run'], testCmd: 'go test' },
+      csharp: { cmd: 'dotnet', args: ['run'], testCmd: 'dotnet test' },
+      cpp:    { cmd: 'g++',    args: ['-o', 'temp_bin/app'], testCmd: 'make test' }
     };
   }
 
@@ -26,6 +26,21 @@ export class NativeRuntime {
    * @returns {Promise<string>}
    */
   async execute(code) {
+    return this._runIPC('run-native', code);
+  }
+
+  /**
+   * Run unit tests for the given code.
+   * @param {string} code
+   * @returns {Promise<object>} { success, stdout, stderr }
+   */
+  async test(code) {
+    if (!window.electron) throw new Error('Native testing requires Desktop Edition.');
+    const config = this.commands[this.language];
+    return window.electron.runNative(config.testCmd || config.cmd, config.args, code);
+  }
+
+  async _runIPC(channel, code) {
     if (!window.electron) {
       throw new Error('Native execution is only available in the Desktop Edition.');
     }
@@ -35,16 +50,6 @@ export class NativeRuntime {
       throw new Error(`Native execution not configured for: ${this.language}`);
     }
 
-    // Special handling for languages that need compilation vs script
-    if (this.language === 'python') {
-      const result = await window.electron.runNative(config.cmd, config.args, code);
-      if (!result.success) {
-        throw new Error(result.stderr || result.error);
-      }
-      return result.stdout;
-    }
-
-    // For others (Go, Rust, etc.), we can expand logic here
     const result = await window.electron.runNative(config.cmd, config.args, code);
     if (!result.success) {
       throw new Error(result.stderr || result.error);
