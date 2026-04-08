@@ -96,13 +96,44 @@ ipcMain.handle('ollama-chat-native', async (event, prompt) => {
 // Execute native command (e.g., python, rustc, go)
 ipcMain.handle('run-native', async (event, command, args, input) => {
   return new Promise((resolve) => {
-    const tempFile = path.join(app.getPath('temp'), `pp_temp_${Date.now()}`);
-    fs.writeFileSync(tempFile, input);
+    const tempBase = path.join(app.getPath('temp'), `pp_proj_${Date.now()}`);
+    fs.mkdirSync(tempBase, { recursive: true });
 
-    const fullCommand = `${command} ${args.join(' ')} "${tempFile}"`;
+    let entryPoint = '';
+    let isMultiFile = false;
+
+    try {
+      const files = JSON.parse(input);
+      if (typeof files === 'object' && !Array.isArray(files)) {
+        isMultiFile = true;
+        for (const [name, content] of Object.entries(files)) {
+          const filePath = path.join(tempBase, name);
+          fs.mkdirSync(path.dirname(filePath), { recursive: true });
+          fs.writeFileSync(filePath, content);
+          if (!entryPoint) entryPoint = filePath; // fallback to first file
+          if (name === 'main.py' || name === 'main.go' || name === 'Program.cs' || name === 'main.rs' || name === 'main.cpp') {
+            entryPoint = filePath;
+          }
+        }
+      }
+    } catch (e) {
+      // Input is just a plain string/code
+    }
+
+    let fullCommand;
+    if (isMultiFile) {
+      // For multi-file, we usually run the entry point or use the base dir
+      const relativeEntryPoint = path.basename(entryPoint);
+      fullCommand = `cd /d "${tempBase}" && ${command} ${args.join(' ')} "${relativeEntryPoint}"`;
+    } else {
+      const tempFile = path.join(tempBase, 'code_temp');
+      fs.writeFileSync(tempFile, input);
+      fullCommand = `${command} ${args.join(' ')} "${tempFile}"`;
+    }
     
     exec(fullCommand, (error, stdout, stderr) => {
-      if (fs.existsSync(tempFile)) fs.unlinkSync(tempFile);
+      // Clean up temp dir
+      try { fs.rmSync(tempBase, { recursive: true, force: true }); } catch(e) {}
       
       resolve({
         success: !error,

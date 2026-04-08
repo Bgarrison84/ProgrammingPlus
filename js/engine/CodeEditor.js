@@ -228,12 +228,22 @@ export class CodeEditor {
         </div>
 
         <!-- Run button -->
-        <button
-          data-action="run"
-          class="flex items-center justify-center gap-2 px-4 py-2 bg-[#569cd6] text-white font-semibold rounded hover:bg-[#4e8ec2] transition-colors"
-        >
-          ▶ Run Code
-        </button>
+        <div class="flex gap-2">
+          <button
+            data-action="run"
+            class="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-[#569cd6] text-white font-semibold rounded hover:bg-[#4e8ec2] transition-colors"
+          >
+            ▶ Run Code
+          </button>
+          ${this.lab.test_type === 'unit' ? `
+            <button
+              data-action="test"
+              class="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-[#ce9178] text-white font-semibold rounded hover:bg-[#b57d65] transition-colors"
+            >
+              🧪 Run Tests
+            </button>
+          ` : ''}
+        </div>
 
         <!-- Console output -->
         <div
@@ -260,6 +270,7 @@ export class CodeEditor {
 switch (action) {
   case 'ai':       this._askAI();         break;
   case 'run':      this.run();            break;
+  case 'test':     this.runTests();       break;
   case 'hint':     this.showHint();       break;
   case 'reset':    this.reset();          break;
   case 'solution': this._confirmSolution(); break;
@@ -268,6 +279,37 @@ switch (action) {
 
 }
 
+async runTests() {
+if (this.state === STATE.RUNNING) return;
+this._setState(STATE.RUNNING);
+this._clearConsole();
+this._appendToConsole('🧪 Running unit tests...', 'text-[#ce9178]');
+
+const code = JSON.stringify(this.files); // Pass all files
+const { NativeRuntime } = await import('../runtimes/NativeRuntime.js');
+const runtime = new NativeRuntime(this.lab.runtime);
+
+try {
+const result = await runtime.test(code);
+this._setState(STATE.IDLE);
+
+if (result.success) {
+  this._appendToConsole('✅ Tests Passed!', 'text-green-400');
+  this._appendToConsole(result.stdout, 'text-gray-400');
+  bus.emit('lab:passed', { labId: this.lab.id, xp: this.lab.xp });
+  bus.emit('lab:success');
+} else {
+  this._appendToConsole('❌ Tests Failed', 'text-red-400');
+  this._appendToConsole(result.stderr || result.stdout, 'text-red-300');
+  this._setState(STATE.FAIL);
+  bus.emit('ui:error');
+}
+} catch (err) {
+this._setState(STATE.IDLE);
+this._showError(err.message);
+bus.emit('ui:error');
+}
+}
 async _askAI() {
 this._appendToConsole('✨ Sarah AI is thinking...', 'text-purple-400');
 const prompt = `You are Sarah, Lead Developer at Pixel Forge Studio. 
