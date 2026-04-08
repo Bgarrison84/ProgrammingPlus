@@ -97,12 +97,69 @@ export class StatsView {
                 <button id="open-workspace" class="text-xs px-4 py-1.5 bg-blue-900/30 text-blue-400 border border-blue-800 rounded hover:bg-blue-900/50 transition-colors">Open Folder</button>
               </div>
             </div>
+
+            <!-- Compiler Doctor -->
+            <div class="mt-6 p-4 bg-black/20 rounded border border-[#3e3e42]">
+              <h4 class="text-xs font-bold text-gray-400 uppercase mb-3 flex items-center gap-2">
+                <span>🩺</span> Compiler Doctor
+              </h4>
+              <div id="compiler-doctor-list" class="grid grid-cols-2 md:grid-cols-5 gap-2">
+                <!-- Dynamic diagnostic items -->
+              </div>
+              <p class="text-[9px] text-gray-600 mt-3 italic">* Detected binaries required for "Native Execution" mode.</p>
+            </div>
           </div>
         ` : ''}
       </div>`;
 
     this._renderHeatmap();
     this._wireDesktopEvents();
+    if (window.electron) this._runCompilerDiagnostics();
+  }
+
+  async _runCompilerDiagnostics() {
+    const listEl = this.containerEl.querySelector('#compiler-doctor-list');
+    if (!listEl) return;
+
+    const binaries = [
+      { name: 'Python', cmd: 'python', install: 'winget install python' },
+      { name: 'Rust',   cmd: 'rustc',  install: 'winget install rustlang.rustup' },
+      { name: 'Go',     cmd: 'go',     install: 'winget install golang.go' },
+      { name: 'C#',     cmd: 'dotnet', install: 'winget install Microsoft.DotNet.SDK.8' },
+      { name: 'C++',    cmd: 'g++',    install: 'winget install msys2' }
+    ];
+
+    listEl.innerHTML = binaries.map(b => `
+      <div id="diag-${b.cmd}" class="p-2 bg-[#1e1e1e] rounded border border-[#3e3e42] flex flex-col items-center gap-1 opacity-50">
+        <div class="text-[10px] font-bold text-gray-400">${b.name}</div>
+        <div class="status-icon text-xs text-gray-600">Checking...</div>
+      </div>
+    `).join('');
+
+    for (const b of binaries) {
+      const result = await window.electron.checkCompiler(b.cmd);
+      const itemEl = listEl.querySelector(`#diag-${b.cmd}`);
+      if (!itemEl) continue;
+
+      itemEl.classList.remove('opacity-50');
+      const iconEl = itemEl.querySelector('.status-icon');
+      
+      if (result.exists) {
+        itemEl.classList.add('border-green-900/50');
+        iconEl.innerHTML = '<span class="text-green-500">✓ FOUND</span>';
+      } else {
+        itemEl.classList.add('border-red-900/50');
+        iconEl.innerHTML = `<button data-install="${b.install}" class="text-[9px] text-red-400 hover:underline">MISSING (FIX)</button>`;
+      }
+    }
+
+    listEl.onclick = e => {
+      const installCmd = e.target.dataset.install;
+      if (installCmd) {
+        navigator.clipboard.writeText(installCmd);
+        bus.emit('toast', { message: 'Install command copied to clipboard!', type: 'info' });
+      }
+    };
   }
 
   _wireDesktopEvents() {

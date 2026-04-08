@@ -47,6 +47,34 @@ ipcMain.handle('open-path-native', async (event, targetPath) => {
   return { success: false, error: 'Path does not exist' };
 });
 
+// Check if a compiler/binary exists on the system
+ipcMain.handle('check-compiler-native', async (event, command) => {
+  return new Promise((resolve) => {
+    const checkCmd = process.platform === 'win32' ? `where ${command}` : `which ${command}`;
+    exec(checkCmd, (error) => {
+      resolve({
+        exists: !error,
+        command
+      });
+    });
+  });
+});
+
+// Initialize a git repo in a folder
+ipcMain.handle('git-init-native', async (event, targetDir) => {
+  return new Promise((resolve) => {
+    const cmd = `cd /d "${targetDir}" && git init && git add . && git commit -m "Initial commit from Programming Plus"`;
+    exec(cmd, (error, stdout, stderr) => {
+      resolve({
+        success: !error,
+        stdout,
+        stderr,
+        error: error ? error.message : null
+      });
+    });
+  });
+});
+
 // Execute native command (e.g., python, rustc, go)
 ipcMain.handle('run-native', async (event, command, args, input) => {
   return new Promise((resolve) => {

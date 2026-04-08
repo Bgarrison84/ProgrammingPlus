@@ -5,6 +5,8 @@ contextBridge.exposeInMainWorld('electron', {
   saveProject: (projectData) => ipcRenderer.invoke('save-project-native', projectData),
   zipProject: (projectData) => ipcRenderer.invoke('zip-project-native', projectData),
   openPath: (path) => ipcRenderer.invoke('open-path-native', path),
+  checkCompiler: (command) => ipcRenderer.invoke('check-compiler-native', command),
+  initGit: (dir) => ipcRenderer.invoke('git-init-native', dir),
   platform: process.platform,
   isElectron: true
 });

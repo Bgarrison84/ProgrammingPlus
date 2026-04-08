@@ -143,6 +143,11 @@ export class ProjectsView {
       result = await window.electron.saveProject(projectData);
       if (result.success) {
         localStorage.setItem('last_project_export_path', result.path);
+        // Auto-init git
+        const gitRes = await window.electron.initGit(result.path);
+        if (gitRes.success) {
+          bus.emit('toast', { message: 'Git initialized and first commit created!', type: 'success' });
+        }
       }
     } else {
       result = await window.electron.zipProject(projectData);

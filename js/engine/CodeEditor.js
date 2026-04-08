@@ -85,9 +85,13 @@ export class CodeEditor {
     let stdout = '';
     try {
       stdout = await runtime.execute(code);
+      if (!this.lab.test_cases?.length) {
+        bus.emit('lab:success'); // Juice for general run
+      }
     } catch (err) {
       this._showError(err.message || String(err));
       this._setState(STATE.FAIL);
+      bus.emit('ui:error'); // Juice for error
       return;
     }
 
