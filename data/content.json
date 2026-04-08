@@ -199,6 +199,58 @@
           "correct_answer": "true"
         }
       ]
+    },
+    {
+      "id": "b_rs_u4",
+      "track": "rust",
+      "week": 4,
+      "title": "The Lifetime Struggle",
+      "narrative": "Sarah finds you staring at compiler errors. 'The borrow checker isn't your enemy, it's your guard dog. You need to learn how long data lives.'",
+      "xpReward": 50,
+      "npc": {
+        "name": "Sarah",
+        "title": "Lead Dev",
+        "avatar": "👩‍💻"
+      },
+      "quiz": [
+        {
+          "id": "q_rs_u4",
+          "type": "multiple_choice",
+          "question": "What symbol denotes a lifetime in Rust?",
+          "options": [
+            "&",
+            "'",
+            "*"
+          ],
+          "correct_answer": 1
+        }
+      ]
+    },
+    {
+      "id": "b_go_u4",
+      "track": "go",
+      "week": 4,
+      "title": "Slicing the Data",
+      "narrative": "Marcus is reviewing your backend code. 'Arrays are too rigid. In Go, we use slices for everything. They are windows into arrays.'",
+      "xpReward": 50,
+      "npc": {
+        "name": "Marcus",
+        "title": "Backend Senior",
+        "avatar": "👨‍🎨"
+      },
+      "quiz": [
+        {
+          "id": "q_go_u4",
+          "type": "multiple_choice",
+          "question": "Function to add to a slice?",
+          "options": [
+            "add()",
+            "append()",
+            "push()"
+          ],
+          "correct_answer": 1
+        }
+      ]
     }
   ],
   "questions": [
@@ -377,10 +429,21 @@
         {
           "id": "p1",
           "type": "code",
-          "title": "Neuron",
+          "title": "The Neuron Class",
           "xp": 4000,
-          "filename": "brain.py",
-          "starter_code": "import math\n"
+          "filename": "neuron.py",
+          "description": "Create a fundamental Neuron with weights and sigmoid activation.",
+          "starter_code": "import math\n\nclass Neuron:\n    def __init__(self, n_inputs):\n        self.weights = [0.1] * n_inputs\n        self.bias = 0.0\n",
+          "solution": "import math\n\nclass Neuron:\n    def __init__(self, n_inputs):\n        self.weights = [0.1] * n_inputs\n        self.bias = 0.0\n    \n    def activate(self, inputs):\n        z = sum(w * i for w, i in zip(self.weights, inputs)) + self.bias\n        return 1.0 / (1.0 + math.exp(-z))"
+        },
+        {
+          "id": "p2",
+          "type": "code",
+          "title": "The Layer",
+          "xp": 4000,
+          "filename": "layer.py",
+          "description": "Orchestrate a layer of neurons.",
+          "starter_code": "from neuron import Neuron\n\nclass Layer:\n    def __init__(self, n_neurons, n_inputs):\n        self.neurons = [Neuron(n_inputs) for _ in range(n_neurons)]\n"
         }
       ]
     },
@@ -398,10 +461,20 @@
         {
           "id": "p1",
           "type": "code",
-          "title": "Bridge",
-          "xp": 10000,
+          "title": "The Shared Memory Buffer",
+          "xp": 3000,
+          "filename": "memory.js",
+          "description": "Set up a WebAssembly.Memory instance to share state between JS and the WASM physics core.",
+          "starter_code": "const memory = new WebAssembly.Memory({ initial: 256, maximum: 512 });\n",
+          "solution": "const memory = new WebAssembly.Memory({ initial: 256, maximum: 512 });\nconst view = new Float32Array(memory.buffer);\nconsole.log(\"Memory initialized\");"
+        },
+        {
+          "id": "p2",
+          "type": "code",
+          "title": "The Bridge",
+          "xp": 3000,
           "filename": "bridge.js",
-          "starter_code": "WebAssembly.instantiate();\n"
+          "description": "Implement the import object for the WASM module."
         }
       ]
     }
